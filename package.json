@@ -1,0 +1,11 @@
+{
+  "name": "berobat_simulator_new",
+  "version": "1.0.0",
+  "description": "Game tentang pergi berobat",
+  "main": "index.html",
+  "scripts": {
+    "live": "python -m SimpleHTTPServer"
+  },
+  "author": "Arif Mulpratama",
+  "license": "MIT"
+}
