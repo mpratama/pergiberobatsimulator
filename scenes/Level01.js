@@ -96,22 +96,6 @@ class Level01 extends Phaser.Scene {
         
     }
 
-    cobafunc(nganu) {
-        if (nganu.x == 300 || nganu.x == 100) {
-            console.log("perfect " + this.xax);
-            this.xax += 1;
-        }
-    }
-
-    menganu() {
-        //console.log("sueti");
-        let anu = this.time.delayedCall(5000, () => {
-            console.log("asd");
-            return 0;
-        }, [], this);
-        this.dialogBox.setText(this.dialog);
-    }
-
     updateLine(teks){
         if (line.length < teks[index].length) {
             line = teks[index].substr(0, line.length + 1);
@@ -157,7 +141,11 @@ class Level01 extends Phaser.Scene {
     }
 
     update() {
-        //console.log(this.orang.x + " " + this.orang.y)
+        //console.log(this.orang.x + " " + this.orang.y);
+        if (this.orang.x == 440 && this.orang.y == 328) {
+            this.nextLine(this.content);
+            this.orang.x -= 1;
+        }
         
     }
 

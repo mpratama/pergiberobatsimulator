@@ -24,6 +24,8 @@ class MenuScene extends Phaser.Scene {
     }
     
     create() {
+        this.startText = "";
+        this.startTextChecker();
         this.d = new Date();
         this.bg = this.add.image(game.config.width/2, 167, 'bg').setScale(1.2, 1.2);
         this.menuMusic = this.sound.add('menuMusic');
@@ -132,7 +134,7 @@ class MenuScene extends Phaser.Scene {
         this.pergi = this.add.bitmapText(93, 130, 'gem', "Pergi", 20).setCenterAlign();
         this.pulau = this.add.bitmapText(310, 195, 'gem', "-Remote Island Edition-", 18).setCenterAlign();
         this.judul = this.add.bitmapText(game.config.width / 2, 170, 'gem', "Berobat Simulator", 50).setOrigin(0.5).setCenterAlign();
-        this.mulai = this.add.dynamicBitmapText(game.config.width / 2, 265, 'gem', "Start Game", 30).setOrigin(0.5).setCenterAlign().setInteractive().setVisible(false);
+        this.mulai = this.add.dynamicBitmapText(game.config.width / 2, 265, 'gem', this.startText, 30).setOrigin(0.5).setCenterAlign().setInteractive().setVisible(false);
         this.mulai.setDisplayCallback(this.getar);
         this.mulaiMuncul = this.time.addEvent({delay: 2500, callback: () => {this.mulai.setVisible(true)}, callbackScope: this});
         this.tweens.add({
@@ -158,7 +160,7 @@ class MenuScene extends Phaser.Scene {
         this.mulai.once('pointerdown', () => {
             this.menuMusic.stop();
             this.startSound.play();
-            this.scene.start('level01');
+            this.scene.start(game._CURRLEVEL);
         }, this);
     }
 
@@ -167,6 +169,15 @@ class MenuScene extends Phaser.Scene {
         data.y = Phaser.Math.Between(data.y - 0.5, data.y + 0.5);
         return data;
 
+    }
+
+    startTextChecker(){
+        if (game._CURRLEVEL == "level01"){
+            this.startText = "Start Game";
+        }
+        else {
+            this.startText = "Continue";
+        }
     }
 
     update() {

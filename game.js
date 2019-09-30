@@ -1,3 +1,9 @@
+let curLevelCheck = function(){
+   if (!localStorage.getItem("currentLevel")) {
+       localStorage.setItem("currentLevel", "level01");
+   } 
+}
+
 let config = {
     width: 608,
     height: 342,
@@ -22,3 +28,6 @@ let config = {
 let game = new Phaser.Game(config);
 let line = "";
 let index = 0;
+
+curLevelCheck();
+game._CURRLEVEL = localStorage.getItem("currentLevel");
