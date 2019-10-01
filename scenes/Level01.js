@@ -15,9 +15,9 @@ class Level01 extends Phaser.Scene {
     
     create() {
         //this.cameras.main.setSize(400, 300);
+        this.marker = 0;
         this.content = ["Kamu menyentuh pohon\nos narok beh\nom fuarrr\nvat vat hanarun."];
-        this.content2 = ["qwertyuioplkjhgfdsazxcvbnmnbvcxzasdfghjklpoiuytrew09876"]; //bisa muat 50-55 char perbaris
-        this.xax = 0;
+        this.content2 = ["qwertyuioplkjhgfdsazxcvbnmnbvcxzasdfghjklpoiuytrew0987609876fffdss\n(1 baris diatas muat 66 character)"]; //bisa muat 50-55 char perbaris
         this.panah = this.add.group();
         this.cameras.main.setRoundPixels(true);
         this.lvl1 = this.make.tilemap({key: 'peta'});
@@ -40,10 +40,10 @@ class Level01 extends Phaser.Scene {
 
         this.orang = this.physics.add.sprite(396, 190, "char", 0);
         this.layer3 = this.lvl1.createStaticLayer("atas_pohon", [this.tiles, this.tiles2], 0, 0);
-        this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 480, 80).setScrollFactor(0).setVisible(false);
+        this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
         this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
-        //this.orang.play('jalan');
+
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
         this.cameras.main.setBounds(0, 0, 640, 400);
         this.kiri = this.add.sprite(50, 220, 'kontrol', 0).setInteractive().setAlpha(0.5).setScrollFactor(0);
@@ -91,60 +91,19 @@ class Level01 extends Phaser.Scene {
             this.orang.setVelocity(0);
             this.orang.anims.stop();
         });
-        //this.jam = new Phaser.Time.Clock(this);
-        //this.nextLine();
         
-    }
-
-    updateLine(teks){
-        if (line.length < teks[index].length) {
-            line = teks[index].substr(0, line.length + 1);
-            this.dialogBox.setText(line);
-        }
-        else {
-            this.time.addEvent({
-                delay: 1500,
-                callback: this.nextLine,
-                callbackScope: this,
-                args: [teks]
-            });
-            index++;
-        }
-    }
-
-    nextLine(teks){
-        //this.index++;
-        let panahan = this.panah.getChildren();
-        for (let i in panahan) {
-            panahan[i].setVisible(false);
-        }
-        this.kotak.setVisible(true);
-        this.orang.anims.stop();
-        if (index < teks.length){
-            line = "";
-            this.time.addEvent({
-                repeat: teks[index].length,
-                delay: 30,
-                callback: this.updateLine,
-                callbackScope: this,
-                args: [teks]
-            });
-        }
-        else {
-            this.kotak.setVisible(false);
-            console.log("done");
-            line = "";
-            this.dialogBox.setText("");
-            index = 0;
-            this.panah.toggleVisible();
-        }
     }
 
     update() {
         //console.log(this.orang.x + " " + this.orang.y);
+        
         if (this.orang.x == 440 && this.orang.y == 328) {
-            this.nextLine(this.content);
+            nextLine(this, this.content, 10, GREEN);
             this.orang.x -= 1;
+            /*this.nextLine(this.content2, undefined, GREEN);
+            this.orang.x -= 1;
+            this.marker += 1;*/
+        
         }
         
     }

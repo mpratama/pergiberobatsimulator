@@ -4,6 +4,7 @@ let curLevelCheck = function(){
    } 
 }
 
+//game config
 let config = {
     width: 608,
     height: 342,
@@ -25,9 +26,67 @@ let config = {
         autoCenter: Phaser.Scale.CENTER_BOTH,
     }
 }
+
+//Phase init
 let game = new Phaser.Game(config);
+
+// variabel untuk isi dialog, index huruf, warna teks dialog
 let line = "";
 let index = 0;
+const RED = 0xff0000;
+const WHITE = 0xffffff;
+const BLUE = 0x0000ff;
+const GREEN = 0x00ff00;
 
+// mengecek Bary mulai game atau sudah pernah bermain sebelumnya
 curLevelCheck();
 game._CURRLEVEL = localStorage.getItem("currentLevel");
+
+//function ini berfungsi utk dicallback dengan nextLine function, panggil dari nextLine
+let updateLine = function(scene, teks){
+    if (line.length < teks[index].length) {
+        line = teks[index].substr(0, line.length + 1);
+        scene.dialogBox.setText(line);
+    }
+    else {
+        scene.time.addEvent({
+            delay: 1500,
+            callback: nextLine,
+            callbackScope: scene,
+            args: [scene, teks]
+        });
+        index++;
+    }
+}
+
+//function untuk dialog teks utk dipanggil di masing2 scene, masukkan argumentnya ya
+let nextLine = function(scene, teks, wkt, tint){
+    let wktu = wkt;
+    let dialogBoxTint = tint;
+    if (typeof(tint) === "undefined") dialogBoxTint = WHITE;
+    scene.dialogBox.setTint(dialogBoxTint);
+    if (typeof(wkt) === "undefined") wktu = 30;
+    let panahan = scene.panah.getChildren();
+    for (let i in panahan) {
+        panahan[i].setVisible(false);
+    }
+    scene.kotak.setVisible(true);
+    scene.orang.anims.stop();
+    if (index < teks.length){
+        line = "";
+        scene.time.addEvent({
+            repeat: teks[index].length,
+            delay: wktu,
+            callback: updateLine,
+            callbackScope: scene,
+            args: [scene, teks]
+            });
+        }
+    else {
+        scene.kotak.setVisible(false);
+        line = "";
+        scene.dialogBox.setText("");
+        index = 0;
+        scene.panah.toggleVisible();
+        }
+}
