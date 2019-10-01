@@ -11,6 +11,12 @@ class Level01 extends Phaser.Scene {
         this.load.tilemapTiledJSON('peta', 'assets/peta.json');
         this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
         this.load.spritesheet('char', 'assets/charx.png', {frameHeight: 16, frameWidth:16});
+        this.load.scenePlugin({
+            key: 'AnimatedTiles',
+            url: 'AnimatedTiles.min.js',
+            systemKey: 'animatedTiles',
+            sceneKey: 'animatedTiles'
+        });
     }
     
     create() {
@@ -23,9 +29,8 @@ class Level01 extends Phaser.Scene {
         this.lvl1 = this.make.tilemap({key: 'peta'});
         this.tiles = this.lvl1.addTilesetImage('landscape', 'landscapex');
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
-        this.layer = this.lvl1.createStaticLayer("dasar", [this.tiles, this.tiles2], 0, 0);
+        this.layer = this.lvl1.createDynamicLayer("dasar", [this.tiles, this.tiles2], 0, 0);
         this.layer2 = this.lvl1.createStaticLayer("non_walk", [this.tiles, this.tiles2], 0, 0);
-
         
         this.layer2.setCollisionByProperty({collides: true});
 
@@ -91,6 +96,8 @@ class Level01 extends Phaser.Scene {
             this.orang.setVelocity(0);
             this.orang.anims.stop();
         });
+
+        this.animatedTiles.init(this.lvl1);
         
     }
 
