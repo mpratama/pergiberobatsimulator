@@ -1,3 +1,4 @@
+//fungsi inisiasi levelsave, disimpan dalam localStorage
 let curLevelCheck = function(){
    if (!localStorage.getItem("currentLevel")) {
        localStorage.setItem("currentLevel", "level01");
@@ -13,12 +14,12 @@ let config = {
     version: "1.0",
     title: "Pergi Berobat Simulator",
     pixelArt: true,
-    scene: [BootScene, MenuScene, Level01, AnimasiTweenScene],
+    scene: [BootScene, MenuScene, Level01],
     physics: {
         default: "arcade",
         arcade: {
             fps: 60
-            //debug: true
+            //debug: true //set false jika siap production
         }
     },
     scale: {
@@ -38,7 +39,7 @@ const WHITE = 0xffffff;
 const BLUE = 0x0000ff;
 const GREEN = 0x00ff00;
 
-// mengecek Bary mulai game atau sudah pernah bermain sebelumnya
+// mengecek Baru mulai game atau sudah pernah bermain sebelumnya
 curLevelCheck();
 game._CURRLEVEL = localStorage.getItem("currentLevel");
 
@@ -60,6 +61,10 @@ let updateLine = function(scene, teks){
 }
 
 //function untuk dialog teks utk dipanggil di masing2 scene, masukkan argumentnya ya
+//argumennnya:  scene => scene mana yg mau gunakan, isi dgn this
+//              teks => teks dalam bentuk array misal ["Indonesia raya!\nMerdeka!\nMerdeka!"]
+//              wkt => delay muncul tiap huruf dalam ms
+//              tint => warna teks (RED, GREEN, BLUE, default WHITE)
 let nextLine = function(scene, teks, wkt, tint){
     let wktu = wkt;
     let dialogBoxTint = tint;
