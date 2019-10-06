@@ -31,12 +31,17 @@ class Level01 extends Phaser.Scene {
     }
     
     create() {
-        this.content = ["Kamu menyentuh pohon\nos narok beh\nom fuarrr\nvat vat hanarun."];
-        this.content2 = ["qwertyuioplkjhgfdsazxcvbnmnbvcxzasdfghjklpoiuytrew0987609876fffdss\n(1 baris diatas muat 66 character)"]; //bisa muat 50-55 char perbaris
+        this.cameras.main.fadeIn();
+        this.bpjscard = 0;
+        this.bpjsDialog = ["Kamu mendapatkan kartu BPJS.\nBawa kartu ini ketika berobat."];
+        this.plangDesa = ["(atas) Jalan menuju kampung"];
+        this.blokJalan = ["Tanganmu sedang terluka.\nSegeralah pergi ke puskesmas.\nJalan ke puskesmas bukan lewat sini."];
+        this.plangPKM = ["(kiri) Puskesmas Perawatan X. Buka jam 08.00-13.00\nBawa kartu BPJS anda jika berobat."];
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
 
         this.cameras.main.setRoundPixels(true);
+        this.tringSound = this.sound.add('getItem');
 
         //tilemap dan pembagian layernya
         this.lvl1 = this.make.tilemap({key: 'peta'});
@@ -59,8 +64,8 @@ class Level01 extends Phaser.Scene {
             repeat: -1,
         });
 
-        this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0);
-        this.orang.body.setSize(10,10);
+        this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
+        this.orang.body.setSize(10,15);
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
         this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
         this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
@@ -73,6 +78,51 @@ class Level01 extends Phaser.Scene {
         this.atas = this.add.sprite(550, 220, 'kontrol', 3).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
+
+        // Tdk boleh lewat jalan atas
+        this.zonaKampung = this.add.zone(325,0,120,30);
+        this.physics.add.existing(this.zonaKampung);
+        this.zonaKampung.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonaKampung, () => {
+            nextLine(this, this.blokJalan , 70, RED);
+        }, null, this);
+
+        // plang kampung
+        this.zonKp = this.add.zone(328, 90, 16, 16);
+        this.physics.add.existing(this.zonKp);
+        this.zonKp.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonKp, () => {
+            nextLine(this, this.plangDesa);
+        }, null, this);
+
+        //plang puskes
+        this.zonPKM = this.add.zone(152, 153, 16, 16);
+        this.physics.add.existing(this.zonPKM);
+        this.zonPKM.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonPKM, () => {
+            nextLine(this, this.plangPKM, 90);
+        }, null, this);
+
+        //getBPJScard
+        this.zonBP = this.add.zone(457, 209, 16, 5);
+        this.physics.add.existing(this.zonBP);
+        this.zonBP.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonBP, () => {
+            if(this.bpjscard == 0){
+                this.tringSound.play();
+                nextLine(this, this.bpjsDialog, 50, BLUE);
+                localStorage.setItem("kartuBPJS", 1);
+                this.bpjscard += 1;
+            }            
+        }, null, this);
+
+        //goToNextLevel
+        this.zonLv = this.add.zone(7, 168, 16, 32);
+        this.physics.add.existing(this.zonLv);
+        this.zonLv.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonLv, () => {
+            console.log("ke level berikutnya");
+        }, null, this);
 
         this.kiri.on('pointerdown', () => {
             this.orang.setVelocityX(-60);
@@ -119,16 +169,6 @@ class Level01 extends Phaser.Scene {
     }
 
     update() {
-        //console.log(this.orang.x + " " + this.orang.y);
-        
-        if (this.orang.x == 443 && this.orang.y == 331) {
-            nextLine(this, this.content, 10, GREEN);
-            this.orang.x -= 1;
-            /*this.nextLine(this.content2, undefined, GREEN);
-            this.orang.x -= 1;
-            this.marker += 1;*/
-        
-        }
         
     }
 

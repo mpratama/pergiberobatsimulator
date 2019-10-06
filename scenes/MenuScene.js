@@ -19,6 +19,7 @@ class MenuScene extends Phaser.Scene {
         this.load.image('bg', 'assets/bgMenu.png');
         this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
         this.load.audio('startGame', ['music/startGame.mp3', 'music/startGame.ogg']);
+        this.load.audio('getItem', 'music/getItem.mp3');
         this.load.bitmapFont('gem', 'assets/gem.png', 'assets/gem.xml');
         this.load.spritesheet('burung', 'assets/birdfly.png', {frameWidth: 16, frameHeight: 16});
     }
@@ -160,6 +161,7 @@ class MenuScene extends Phaser.Scene {
         this.mulai.once('pointerdown', () => {
             this.menuMusic.stop();
             this.startSound.play();
+            this.cameras.main.fadeOut(300);
             this.scene.start(game._CURRLEVEL);
         }, this);
     }

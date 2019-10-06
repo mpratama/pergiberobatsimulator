@@ -18,8 +18,8 @@ let config = {
     physics: {
         default: "arcade",
         arcade: {
-            fps: 60
-            //debug: true //set false jika siap production
+            fps: 60,
+            debug: true //set false jika siap production
         }
     },
     scale: {
@@ -42,6 +42,7 @@ const GREEN = 0x00ff00;
 // mengecek Baru mulai game atau sudah pernah bermain sebelumnya
 curLevelCheck();
 game._CURRLEVEL = localStorage.getItem("currentLevel");
+game._BPJSCARD = localStorage.getItem("kartuBPJS");
 
 //function ini berfungsi utk dicallback dengan nextLine function, panggil dari nextLine
 let updateLine = function(scene, teks){
