@@ -31,17 +31,10 @@ class Level02 extends Phaser.Scene {
     }
     
     create() {
-        this.cameras.main.fadeIn();
-        this.bpjscard = 0;
-        this.bpjsDialog = ["Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat."];
-        this.plangDesa = ["(atas) Jalan menuju kampung."];
-        this.blokJalan = ["Tanganmu sedang terluka.\nSegeralah pergi ke puskesmas.\n\nJalan ke puskesmas bukan lewat sini."];
-        this.plangPKM = ["(kiri) Puskesmas Perawatan X. Buka jam 08.00-13.00.\n\nBawa kartu BPJS anda jika berobat."];
-        //grup utk menyatukan 4 tombol kontrol
+        this.cameras.main.fadeIn();//grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
-
+        this.nganu = ["Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat."];
         this.cameras.main.setRoundPixels(true);
-        this.tringSound = this.sound.add('getItem');
 
         //tilemap dan pembagian layernya
         this.lvl1 = this.make.tilemap({key: 'lv02'});
@@ -79,45 +72,24 @@ class Level02 extends Phaser.Scene {
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
 
-        // Tdk boleh lewat jalan atas
-        this.zonaKampung = this.add.zone(325,0,120,30);
-        this.physics.add.existing(this.zonaKampung);
-        this.zonaKampung.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonaKampung, () => {
-            nextLine(this, this.blokJalan , 70, RED);
+        // Plang 1
+        this.plang01 = this.add.zone(297, 617, 15, 15);
+        this.physics.add.existing(this.plang01);
+        this.plang01.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang01, () => {
+            nextLine(this, ["bajigur"], 50, RED);
         }, null, this);
 
-        // plang kampung
-        this.zonKp = this.add.zone(328, 90, 16, 16);
-        this.physics.add.existing(this.zonKp);
-        this.zonKp.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonKp, () => {
-            nextLine(this, this.plangDesa);
-        }, null, this);
-
-        //plang puskes
-        this.zonPKM = this.add.zone(152, 153, 16, 16);
-        this.physics.add.existing(this.zonPKM);
-        this.zonPKM.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonPKM, () => {
-            nextLine(this, this.plangPKM, 90, GREEN);
-        }, null, this);
-
-        //getBPJScard
-        this.zonBP = this.add.zone(457, 209, 16, 5);
-        this.physics.add.existing(this.zonBP);
-        this.zonBP.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonBP, () => {
-            if(this.bpjscard == 0){
-                this.tringSound.play();
-                nextLine(this, this.bpjsDialog, 50, BLUE);
-                localStorage.setItem("kartuBPJS", 1);
-                this.bpjscard += 1;
-            }            
+        // Plang 2
+        this.plang02 = this.add.zone(199, 57, 15, 15);
+        this.physics.add.existing(this.plang02);
+        this.plang02.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang02, () => {
+            nextLine(this, ["asemik\nmama"], 50, RED);
         }, null, this);
 
         //goToNextLevel
-        this.zonLv = this.add.zone(7, 168, 16, 32);
+        this.zonLv = this.add.zone(152, 1, 200, 8);
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
