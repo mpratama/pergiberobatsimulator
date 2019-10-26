@@ -1,7 +1,7 @@
-class Level01 extends Phaser.Scene {
+class Level02 extends Phaser.Scene {
     constructor() {
         super({
-            key: 'level01'
+            key: 'level02'
         });
     }
 
@@ -44,7 +44,7 @@ class Level01 extends Phaser.Scene {
         this.tringSound = this.sound.add('getItem');
 
         //tilemap dan pembagian layernya
-        this.lvl1 = this.make.tilemap({key: 'lv01'});
+        this.lvl1 = this.make.tilemap({key: 'lv02'});
         this.tiles = this.lvl1.addTilesetImage('landscape', 'landscapex');
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
         this.layer = this.lvl1.createDynamicLayer("00", [this.tiles, this.tiles2], 0, 0);
@@ -72,7 +72,7 @@ class Level01 extends Phaser.Scene {
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
-        this.cameras.main.setBounds(0, 0, 800, 480);
+        this.cameras.main.setBounds(0, 0, 592, 784);
         this.kiri = this.add.sprite(50, 220, 'kontrol', 0).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.bawah = this.add.sprite(50, 300, 'kontrol', 2).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.atas = this.add.sprite(550, 220, 'kontrol', 3).setInteractive().setAlpha(0.5).setScrollFactor(0);
@@ -100,11 +100,11 @@ class Level01 extends Phaser.Scene {
         this.physics.add.existing(this.zonPKM);
         this.zonPKM.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonPKM, () => {
-            nextLine(this, this.plangPKM, 50, GREEN);
+            nextLine(this, this.plangPKM, 90, GREEN);
         }, null, this);
 
         //getBPJScard
-        this.zonBP = this.add.zone(456, 210, 16, 5);
+        this.zonBP = this.add.zone(457, 209, 16, 5);
         this.physics.add.existing(this.zonBP);
         this.zonBP.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonBP, () => {
@@ -121,9 +121,7 @@ class Level01 extends Phaser.Scene {
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
-            this.cameras.main.fadeOut();
             console.log("ke level berikutnya");
-            this.scene.start("level02");
         }, null, this);
 
         this.kiri.on('pointerdown', () => {

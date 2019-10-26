@@ -20,8 +20,24 @@ class MenuScene extends Phaser.Scene {
         this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
         this.load.audio('startGame', ['music/startGame.mp3', 'music/startGame.ogg']);
         this.load.audio('getItem', 'music/getItem.mp3');
-        this.load.bitmapFont('gem', 'assets/gem.png', 'assets/gem.xml');
+        //this.load.bitmapFont('gem', 'assets/gem.png', 'assets/gem.xml');
         this.load.spritesheet('burung', 'assets/birdfly.png', {frameWidth: 16, frameHeight: 16});
+        
+        //load tileset 01
+        this.load.image('landscapex', 'assets/landscape.png');
+
+        //load tileset 02
+        this.load.image('rogueLike', 'assets/roguelikeSheet_transparent.png');
+
+        //load data tilemapnya
+        this.load.tilemapTiledJSON('lv01', 'assets/peta01.json');
+        this.load.tilemapTiledJSON('lv02', 'assets/peta02.json');
+
+        //load spritesheet utk 4 tombol kontrol panah
+        this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
+
+        //player spritesheet
+        this.load.spritesheet('char', 'assets/charx.png', {frameHeight: 16, frameWidth:16});
     }
     
     create() {
@@ -162,7 +178,8 @@ class MenuScene extends Phaser.Scene {
             this.menuMusic.stop();
             this.startSound.play();
             this.cameras.main.fadeOut(300);
-            this.scene.start(game._CURRLEVEL);
+            this.scene.start('level01');
+            //this.scene.start(game._CURRLEVEL);
         }, this);
     }
 

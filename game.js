@@ -14,7 +14,7 @@ let config = {
     version: "1.0",
     title: "Pergi Berobat Simulator",
     pixelArt: true,
-    scene: [BootScene, MenuScene, Level01],
+    scene: [BootScene, MenuScene, Level01, Level02],
     physics: {
         default: "arcade",
         arcade: {
