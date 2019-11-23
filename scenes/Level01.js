@@ -36,7 +36,7 @@ class Level01 extends Phaser.Scene {
         this.bpjsDialog = ["Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat."];
         this.plangDesa = ["(atas) Jalan menuju kampung."];
         this.blokJalan = ["Tanganmu sedang terluka.\nSegeralah pergi ke puskesmas.\n\nJalan ke puskesmas bukan lewat sini."];
-        this.plangPKM = ["(kiri) Puskesmas Perawatan X. Buka jam 08.00-13.00.\n\nBawa kartu BPJS anda jika berobat."];
+        this.plangPKM = ["(kiri) Puskesmas Pulau Alam Surga. Buka jam 08.00-13.00.\n\nBawa kartu BPJS anda jika berobat."];
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
 
@@ -66,6 +66,8 @@ class Level01 extends Phaser.Scene {
 
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
+        this.physics.world.setBounds(0, 0, 800, 480);
+        this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
         this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
         this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
@@ -92,6 +94,7 @@ class Level01 extends Phaser.Scene {
         this.physics.add.existing(this.zonKp);
         this.zonKp.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonKp, () => {
+            //setTimeout(nextLine, 2000, this, this.plangDesa)
             nextLine(this, this.plangDesa);
         }, null, this);
 
@@ -117,13 +120,15 @@ class Level01 extends Phaser.Scene {
         }, null, this);
 
         //goToNextLevel
-        this.zonLv = this.add.zone(7, 168, 16, 32);
+        this.zonLv = this.add.zone(-2, 168, 16, 32);
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
-            this.cameras.main.fadeOut();
-            console.log("ke level berikutnya");
-            this.scene.start("level02");
+            this.cameras.main.fadeOut(500);
+            //console.log("ke level berikutnya");
+            setTimeout(() => this.scene.start("level02"), 1000);
+            //this.scene.start("level02");
+            game._BPJSCARD = this.bpjscard;
         }, null, this);
 
         this.kiri.on('pointerdown', () => {

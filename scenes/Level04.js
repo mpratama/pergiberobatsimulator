@@ -1,7 +1,7 @@
-class Level02 extends Phaser.Scene {
+class Level04 extends Phaser.Scene {
     constructor() {
         super({
-            key: 'level02'
+            key: 'level04'
         });
     }
 
@@ -31,12 +31,14 @@ class Level02 extends Phaser.Scene {
     }
     
     create() {
-        this.cameras.main.fadeIn();//grup utk menyatukan 4 tombol kontrol
+        this.cameras.main.fadeIn();
+        //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
+
         this.cameras.main.setRoundPixels(true);
 
         //tilemap dan pembagian layernya
-        this.lvl1 = this.make.tilemap({key: 'lv02'});
+        this.lvl1 = this.make.tilemap({key: 'lv04'});
         this.tiles = this.lvl1.addTilesetImage('landscape', 'landscapex');
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
         this.layer = this.lvl1.createDynamicLayer("00", [this.tiles, this.tiles2], 0, 0);
@@ -58,44 +60,60 @@ class Level02 extends Phaser.Scene {
 
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
-        this.physics.world.setBounds(0, 0, 592, 784);
+        this.physics.world.setBounds(0, 0, 800, 480);
         this.orang.body.collideWorldBounds = true;
-        this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
+        this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
         this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
         this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
-        this.cameras.main.setBounds(0, 0, 592, 784);
+        this.cameras.main.setBounds(0, 0, 800, 480);
         this.kiri = this.add.sprite(50, 220, 'kontrol', 0).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.bawah = this.add.sprite(50, 300, 'kontrol', 2).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.atas = this.add.sprite(550, 220, 'kontrol', 3).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
 
-        // Plang 1
-        this.plang01 = this.add.zone(297, 617, 15, 15);
-        this.physics.add.existing(this.plang01);
-        this.plang01.body.setImmovable();
-        this.physics.add.collider(this.orang, this.plang01, () => {
-            nextLine(this, ["bajigur"], 50, RED);
+        // Tdk boleh lewat jalan atas
+        this.zonaKampung = this.add.zone(325,0,120,30);
+        this.physics.add.existing(this.zonaKampung);
+        this.zonaKampung.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonaKampung, () => {
+            nextLine(this, ["kururuk"]);
         }, null, this);
 
-        // Plang 2
-        this.plang02 = this.add.zone(199, 57, 15, 15);
-        this.physics.add.existing(this.plang02);
-        this.plang02.body.setImmovable();
-        this.physics.add.collider(this.orang, this.plang02, () => {
-            nextLine(this, ["asemik\nmama"], 50, RED);
+        // plang kampung
+        this.zonKp = this.add.zone(328, 90, 16, 16);
+        this.physics.add.existing(this.zonKp);
+        this.zonKp.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonKp, () => {
+            nextLine(this, ["huahahaha"]);
+        }, null, this);
+
+        //plang puskes
+        this.zonPKM = this.add.zone(152, 153, 16, 16);
+        this.physics.add.existing(this.zonPKM);
+        this.zonPKM.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonPKM, () => {
+            nextLine(this, ["kamaka"]);
+        }, null, this);
+
+        //getBPJScard
+        this.zonBP = this.add.zone(456, 210, 16, 5);
+        this.physics.add.existing(this.zonBP);
+        this.zonBP.body.setImmovable();
+        this.physics.add.collider(this.orang, this.zonBP, () => {
+            nextLine(this, ["kakakakaka"]);        
         }, null, this);
 
         //goToNextLevel
-        this.zonLv = this.add.zone(152, -2, 200, 8);
+        this.zonLv = this.add.zone(-2, 168, 16, 32);
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
-            setTimeout(() => this.scene.start("level03"), 1000);
+            console.log("ke level berikutnya");
         }, null, this);
 
         this.kiri.on('pointerdown', () => {

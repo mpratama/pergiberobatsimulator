@@ -14,12 +14,12 @@ let config = {
     version: "1.0",
     title: "Pergi Berobat Simulator",
     pixelArt: true,
-    scene: [BootScene, MenuScene, Level01, Level02],
+    scene: [BootScene, MenuScene, Level01, Level02, Level03, Level04],
     physics: {
         default: "arcade",
         arcade: {
             fps: 60,
-            debug: true //set false jika siap production
+            debug: false //set false jika siap production
         }
     },
     scale: {

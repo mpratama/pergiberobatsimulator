@@ -32,6 +32,8 @@ class MenuScene extends Phaser.Scene {
         //load data tilemapnya
         this.load.tilemapTiledJSON('lv01', 'assets/peta01.json');
         this.load.tilemapTiledJSON('lv02', 'assets/peta02.json');
+        this.load.tilemapTiledJSON('lv03', 'assets/peta03.json');
+        this.load.tilemapTiledJSON('lv04', 'assets/peta04.json');
 
         //load spritesheet utk 4 tombol kontrol panah
         this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
@@ -57,11 +59,8 @@ class MenuScene extends Phaser.Scene {
             repeat: -1
         });
         this.burung = this.add.sprite(Phaser.Math.Between(-10, 510), 0, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
-        this.burung2 = this.add.sprite(0, Phaser.Math.Between(-10, 350, 'burung')).setTint(0xff00ff, 0xffff00, 0x0000ff, 0xff0000);
         this.ruteTerbang = this.tweens.createTimeline();
         this.ruteTerbang.loop = -1;
-        this.ruteTerbang2 = this.tweens.createTimeline();
-        this.ruteTerbang2.loop = -1;
         this.ruteTerbang.add({
             targets: this.burung,
             x: 200,
@@ -103,50 +102,9 @@ class MenuScene extends Phaser.Scene {
             yoyo: true
         });
         
-        this.ruteTerbang2.add({
-            targets: this.burung2,
-            x: 200,
-            y: 300,
-            ease: 'Power1',
-            duration: 5000,
-            yoyo: true
-        });
-        this.ruteTerbang2.add({
-            targets: this.burung2,
-            x: 240,
-            y: 10,
-            ease: 'Power1',
-            duration: 5500,
-            yoyo: true
-        });
-        this.ruteTerbang2.add({
-            targets: this.burung2,
-            x: 10,
-            y: 320,
-            ease: 'Power1',
-            duration: 5500,
-            yoyo: true
-        });
-        this.ruteTerbang2.add({
-            targets: this.burung2,
-            x: 490,
-            y: 10,
-            ease: 'Power1',
-            duration: 5500,
-            yoyo: true
-        });
-        this.ruteTerbang2.add({
-            targets: this.burung2,
-            x: 10,
-            y: 150,
-            ease: 'Power1',
-            duration: 5500,
-            yoyo: true
-        });
+        
         this.burung.play('terbang');
-        this.burung2.play('terbang');
         this.ruteTerbang.play();
-        this.ruteTerbang2.play();
         this.cp = this.add.bitmapText(10, 320, 'gem', "v1.0 \u00A9Pratama " + this.d.getFullYear(), 16).setCenterAlign();
         this.pergi = this.add.bitmapText(93, 130, 'gem', "Pergi", 20).setCenterAlign();
         this.pulau = this.add.bitmapText(310, 195, 'gem', "-Remote Island Edition-", 18).setCenterAlign();
