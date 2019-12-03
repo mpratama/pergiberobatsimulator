@@ -58,6 +58,15 @@ class Level04 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.animasiJalanAtas = this.anims.create({
+            key: 'jalanAtas',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [3, 4]
+            }),
+            frameRate: 8,
+            repeat: -1,
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
         this.physics.world.setBounds(0, 0, 800, 480);
@@ -83,32 +92,8 @@ class Level04 extends Phaser.Scene {
             nextLine(this, ["kururuk"]);
         }, null, this);
 
-        // plang kampung
-        this.zonKp = this.add.zone(328, 90, 16, 16);
-        this.physics.add.existing(this.zonKp);
-        this.zonKp.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonKp, () => {
-            nextLine(this, ["huahahaha"]);
-        }, null, this);
-
-        //plang puskes
-        this.zonPKM = this.add.zone(152, 153, 16, 16);
-        this.physics.add.existing(this.zonPKM);
-        this.zonPKM.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonPKM, () => {
-            nextLine(this, ["kamaka"]);
-        }, null, this);
-
-        //getBPJScard
-        this.zonBP = this.add.zone(456, 210, 16, 5);
-        this.physics.add.existing(this.zonBP);
-        this.zonBP.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonBP, () => {
-            nextLine(this, ["kakakakaka"]);        
-        }, null, this);
-
         //goToNextLevel
-        this.zonLv = this.add.zone(-2, 168, 16, 32);
+        this.zonLv = this.add.zone(-5, 60, 16, 128);
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
@@ -138,7 +123,7 @@ class Level04 extends Phaser.Scene {
 
         this.atas.on('pointerdown', () => {
             this.orang.setVelocityY(-60);
-            this.orang.play('jalan');
+            this.orang.play('jalanAtas');
         });
 
         this.atas.on('pointerup', () => {

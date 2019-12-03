@@ -39,7 +39,7 @@ class MenuScene extends Phaser.Scene {
         this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
 
         //player spritesheet
-        this.load.spritesheet('char', 'assets/charx.png', {frameHeight: 16, frameWidth:16});
+        this.load.spritesheet('char', 'assets/char3.png', {frameHeight: 16, frameWidth:16});
     }
     
     create() {

@@ -56,6 +56,15 @@ class Level02 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.animasiJalanAtas = this.anims.create({
+            key: 'jalanAtas',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [3, 4]
+            }),
+            frameRate: 8,
+            repeat: -1,
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
         this.physics.world.setBounds(0, 0, 592, 784);
@@ -120,7 +129,7 @@ class Level02 extends Phaser.Scene {
 
         this.atas.on('pointerdown', () => {
             this.orang.setVelocityY(-60);
-            this.orang.play('jalan');
+            this.orang.play('jalanAtas');
         });
 
         this.atas.on('pointerup', () => {

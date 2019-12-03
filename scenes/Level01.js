@@ -31,6 +31,12 @@ class Level01 extends Phaser.Scene {
     }
     
     create() {
+        /* this.bloodFunc = setInterval(() => {
+            console.log("kuontoks");
+        }, 2000); */
+        /* setInterval(() => {
+            console.log("interval berjalan");
+        }, 2000); */
         this.cameras.main.fadeIn();
         this.bpjscard = 0;
         this.bpjsDialog = ["Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat."];
@@ -59,6 +65,15 @@ class Level01 extends Phaser.Scene {
             key: 'jalan',
             frames: this.anims.generateFrameNumbers('char', {
                 frames: [1, 2]
+            }),
+            frameRate: 8,
+            repeat: -1,
+        });
+
+        this.animasiJalanAtas = this.anims.create({
+            key: 'jalanAtas',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [3, 4]
             }),
             frameRate: 8,
             repeat: -1,
@@ -120,7 +135,7 @@ class Level01 extends Phaser.Scene {
         }, null, this);
 
         //goToNextLevel
-        this.zonLv = this.add.zone(-2, 168, 16, 32);
+        this.zonLv = this.add.zone(-5, 168, 16, 32);
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
@@ -153,7 +168,7 @@ class Level01 extends Phaser.Scene {
 
         this.atas.on('pointerdown', () => {
             this.orang.setVelocityY(-60);
-            this.orang.play('jalan');
+            this.orang.play('jalanAtas');
         });
 
         this.atas.on('pointerup', () => {

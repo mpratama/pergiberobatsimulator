@@ -31,6 +31,7 @@ class Level03 extends Phaser.Scene {
     }
     
     create() {
+        clearInterval(this.scene.get("level01").blodFunc);
         this.cameras.main.fadeIn();//grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
         this.cameras.main.setRoundPixels(true);
@@ -51,6 +52,15 @@ class Level03 extends Phaser.Scene {
             key: 'jalan',
             frames: this.anims.generateFrameNumbers('char', {
                 frames: [1, 2]
+            }),
+            frameRate: 8,
+            repeat: -1,
+        });
+
+        this.animasiJalanAtas = this.anims.create({
+            key: 'jalanAtas',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [3, 4]
             }),
             frameRate: 8,
             repeat: -1,
@@ -120,7 +130,7 @@ class Level03 extends Phaser.Scene {
 
         this.atas.on('pointerdown', () => {
             this.orang.setVelocityY(-60);
-            this.orang.play('jalan');
+            this.orang.play('jalanAtas');
         });
 
         this.atas.on('pointerup', () => {
