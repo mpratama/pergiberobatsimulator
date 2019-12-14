@@ -1,7 +1,7 @@
-class Level01 extends Phaser.Scene {
+class Level05 extends Phaser.Scene {
     constructor() {
         super({
-            key: 'level01'
+            key: 'level05'
         });
     }
 
@@ -25,19 +25,16 @@ class Level01 extends Phaser.Scene {
         this.load.scenePlugin({
             key: 'AnimatedTiles',
             url: 'AnimatedTiles.min.js',
+            systemKey: 'animatedTiles',
             sceneKey: 'animatedTiles'
         });
-
-        //rexui plugin
-        this.load.scenePlugin({
-            key: 'rexuiplugin',
-            url: 'rexuiplugin.min.js',
-            sceneKey: 'rexUI'
-        });
     }
-
+    
     create() {
-        this.teks = `[b]Phaser[/b] \n\n\nis [color=#0000FF]warna biru[/color] free, and fun open source HTML5 game framework that offers WebGL and Canvas rendering across desktop and mobile web browsers. Games can be compiled to iOS, Android and native apps by using 3rd party tools. You can use JavaScript or TypeScript for development.`;
+        this.kiriPencet = false;
+        this.bawahPencet = false;
+        this.kananPencet = false;
+        this.atasPencet = false;
         /* this.bloodFunc = setInterval(() => {
             console.log("kuontoks");
         }, 2000); */
@@ -45,11 +42,6 @@ class Level01 extends Phaser.Scene {
             console.log("interval berjalan");
         }, 2000); */
         this.cameras.main.fadeIn();
-        this.bpjscard = 0;
-        this.bpjsDialog = ["Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat."];
-        this.plangDesa = ["(atas) Jalan menuju kampung."];
-        this.blokJalan = ["Tanganmu sedang terluka.\nSegeralah pergi ke puskesmas.\n\nJalan ke puskesmas bukan lewat sini."];
-        this.plangPKM = [["(kiri)xx Puskesmas Pulau Alam Surga. Buka jam 08.00-13.00.\n\nBawa kartu BPJS anda jika berobat."]];
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
 
@@ -57,7 +49,7 @@ class Level01 extends Phaser.Scene {
         this.tringSound = this.sound.add('getItem');
 
         //tilemap dan pembagian layernya
-        this.lvl1 = this.make.tilemap({key: 'lv01'});
+        this.lvl1 = this.make.tilemap({key: 'lv05'});
         this.tiles = this.lvl1.addTilesetImage('landscape', 'landscapex');
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
         this.layer = this.lvl1.createDynamicLayer("00", [this.tiles, this.tiles2], 0, 0);
@@ -77,6 +69,15 @@ class Level01 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.animasiJalanLaut = this.anims.create({
+            key: 'jalanL',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [6, 7]
+            }),
+            frameRate: 5,
+            repeat: -1,
+        });
+
         this.animasiJalanAtas = this.anims.create({
             key: 'jalanAtas',
             frames: this.anims.generateFrameNumbers('char', {
@@ -86,9 +87,18 @@ class Level01 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.animasiJalanAtasLaut = this.anims.create({
+            key: 'jalanAtasL',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [8, 9]
+            }),
+            frameRate: 5,
+            repeat: -1,
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
-        this.physics.world.setBounds(0, 0, 800, 480);
+        this.physics.world.setBounds(0, 0, 4800, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
         this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
@@ -96,7 +106,7 @@ class Level01 extends Phaser.Scene {
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
-        this.cameras.main.setBounds(0, 0, 800, 480);
+        this.cameras.main.setBounds(0, 0, 4800, 480);
         this.kiri = this.add.sprite(50, 220, 'kontrol', 0).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.bawah = this.add.sprite(50, 300, 'kontrol', 2).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.atas = this.add.sprite(550, 220, 'kontrol', 3).setInteractive().setAlpha(0.5).setScrollFactor(0);
@@ -125,12 +135,7 @@ class Level01 extends Phaser.Scene {
         this.physics.add.existing(this.zonPKM);
         this.zonPKM.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonPKM, () => {
-            this.orang.anims.stop();
-            this.panah.setVisible(false);
-            createTextBox(this, 10, 10, {
-                wrapWidth: 550,
-            })
-            .start(this.teks, 50);
+            nextLine(this, this.plangPKM, 50, GREEN);
         }, null, this);
 
         //getBPJScard
@@ -152,50 +157,50 @@ class Level01 extends Phaser.Scene {
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
-            //console.log("ke level berikutnya");
-            setTimeout(() => this.scene.start("level02"), 1000);
+            console.log("ke level berikutnya");
+            //setTimeout(() => this.scene.start("level02"), 1000);
             //this.scene.start("level02");
-            game._BPJSCARD = this.bpjscard;
+            //game._BPJSCARD = this.bpjscard;
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
-            this.orang.setVelocityX(-60);
-            this.orang.play('jalan');
+            this.kiriPencet = true;
         });
 
         this.kiri.on('pointerup', () => {
             this.orang.setVelocity(0);
             this.orang.anims.stop();
+            this.kiriPencet = false;
         });
 
         this.bawah.on('pointerdown', () => {
-            this.orang.setVelocityY(60);
-            this.orang.play('jalan');
+            this.bawahPencet = true;
         });
 
         this.bawah.on('pointerup', () => {
             this.orang.setVelocity(0);
             this.orang.anims.stop();
+            this.bawahPencet = false;
         });
 
         this.atas.on('pointerdown', () => {
-            this.orang.setVelocityY(-60);
-            this.orang.play('jalanAtas');
+            this.atasPencet = true;
         });
 
         this.atas.on('pointerup', () => {
             this.orang.setVelocity(0);
             this.orang.anims.stop();
+            this.atasPencet = false;
         });
 
         this.kanan.on('pointerdown', () => {
-            this.orang.setVelocityX(60);
-            this.orang.play('jalan');
+            this.kananPencet = true;
         });
 
         this.kanan.on('pointerup', () => {
             this.orang.setVelocity(0);
             this.orang.anims.stop();
+            this.kananPencet = false;
         });
 
         this.animatedTiles.init(this.lvl1);
@@ -203,6 +208,55 @@ class Level01 extends Phaser.Scene {
     }
 
     update() {
+        //tombol kiri
+        if (this.kiriPencet){
+            if (this.orang.x < 4500 && this.orang.x > 330){
+                this.orang.setVelocityX(-40);
+                this.orang.play('jalanL', true);
+            }
+            else{
+                this.orang.setVelocityX(-60);
+                this.orang.play('jalan', true);
+            }
+        }
+
+        //tombol kanan
+        if (this.kananPencet){
+            if (this.orang.x < 4500 && this.orang.x > 330){
+                this.orang.setVelocityX(40);
+                this.orang.play('jalanL', true);
+            }
+            else{
+                this.orang.setVelocityX(60);
+                this.orang.play('jalan', true);
+            }
+        }
+
+        //tombol atas
+        if (this.atasPencet){
+            if (this.orang.x < 4500 && this.orang.x > 330){
+                this.orang.setVelocityY(-40);
+                this.orang.play('jalanAtasL', true);
+            }
+            else{
+                this.orang.setVelocityY(-60);
+                this.orang.play('jalanAtas', true);
+            }
+        }
+
+        //tombol bawah
+        if (this.bawahPencet){
+            if (this.orang.x < 4500 && this.orang.x > 330){
+                this.orang.setVelocityY(40);
+                this.orang.play('jalanL', true);
+            }
+            else{
+                this.orang.setVelocityY(60);
+                this.orang.play('jalan', true);
+            }
+        }
+
+
         
     }
 

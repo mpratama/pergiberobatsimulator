@@ -17,6 +17,7 @@ class MenuScene extends Phaser.Scene {
         });
         
         this.load.image('bg', 'assets/bgMenu.png');
+        this.load.image('ente', 'assets/arrow-down-left.png');
         this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
         this.load.audio('startGame', ['music/startGame.mp3', 'music/startGame.ogg']);
         this.load.audio('getItem', 'music/getItem.mp3');
@@ -34,6 +35,7 @@ class MenuScene extends Phaser.Scene {
         this.load.tilemapTiledJSON('lv02', 'assets/peta02.json');
         this.load.tilemapTiledJSON('lv03', 'assets/peta03.json');
         this.load.tilemapTiledJSON('lv04', 'assets/peta04.json');
+        this.load.tilemapTiledJSON('lv05', 'assets/peta05.json');
 
         //load spritesheet utk 4 tombol kontrol panah
         this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
@@ -136,8 +138,8 @@ class MenuScene extends Phaser.Scene {
             this.menuMusic.stop();
             this.startSound.play();
             this.cameras.main.fadeOut(300);
-            this.scene.start('level01');
-            //this.scene.start(game._CURRLEVEL);
+            //this.scene.start('level01');
+            this.scene.start(game._CURRLEVEL);
         }, this);
     }
 

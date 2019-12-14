@@ -5,6 +5,75 @@ let curLevelCheck = function(){
    } 
 }
 
+const BLACK = 0x000000;
+const RED = 0xff0000;
+const WHITE = 0xffffff;
+const BLUE = 0x0000ff;
+const GREEN = 0x00ff00;
+const GetValue = Phaser.Utils.Objects.GetValue;
+var createTextBox = function (scene, x, y, config) {
+    var wrapWidth = GetValue(config, 'wrapWidth', 0);
+    var fixedWidth = GetValue(config, 'fixedWidth', 0);
+    var fixedHeight = GetValue(config, 'fixedHeight', 0);
+    var textBox = scene.rexUI.add.textBox({
+            x: x,
+            y: y,
+
+            background: scene.add.rectangle(10, 5, 588, 80, BLACK),
+
+            // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
+            text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
+
+            space: {
+                left: 10,
+                right: 10,
+                top: 5,
+                bottom: 5,
+                text: 10,
+            }
+        })
+        .setOrigin(0)
+        .setScrollFactor(0)
+        .layout();
+
+    textBox
+        .setInteractive()
+        .on('pointerdown', function () {
+            if (this.isTyping) {
+                this.stop(true);
+            } else {
+                this.typeNextPage();
+            }
+        }, textBox)
+        .on('pageend', function () {
+            if (this.isLastPage) {
+                setTimeout(() => {
+                    textBox.setVisible(false);
+                    scene.panah.setVisible(true);
+                }, 2000);
+            }
+        }, textBox)
+    //.on('type', function () {
+    //})
+
+    return textBox;
+}
+
+var getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
+    return scene.rexUI.add.BBCodeText(0, 0, '', {
+        fixedWidth: fixedWidth,
+        fixedHeight: fixedHeight,
+        fontFamily: 'Arial',
+        fontSize: '19px',
+        wrap: {
+            mode: 'word',
+            width: wrapWidth
+        },
+        maxLines: 3
+    })
+}
+
+
 //game config
 let config = {
     width: 608,
@@ -14,7 +83,7 @@ let config = {
     version: "1.0",
     title: "Pergi Berobat Simulator",
     pixelArt: true,
-    scene: [BootScene, MenuScene, Level01, Level02, Level03, Level04],
+    scene: [BootScene, MenuScene, Level01, Level02, Level03, Level04, Level05],
     physics: {
         default: "arcade",
         arcade: {
@@ -34,65 +103,8 @@ let game = new Phaser.Game(config);
 // variabel untuk isi dialog, index huruf, warna teks dialog
 let line = "";
 let index = 0;
-const RED = 0xff0000;
-const WHITE = 0xffffff;
-const BLUE = 0x0000ff;
-const GREEN = 0x00ff00;
 
 // mengecek Baru mulai game atau sudah pernah bermain sebelumnya
 curLevelCheck();
 game._CURRLEVEL = localStorage.getItem("currentLevel");
 game._BPJSCARD = localStorage.getItem("kartuBPJS");
-
-//function ini berfungsi utk dicallback dengan nextLine function, panggil dari nextLine
-let updateLine = function(scene, teks){
-    if (line.length < teks[index].length) {
-        line = teks[index].substr(0, line.length + 1);
-        scene.dialogBox.setText(line);
-    }
-    else {
-        scene.time.addEvent({
-            delay: 1500,
-            callback: nextLine,
-            callbackScope: scene,
-            args: [scene, teks]
-        });
-        index++;
-    }
-}
-
-//function untuk dialog teks utk dipanggil di masing2 scene, masukkan argumentnya ya
-//argumennnya:  scene => scene mana yg mau gunakan, isi dgn this
-//              teks => teks dalam bentuk array misal ["Indonesia raya!\nMerdeka!\nMerdeka!"]
-//              wkt => delay muncul tiap huruf dalam ms
-//              tint => warna teks (RED, GREEN, BLUE, default WHITE)
-let nextLine = function(scene, teks, wkt, tint){
-    let wktu = wkt;
-    let dialogBoxTint = tint;
-    if (typeof(tint) === "undefined") dialogBoxTint = WHITE;
-    scene.dialogBox.setTint(dialogBoxTint);
-    if (typeof(wkt) === "undefined") wktu = 30;
-    let panahan = scene.panah.getChildren();
-    for (let i in panahan) {
-        panahan[i].setVisible(false);
-    }
-    scene.kotak.setVisible(true);
-    scene.orang.anims.stop();
-    if (index < teks.length){
-        line = "";
-        scene.time.addEvent({
-            repeat: teks[index].length,
-            delay: wktu,
-            callback: updateLine,
-            callbackScope: scene,
-            args: [scene, teks]
-            });
-        }
-    else {
-        scene.kotak.setVisible(false);
-        line = "";
-        scene.dialogBox.setText("");
-        index = 0;
-        scene.panah.toggleVisible();
-        }
-}
