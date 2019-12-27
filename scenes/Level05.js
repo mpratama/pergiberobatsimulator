@@ -159,7 +159,7 @@ class Level05 extends Phaser.Scene {
             this.cameras.main.fadeOut(500);
             console.log("ke level berikutnya");
             //setTimeout(() => this.scene.start("level02"), 1000);
-            //this.scene.start("level02");
+            this.scene.start("level06");
             //game._BPJSCARD = this.bpjscard;
         }, null, this);
 

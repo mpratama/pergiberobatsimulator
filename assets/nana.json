@@ -1,0 +1,8 @@
+{
+	"lv01" : {
+		"d01" : "Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat.",
+		"d02" : "[color=#0000FF](atas)[/color]\n\nKampung Alam Surga.",
+		"d03" : "[color=#FF0000]Tanganmu sedang terluka.          \n\nSegeralah pergi ke puskesmas.          \nJalan ke puskesmas bukan lewat sini.          [/color]",
+		"d04" : "[color=#0000FF](kiri)[/color]\n\nPuskesmas Pulau Alam Surga.          \nBuka jam 08.00-13.00.\nBawa kartu [b]BPJS[/b] anda jika berobat.\n                         -Staff PKM"
+	}
+}

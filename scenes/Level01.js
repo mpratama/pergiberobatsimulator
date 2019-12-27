@@ -37,7 +37,7 @@ class Level01 extends Phaser.Scene {
     }
 
     create() {
-        this.teks = `[b]Phaser[/b] \n\n\nis [color=#0000FF]warna biru[/color] free, and fun open source HTML5 game framework that offers WebGL and Canvas rendering across desktop and mobile web browsers. Games can be compiled to iOS, Android and native apps by using 3rd party tools. You can use JavaScript or TypeScript for development.`;
+        this.dialog = this.cache.json.get('dxdiag');
         /* this.bloodFunc = setInterval(() => {
             console.log("kuontoks");
         }, 2000); */
@@ -46,10 +46,6 @@ class Level01 extends Phaser.Scene {
         }, 2000); */
         this.cameras.main.fadeIn();
         this.bpjscard = 0;
-        this.bpjsDialog = ["Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat."];
-        this.plangDesa = ["(atas) Jalan menuju kampung."];
-        this.blokJalan = ["Tanganmu sedang terluka.\nSegeralah pergi ke puskesmas.\n\nJalan ke puskesmas bukan lewat sini."];
-        this.plangPKM = [["(kiri)xx Puskesmas Pulau Alam Surga. Buka jam 08.00-13.00.\n\nBawa kartu BPJS anda jika berobat."]];
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
 
@@ -86,13 +82,11 @@ class Level01 extends Phaser.Scene {
             repeat: -1,
         });
 
-        this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
+        this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0);
         this.orang.body.setSize(10,15);
         this.physics.world.setBounds(0, 0, 800, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
-        this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
-        this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -108,7 +102,12 @@ class Level01 extends Phaser.Scene {
         this.physics.add.existing(this.zonaKampung);
         this.zonaKampung.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonaKampung, () => {
-            nextLine(this, this.blokJalan , 70, RED);
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv01.d03, 50);
         }, null, this);
 
         // plang kampung
@@ -116,8 +115,12 @@ class Level01 extends Phaser.Scene {
         this.physics.add.existing(this.zonKp);
         this.zonKp.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonKp, () => {
-            //setTimeout(nextLine, 2000, this, this.plangDesa)
-            nextLine(this, this.plangDesa);
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv01.d02, 50);
         }, null, this);
 
         //plang puskes
@@ -130,7 +133,7 @@ class Level01 extends Phaser.Scene {
             createTextBox(this, 10, 10, {
                 wrapWidth: 550,
             })
-            .start(this.teks, 50);
+            .start(this.dialog.lv01.d04, 50);
         }, null, this);
 
         //getBPJScard
@@ -140,8 +143,12 @@ class Level01 extends Phaser.Scene {
         this.physics.add.collider(this.orang, this.zonBP, () => {
             if(this.bpjscard == 0){
                 this.tringSound.play();
-                nextLine(this, this.bpjsDialog, 50, BLUE);
-                localStorage.setItem("kartuBPJS", 1);
+                this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv01.d01, 50);
                 this.bpjscard += 1;
             }            
         }, null, this);
@@ -152,9 +159,9 @@ class Level01 extends Phaser.Scene {
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
-            //console.log("ke level berikutnya");
+            localStorage.setItem("currentLevel", "level02");
+            localStorage.setItem("kartuBPJS", this.bpjscard);
             setTimeout(() => this.scene.start("level02"), 1000);
-            //this.scene.start("level02");
             game._BPJSCARD = this.bpjscard;
         }, null, this);
 

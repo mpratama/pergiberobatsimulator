@@ -42,6 +42,13 @@ class Level04 extends Phaser.Scene {
         this.tiles = this.lvl1.addTilesetImage('landscape', 'landscapex');
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
         this.layer = this.lvl1.createDynamicLayer("00", [this.tiles, this.tiles2], 0, 0);
+        this.snake1 = this.physics.add.sprite(578, 221, 'ular', 0).setSize(7,12);
+        this.snake2 = this.physics.add.sprite(420, 410, 'ular', 0).setSize(7,12);
+        this.snake3 = this.physics.add.sprite(200, 452, 'ular', 0).setSize(7,12);
+        this.snake4 = this.physics.add.sprite(67, 287, 'ular', 0).setSize(7,12);
+        this.snake5 = this.physics.add.sprite(106, 82, 'ular', 0).setSize(7,12);
+        this.snake6 = this.physics.add.sprite(386, 290, 'ular', 0).setSize(7,12);
+        this.snake7 = this.physics.add.sprite(532, 67, 'ular', 0).setSize(7,12);
         this.layer2 = this.lvl1.createDynamicLayer("01", [this.tiles, this.tiles2], 0, 0);
         this.objek = this.lvl1.getObjectLayer('objek_layer')['objects'];
         
@@ -67,6 +74,15 @@ class Level04 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.animular = this.anims.create({
+            key: 'ular',
+            frames: this.anims.generateFrameNumbers('ular', {
+                frames: [0,1,2,3]
+            }),
+            frameRate: 3,
+            repeat: -1,
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
         this.physics.world.setBounds(0, 0, 800, 480);
@@ -83,6 +99,50 @@ class Level04 extends Phaser.Scene {
         this.atas = this.add.sprite(550, 220, 'kontrol', 3).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
+
+        this.snake1.play('ular');
+        this.snake1.setBounce(0.9,0.9);
+        this.snake1.setCollideWorldBounds(true);
+        this.snake2.play('ular');
+        this.snake2.setBounce(0.9,0.9);
+        this.snake2.setCollideWorldBounds(true);
+        this.snake3.play('ular');
+        this.snake3.setBounce(0.9,0.9);
+        this.snake3.setCollideWorldBounds(true);
+        this.snake4.play('ular');
+        this.snake4.setBounce(0.9,0.9);
+        this.snake4.setCollideWorldBounds(true);
+        this.snake5.play('ular');
+        this.snake5.setBounce(0.9,0.9);
+        this.snake5.setCollideWorldBounds(true);
+        this.snake6.play('ular');
+        this.snake6.setBounce(0.9,0.9);
+        this.snake6.setCollideWorldBounds(true);
+        this.snake7.play('ular');
+        this.snake7.setBounce(0.9,0.9);
+        this.snake7.setCollideWorldBounds(true);
+
+        //this.ulhbox1 = this.add.rectangle(560, 190, 95, 95).setStrokeStyle(1,0x000000,1).setOrigin(0);
+        this.ulbox1 = new Phaser.Geom.Rectangle(560, 190, 95, 95);
+        this.snake1.body.setBoundsRectangle(this.ulbox1);
+        
+        this.ulbox2 = new Phaser.Geom.Rectangle(400, 350, 95, 100);
+        this.snake2.body.setBoundsRectangle(this.ulbox2);
+
+        this.ulbox3 = new Phaser.Geom.Rectangle(183, 418, 193, 55);
+        this.snake3.body.setBoundsRectangle(this.ulbox3);
+
+        this.ulbox4 = new Phaser.Geom.Rectangle(31, 256, 99, 64);
+        this.snake4.body.setBoundsRectangle(this.ulbox4);
+
+        this.ulbox5 = new Phaser.Geom.Rectangle(64, 61, 95, 34);
+        this.snake5.body.setBoundsRectangle(this.ulbox5);
+
+        this.ulbox6 = new Phaser.Geom.Rectangle(336, 273, 96, 39);
+        this.snake6.body.setBoundsRectangle(this.ulbox6);
+
+        this.ulbox7 = new Phaser.Geom.Rectangle(481, 21, 94, 70);
+        this.snake7.body.setBoundsRectangle(this.ulbox7);
 
         // Tdk boleh lewat jalan atas
         this.zonaKampung = this.add.zone(325,0,120,30);
@@ -142,6 +202,62 @@ class Level04 extends Phaser.Scene {
         });
 
         this.animatedTiles.init(this.lvl1);
+
+        this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: getUlarSpd,
+            args: [this.snake1],
+            callbackScope: this,
+        });
+
+        this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: getUlarSpd,
+            args: [this.snake2],
+            callbackScope: this,
+        });
+
+        this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: getUlarSpd,
+            args: [this.snake3],
+            callbackScope: this,
+        });
+
+        this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: getUlarSpd,
+            args: [this.snake4],
+            callbackScope: this,
+        });
+
+        this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: getUlarSpd,
+            args: [this.snake5],
+            callbackScope: this,
+        });
+
+        this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: getUlarSpd,
+            args: [this.snake6],
+            callbackScope: this,
+        });
+
+        this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: getUlarSpd,
+            args: [this.snake7],
+            callbackScope: this,
+        });
         
     }
 

@@ -64,7 +64,7 @@ var getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
         fixedWidth: fixedWidth,
         fixedHeight: fixedHeight,
         fontFamily: 'Arial',
-        fontSize: '19px',
+        fontSize: '18px',
         wrap: {
             mode: 'word',
             width: wrapWidth
@@ -82,13 +82,16 @@ let config = {
     url: "yesbesoklibur.com",
     version: "1.0",
     title: "Pergi Berobat Simulator",
-    pixelArt: true,
-    scene: [BootScene, MenuScene, Level01, Level02, Level03, Level04, Level05],
+    render: {
+        pixelArt: true,
+        powerPreference: "low-power"
+    },
+    scene: [BootScene, MenuScene, Level01, Level02, Level03, Level04, Level05, Level06, Level07],
     physics: {
         default: "arcade",
         arcade: {
             fps: 60,
-            debug: true //set false jika siap production
+            debug: false //set false jika siap production
         }
     },
     scale: {
@@ -100,11 +103,30 @@ let config = {
 //Phase init
 let game = new Phaser.Game(config);
 
-// variabel untuk isi dialog, index huruf, warna teks dialog
-let line = "";
-let index = 0;
-
 // mengecek Baru mulai game atau sudah pernah bermain sebelumnya
 curLevelCheck();
 game._CURRLEVEL = localStorage.getItem("currentLevel");
 game._BPJSCARD = localStorage.getItem("kartuBPJS");
+
+// ular speed randomizer
+let ularSpd = [-30, 30, -35, 35, -40, 40,];
+
+let randUlarSpd = function(){
+    return ularSpd[Math.floor(Math.random() * ularSpd.length)];
+}
+
+let getUlarSpd = function(ularSprite){
+    var r = randUlarSpd();
+    var rd1 = [1.5, 4.7]
+    var rd2 = [0, 3.14]
+    var ul = Math.floor(Math.random() * 2);
+    ularSprite.setVelocity(0);
+    if (ul == 0){
+        ularSprite.setVelocityX(r);
+        ularSprite.setRotation(rd1[Math.floor(Math.random() * rd1.length)]);
+    }
+    else {
+        ularSprite.setVelocityY(r);
+        ularSprite.setRotation(rd2[Math.floor(Math.random() * rd2.length)]);
+    }
+}

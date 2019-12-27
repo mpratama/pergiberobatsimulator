@@ -88,7 +88,7 @@ class Level03 extends Phaser.Scene {
         this.physics.add.existing(this.plang01);
         this.plang01.body.setImmovable();
         this.physics.add.collider(this.orang, this.plang01, () => {
-            nextLine(this, ["bajigur"], 50, RED);
+            console.log("teks");
         }, null, this);
 
         // Plang 2
@@ -96,7 +96,7 @@ class Level03 extends Phaser.Scene {
         this.physics.add.existing(this.plang02);
         this.plang02.body.setImmovable();
         this.physics.add.collider(this.orang, this.plang02, () => {
-            nextLine(this, ["asemik\nmama"], 50, RED);
+            console.log("teks");
         }, null, this);
 
         //goToNextLevel
@@ -106,6 +106,7 @@ class Level03 extends Phaser.Scene {
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
             setTimeout(() => this.scene.start("level04"), 1000);
+            localStorage.setItem("currentLevel", "level04");
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
