@@ -6,21 +6,6 @@ class Level01 extends Phaser.Scene {
     }
 
     preload() {
-        //load tileset 01
-        //this.load.image('landscapex', 'assets/landscape.png');
-
-        //load tileset 02
-        //this.load.image('rogueLike', 'assets/roguelikeSheet_transparent.png');
-
-        //load data tilemapnya
-        //this.load.tilemapTiledJSON('peta', 'assets/peta.json');
-
-        //load spritesheet utk 4 tombol kontrol panah
-        //this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
-
-        //player spritesheet
-        //this.load.spritesheet('char', 'assets/charx.png', {frameHeight: 16, frameWidth:16});
-
         //plugin animated tiles
         this.load.scenePlugin({
             key: 'AnimatedTiles',
@@ -37,13 +22,7 @@ class Level01 extends Phaser.Scene {
     }
 
     create() {
-        this.dialog = this.cache.json.get('dxdiag');
-        /* this.bloodFunc = setInterval(() => {
-            console.log("kuontoks");
-        }, 2000); */
-        /* setInterval(() => {
-            console.log("interval berjalan");
-        }, 2000); */
+        this.dialog = this.cache.json.get('dialogjson');
         this.cameras.main.fadeIn();
         this.bpjscard = 0;
         //grup utk menyatukan 4 tombol kontrol

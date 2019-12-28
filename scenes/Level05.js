@@ -35,12 +35,6 @@ class Level05 extends Phaser.Scene {
         this.bawahPencet = false;
         this.kananPencet = false;
         this.atasPencet = false;
-        /* this.bloodFunc = setInterval(() => {
-            console.log("kuontoks");
-        }, 2000); */
-        /* setInterval(() => {
-            console.log("interval berjalan");
-        }, 2000); */
         this.cameras.main.fadeIn();
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
@@ -53,6 +47,14 @@ class Level05 extends Phaser.Scene {
         this.tiles = this.lvl1.addTilesetImage('landscape', 'landscapex');
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
         this.layer = this.lvl1.createDynamicLayer("00", [this.tiles, this.tiles2], 0, 0);
+        this.pari1 = this.physics.add.sprite(4377, 204, "pari", 0).setTint(0x000000).setAlpha(0.3).setSize(10,10);
+        this.pari2 = this.physics.add.sprite(4127, 250, "pari", 0).setTint(0x000000).setAlpha(0.3).setSize(10,10);
+        this.pari3 = this.physics.add.sprite(3984, 211, "pari", 0).setTint(0x000000).setAlpha(0.3).setSize(10,10);
+        this.pari4 = this.physics.add.sprite(3650, 326, "pari", 0).setTint(0x000000).setAlpha(0.3).setSize(10,10);
+        this.pari5 = this.physics.add.sprite(3298, 370, "pari", 0).setTint(0x000000).setAlpha(0.3).setSize(10,10);
+        this.pari6 = this.physics.add.sprite(715, 335, "pari", 0).setTint(0x000000).setAlpha(0.3).setSize(10,10);
+        this.pari7 = this.physics.add.sprite(1076, 2653, "pari", 0).setTint(0x000000).setAlpha(0.3).setSize(10,10);
+        this.pariGroup = this.add.group([this.pari1, this.pari2, this.pari3, this.pari4, this.pari5, this.pari6, this.pari7]);
         this.layer2 = this.lvl1.createDynamicLayer("01", [this.tiles, this.tiles2], 0, 0);
         this.objek = this.lvl1.getObjectLayer('objek_layer')['objects'];
         
@@ -96,13 +98,21 @@ class Level05 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.animPari = this.anims.create({
+            key: 'ikanPari',
+            frames: this.anims.generateFrameNumbers('pari', {
+                frames: [0,1,2,3]
+            }),
+            frameRate: 5,
+            repeat: -1,
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
+
         this.physics.world.setBounds(0, 0, 4800, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
-        this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
-        this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -113,54 +123,49 @@ class Level05 extends Phaser.Scene {
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
 
-        // Tdk boleh lewat jalan atas
-        this.zonaKampung = this.add.zone(325,0,120,30);
-        this.physics.add.existing(this.zonaKampung);
-        this.zonaKampung.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonaKampung, () => {
-            nextLine(this, this.blokJalan , 70, RED);
-        }, null, this);
+        // pd masing2 ular: play anim, set bounce, set collide world bounds
+        for (var i = 0; i < this.pariGroup.getLength(); i++){
+            this.pariGroup.getChildren()[i].play('ikanPari');
+            this.pariGroup.getChildren()[i].setBounce(0.9,0.9);
+            this.pariGroup.getChildren()[i].setCollideWorldBounds(true);
+        }
 
-        // plang kampung
-        this.zonKp = this.add.zone(328, 90, 16, 16);
-        this.physics.add.existing(this.zonKp);
-        this.zonKp.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonKp, () => {
-            //setTimeout(nextLine, 2000, this, this.plangDesa)
-            nextLine(this, this.plangDesa);
-        }, null, this);
+        //this.ulhbox1 = this.add.rectangle(4260, 70, 195, 184).setStrokeStyle(1,0x000000,1).setOrigin(0);
+        this.ulbox1 = new Phaser.Geom.Rectangle(4260, 70, 195, 184);
+        this.pari1.body.setBoundsRectangle(this.ulbox1);
 
-        //plang puskes
-        this.zonPKM = this.add.zone(152, 153, 16, 16);
-        this.physics.add.existing(this.zonPKM);
-        this.zonPKM.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonPKM, () => {
-            nextLine(this, this.plangPKM, 50, GREEN);
-        }, null, this);
+        //this.ulhbox2 = this.add.rectangle(4027, 214, 298, 188).setStrokeStyle(1,0x000000,1).setOrigin(0);
+        this.ulbox2 = new Phaser.Geom.Rectangle(4027, 214, 298, 188);
+        this.pari2.body.setBoundsRectangle(this.ulbox2);
 
-        //getBPJScard
-        this.zonBP = this.add.zone(456, 210, 16, 5);
-        this.physics.add.existing(this.zonBP);
-        this.zonBP.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonBP, () => {
-            if(this.bpjscard == 0){
-                this.tringSound.play();
-                nextLine(this, this.bpjsDialog, 50, BLUE);
-                localStorage.setItem("kartuBPJS", 1);
-                this.bpjscard += 1;
-            }            
-        }, null, this);
+        //this.ulhbox3 = this.add.rectangle(3723, 82, 345, 332).setStrokeStyle(1,0x000000,1).setOrigin(0);
+        this.ulbox3 = new Phaser.Geom.Rectangle(3723, 82, 345, 332);
+        this.pari3.body.setBoundsRectangle(this.ulbox3);
+
+        //this.ulhbox4 = this.add.rectangle(3406, 45, 287, 331).setStrokeStyle(1,0x000000,1).setOrigin(0);
+        this.ulbox4 = new Phaser.Geom.Rectangle(3406, 45, 287, 331);
+        this.pari4.body.setBoundsRectangle(this.ulbox4);
+
+        //this.ulhbox5 = this.add.rectangle(3104, 71, 267, 353).setStrokeStyle(1,0x000000,1).setOrigin(0);
+        this.ulbox5 = new Phaser.Geom.Rectangle(3104, 71, 267, 353);
+        this.pari5.body.setBoundsRectangle(this.ulbox5);
+
+        //this.ulhbox6 = this.add.rectangle(540, 98, 291, 304).setStrokeStyle(1,0x000000,1).setOrigin(0);
+        this.ulbox6 = new Phaser.Geom.Rectangle(540, 98, 291, 304);
+        this.pari6.body.setBoundsRectangle(this.ulbox6);
+
+        //this.ulhbox7 = this.add.rectangle(840, 63, 299, 340).setStrokeStyle(1,0x000000,1).setOrigin(0);
+        this.ulbox7 = new Phaser.Geom.Rectangle(840, 63, 299, 340);
+        this.pari7.body.setBoundsRectangle(this.ulbox7);
 
         //goToNextLevel
-        this.zonLv = this.add.zone(-5, 168, 16, 32);
+        this.zonLv = this.add.zone(0, 0, 1, 472).setOrigin(0);
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
-            console.log("ke level berikutnya");
-            //setTimeout(() => this.scene.start("level02"), 1000);
-            this.scene.start("level06");
-            //game._BPJSCARD = this.bpjscard;
+            localStorage.setItem("currentLevel", "level06");
+            setTimeout(() => this.scene.start("level06"), 1000);
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
@@ -202,6 +207,17 @@ class Level05 extends Phaser.Scene {
             this.orang.anims.stop();
             this.kananPencet = false;
         });
+
+        // menjalankan anim & delay tiap pari
+        for (var i = 0; i < this.pariGroup.getLength(); i++){
+            this.time.addEvent({
+                delay: 3000,
+                loop: true,
+                callback: getPariSpd,
+                args: [this.pariGroup.getChildren()[i]],
+                callbackScope: this,
+            });
+        }
 
         this.animatedTiles.init(this.lvl1);
         

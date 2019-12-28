@@ -49,6 +49,7 @@ class Level04 extends Phaser.Scene {
         this.snake5 = this.physics.add.sprite(106, 82, 'ular', 0).setSize(7,12);
         this.snake6 = this.physics.add.sprite(386, 290, 'ular', 0).setSize(7,12);
         this.snake7 = this.physics.add.sprite(532, 67, 'ular', 0).setSize(7,12);
+        this.snakeGroup = this.add.group([this.snake1,this.snake2,this.snake3,this.snake4,this.snake5,this.snake6,this.snake7]);
         this.layer2 = this.lvl1.createDynamicLayer("01", [this.tiles, this.tiles2], 0, 0);
         this.objek = this.lvl1.getObjectLayer('objek_layer')['objects'];
         
@@ -88,8 +89,6 @@ class Level04 extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, 800, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
-        this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -100,27 +99,12 @@ class Level04 extends Phaser.Scene {
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
 
-        this.snake1.play('ular');
-        this.snake1.setBounce(0.9,0.9);
-        this.snake1.setCollideWorldBounds(true);
-        this.snake2.play('ular');
-        this.snake2.setBounce(0.9,0.9);
-        this.snake2.setCollideWorldBounds(true);
-        this.snake3.play('ular');
-        this.snake3.setBounce(0.9,0.9);
-        this.snake3.setCollideWorldBounds(true);
-        this.snake4.play('ular');
-        this.snake4.setBounce(0.9,0.9);
-        this.snake4.setCollideWorldBounds(true);
-        this.snake5.play('ular');
-        this.snake5.setBounce(0.9,0.9);
-        this.snake5.setCollideWorldBounds(true);
-        this.snake6.play('ular');
-        this.snake6.setBounce(0.9,0.9);
-        this.snake6.setCollideWorldBounds(true);
-        this.snake7.play('ular');
-        this.snake7.setBounce(0.9,0.9);
-        this.snake7.setCollideWorldBounds(true);
+        // pd masing2 ular: play anim, set bounce, set collide world bounds
+        for (var i = 0; i < this.snakeGroup.getLength(); i++){
+            this.snakeGroup.getChildren()[i].play('ular');
+            this.snakeGroup.getChildren()[i].setBounce(0.9,0.9);
+            this.snakeGroup.getChildren()[i].setCollideWorldBounds(true);
+        }
 
         //this.ulhbox1 = this.add.rectangle(560, 190, 95, 95).setStrokeStyle(1,0x000000,1).setOrigin(0);
         this.ulbox1 = new Phaser.Geom.Rectangle(560, 190, 95, 95);
@@ -144,20 +128,13 @@ class Level04 extends Phaser.Scene {
         this.ulbox7 = new Phaser.Geom.Rectangle(481, 21, 94, 70);
         this.snake7.body.setBoundsRectangle(this.ulbox7);
 
-        // Tdk boleh lewat jalan atas
-        this.zonaKampung = this.add.zone(325,0,120,30);
-        this.physics.add.existing(this.zonaKampung);
-        this.zonaKampung.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonaKampung, () => {
-            nextLine(this, ["kururuk"]);
-        }, null, this);
-
         //goToNextLevel
-        this.zonLv = this.add.zone(-5, 60, 16, 128);
+        this.zonLv = this.add.zone(0, 0, 1, 128).setOrigin(0);
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
+            localStorage.setItem("currentLevel", "level05");
             setTimeout(() => this.scene.start("level05"), 1000);
         }, null, this);
 
@@ -201,63 +178,18 @@ class Level04 extends Phaser.Scene {
             this.orang.anims.stop();
         });
 
+        // menjalankan anim & delay tiap ular
+        for (var i = 0; i < this.snakeGroup.getLength(); i++){
+            this.time.addEvent({
+                delay: 1000,
+                loop: true,
+                callback: getUlarSpd,
+                args: [this.snakeGroup.getChildren()[i]],
+                callbackScope: this,
+            });
+        }
+
         this.animatedTiles.init(this.lvl1);
-
-        this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: getUlarSpd,
-            args: [this.snake1],
-            callbackScope: this,
-        });
-
-        this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: getUlarSpd,
-            args: [this.snake2],
-            callbackScope: this,
-        });
-
-        this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: getUlarSpd,
-            args: [this.snake3],
-            callbackScope: this,
-        });
-
-        this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: getUlarSpd,
-            args: [this.snake4],
-            callbackScope: this,
-        });
-
-        this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: getUlarSpd,
-            args: [this.snake5],
-            callbackScope: this,
-        });
-
-        this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: getUlarSpd,
-            args: [this.snake6],
-            callbackScope: this,
-        });
-
-        this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: getUlarSpd,
-            args: [this.snake7],
-            callbackScope: this,
-        });
         
     }
 

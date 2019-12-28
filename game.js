@@ -91,7 +91,7 @@ let config = {
         default: "arcade",
         arcade: {
             fps: 60,
-            debug: false //set false jika siap production
+            debug: true //set false jika siap production
         }
     },
     scale: {
@@ -110,9 +110,14 @@ game._BPJSCARD = localStorage.getItem("kartuBPJS");
 
 // ular speed randomizer
 let ularSpd = [-30, 30, -35, 35, -40, 40,];
+let pariSpd = [-200,200,-230,230,-260,260];
 
 let randUlarSpd = function(){
     return ularSpd[Math.floor(Math.random() * ularSpd.length)];
+}
+
+let randPariSpd = function(){
+    return pariSpd[Math.floor(Math.random() * pariSpd.length)];
 }
 
 let getUlarSpd = function(ularSprite){
@@ -128,5 +133,21 @@ let getUlarSpd = function(ularSprite){
     else {
         ularSprite.setVelocityY(r);
         ularSprite.setRotation(rd2[Math.floor(Math.random() * rd2.length)]);
+    }
+}
+
+let getPariSpd = function(pariSprite){
+    var r = randPariSpd();
+    var rd1 = [1.5, 4.7]
+    var rd2 = [0, 3.14]
+    var ul = Math.floor(Math.random() * 2);
+    //pariSprite.setVelocity(0);
+    if (ul == 0){
+        pariSprite.setVelocityX(r);
+        pariSprite.setRotation(rd1[Math.floor(Math.random() * rd1.length)]);
+    }
+    else {
+        pariSprite.setVelocityY(r);
+        pariSprite.setRotation(rd2[Math.floor(Math.random() * rd2.length)]);
     }
 }

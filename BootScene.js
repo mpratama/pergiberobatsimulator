@@ -11,9 +11,6 @@ class BootScene extends Phaser.Scene {
     }
 
     create() {
-        //musik latar
-        //this.scene.start("menuScene");
-        //this.scene.start("level01");
         this.lagu = this.sound.add('splash');
 
         //bitmap teks "Pratama Software"

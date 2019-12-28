@@ -15,7 +15,7 @@ class MenuScene extends Phaser.Scene {
         this.load.on('complete', () => {
             this.progress.destroy();
         });
-        this.load.json('dxdiag', 'assets/nana.json');
+        this.load.json('dialogjson', 'assets/nana.json');
         this.load.image('bg', 'assets/bgMenu.png');
         this.load.image('darah', 'assets/darah.png');
         this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
@@ -45,6 +45,7 @@ class MenuScene extends Phaser.Scene {
         //player spritesheet
         this.load.spritesheet('char', 'assets/char3.png', {frameHeight: 16, frameWidth:16});
         this.load.spritesheet('ular', 'assets/ular2.png', {frameHeight: 16, frameWidth:16});
+        this.load.spritesheet('pari', 'assets/pari.png', {frameHeight: 16, frameWidth: 16});
     }
     
     create() {

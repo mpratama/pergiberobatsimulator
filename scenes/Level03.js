@@ -6,21 +6,6 @@ class Level03 extends Phaser.Scene {
     }
 
     preload() {
-        //load tileset 01
-        //this.load.image('landscapex', 'assets/landscape.png');
-
-        //load tileset 02
-        //this.load.image('rogueLike', 'assets/roguelikeSheet_transparent.png');
-
-        //load data tilemapnya
-        //this.load.tilemapTiledJSON('peta', 'assets/peta.json');
-
-        //load spritesheet utk 4 tombol kontrol panah
-        //this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
-
-        //player spritesheet
-        //this.load.spritesheet('char', 'assets/charx.png', {frameHeight: 16, frameWidth:16});
-
         //plugin animated tiles
         this.load.scenePlugin({
             key: 'AnimatedTiles',
@@ -31,8 +16,9 @@ class Level03 extends Phaser.Scene {
     }
     
     create() {
-        clearInterval(this.scene.get("level01").blodFunc);
-        this.cameras.main.fadeIn();//grup utk menyatukan 4 tombol kontrol
+        this.cameras.main.fadeIn();
+        
+        //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
         this.cameras.main.setRoundPixels(true);
 
@@ -71,8 +57,6 @@ class Level03 extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, 608, 9600);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
-        this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
