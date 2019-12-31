@@ -3,6 +3,14 @@
 		"d01" : "Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat.",
 		"d02" : "[color=#0000FF](atas)[/color]\n\nKampung Alam Surga.",
 		"d03" : "[color=#FF0000]Tanganmu sedang terluka.          \n\nSegeralah pergi ke puskesmas.          \nJalan ke puskesmas bukan lewat sini.          [/color]",
-		"d04" : "[color=#0000FF](kiri)[/color]\n\nPuskesmas Pulau Alam Surga.          \nBuka jam 08.00-13.00.\nBawa kartu [b]BPJS[/b] anda jika berobat.\n                         -Staff PKM"
+		"d04" : "[color=#0000FF](kiri)[/color]\n\nPuskesmas Pulau Alam Surga.          \nBuka jam 08.00-13.00.\nBawa kartu [b]BPJS[/b] anda jika berobat.\n                         -Staff PKM",
+		"d05" : "Di sebuah daerah terpencil.\r\n\r\nJauh dari hiruk pikuk perkotaan.",
+		"d06" : "Penduduk kampung beraktifitas sejak pagi.",
+		"d07" : "Mencari penghidupan dari alam.",
+		"d08" : "Tetapi.\r\n\r\nTerkadang terjadi kecelakaan saat bekerja.",
+		"d09" : "\"Ahh.. tanganku [color=#FF0000]berdarah[/color].\r\n\r\nSebaiknya aku segera ke puskesmas\""
+	},
+	"lv02" : {
+		"d01" : "\"Hei kau!\r\n\r\nKenapa tanganmu?\"\r\n\"Sial sekali nasibmu.\"\r\n\r\n\r\n\"Aku burung penghuni pulau ini\"\r\n\r\n\"Akan kubantu kau menuju puskesmas\""
 	}
 }

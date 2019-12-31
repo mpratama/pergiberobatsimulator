@@ -6,28 +6,17 @@ class Level06 extends Phaser.Scene {
     }
 
     preload() {
-        //load tileset 01
-        //this.load.image('landscapex', 'assets/landscape.png');
-
-        //load tileset 02
-        //this.load.image('rogueLike', 'assets/roguelikeSheet_transparent.png');
-
-        //load data tilemapnya
-        //this.load.tilemapTiledJSON('peta', 'assets/peta.json');
-
-        //load spritesheet utk 4 tombol kontrol panah
-        //this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
-
-        //player spritesheet
-        //this.load.spritesheet('char', 'assets/charx.png', {frameHeight: 16, frameWidth:16});
-
-        //plugin animated tiles
+        
         this.load.scenePlugin({
             key: 'AnimatedTiles',
             url: 'AnimatedTiles.min.js',
             systemKey: 'animatedTiles',
             sceneKey: 'animatedTiles'
         });
+    }
+
+    asalNo(bil) {
+        return Math.floor(Math.random() * bil);
     }
     
     create() {
@@ -84,14 +73,6 @@ class Level06 extends Phaser.Scene {
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
 
-        // Tdk boleh lewat jalan atas
-        this.zonaKampung = this.add.zone(325,193,120,80);
-        this.physics.add.existing(this.zonaKampung);
-        this.zonaKampung.body.setImmovable();
-        this.physics.add.overlap(this.orang, this.zonaKampung, () => {
-            console.log("mamama");
-        }, null, this);
-
         //goToNextLevel
         this.zonLv = this.add.zone(-5, 60, 16, 128);
         this.physics.add.existing(this.zonLv);
@@ -141,11 +122,129 @@ class Level06 extends Phaser.Scene {
             this.orang.anims.stop();
         });
 
+        this.tml1 = this.tweens.createTimeline();
+        this.tml1.add({
+            targets: this.kiri,
+            x: this.asalNo(600),
+            y: this.asalNo(300),
+            scale: 3,
+            ease: 'Back.easeInOut',
+            duration: 1000
+        });
+
+        this.tml1.add({
+            targets: this.kanan,
+            x: this.asalNo(600),
+            y: this.asalNo(300),
+            scale: 3,
+            ease: 'Back.easeInOut',
+            duration: 1000
+        });
+
+        this.tml1.add({
+            targets: this.atas,
+            x: this.asalNo(600),
+            y: this.asalNo(300),
+            scale: 3,
+            ease: 'Back.easeInOut',
+            duration: 1000
+        });
+
+        this.tml1.add({
+            targets: this.bawah,
+            x: this.asalNo(600),
+            y: this.asalNo(300),
+            scale: 3,
+            ease: 'Back.easeInOut',
+            duration: 1000
+        });
+
+        this.tml2 = this.tweens.createTimeline();
+
+        this.tml2.add({
+            targets: this.kiri,
+            x: 550,
+            y: 300,
+            scale: 1,
+            ease: 'Bounce.easeInOut',
+            duration: 1000
+        });
+
+        this.tml2.add({
+            targets: this.kanan,
+            x: 50,
+            y: 220,
+            scale: 1,
+            ease: 'Bounce.easeInOut',
+            duration: 1000
+        });
+
+        this.tml2.add({
+            targets: this.atas,
+            x: 50,
+            y: 300,
+            scale: 1,
+            ease: 'Bounce.easeInOut',
+            duration: 1000
+        });
+
+        this.tml2.add({
+            targets: this.bawah,
+            x: 550,
+            y: 225,
+            scale: 1,
+            ease: 'Bounce.easeInOut',
+            duration: 1000
+        });
+
+        this.anem = this.tweens.createTimeline();
+
+        this.anem.add({
+            targets: this.orang,
+            x: 757,
+            duration: 5000,
+            onStart: () => {
+                this.orang.play('jalan');
+            },
+            onComplete: () => {
+                this.orang.anims.stop();
+            }
+        });
+
+        this.anem.add({
+            targets: this.orang,
+            y: 215,
+            duration: 3000,
+            onStart: () => {
+                this.orang.play('jalanAtas');
+            },
+            onComplete: () => {
+                this.orang.anims.stop();
+            }
+        });
+
+        this.darah = this.add.particles('darah');
+        this.tetesan = this.darah.createEmitter({
+            angle: {min: 160, max: 185},
+            speed: 10,
+            gravityY: 100,
+            lifespan: {min: 400, max: 500},
+            frequency: 170,
+            scale: 1.5,
+            follow: this.orang,
+            followOffset: {
+                x: 5,
+                y: 4
+            }
+        });
+
         this.animatedTiles.init(this.lvl1);
         
     }
 
     update() {
+        //this.tetesan.x.propertyValue = this.orang.x + 5;
+        //this.tetesan.y.propertyValue = this.orang.y + 3;
         
     }
 

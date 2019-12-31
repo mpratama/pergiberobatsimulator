@@ -141,7 +141,7 @@ class MenuScene extends Phaser.Scene {
         this.mulai.once('pointerdown', () => {
             this.menuMusic.stop();
             this.startSound.play();
-            this.cameras.main.fadeOut(300);
+            this.cameras.main.fadeOut(500);
             //this.scene.start('level01');
             this.scene.start(game._CURRLEVEL);
         }, this);

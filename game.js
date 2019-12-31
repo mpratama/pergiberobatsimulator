@@ -59,6 +59,53 @@ var createTextBox = function (scene, x, y, config) {
     return textBox;
 }
 
+var cTexBox2 = function (scene, x, y, config) {
+    var wrapWidth = GetValue(config, 'wrapWidth', 0);
+    var fixedWidth = GetValue(config, 'fixedWidth', 0);
+    var fixedHeight = GetValue(config, 'fixedHeight', 0);
+    var textBox = scene.rexUI.add.textBox({
+            x: x,
+            y: y,
+
+            background: scene.add.rectangle(10, 5, 588, 80, BLACK),
+
+            // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
+            text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
+
+            space: {
+                left: 10,
+                right: 10,
+                top: 5,
+                bottom: 5,
+                text: 10,
+            }
+        })
+        .setOrigin(0)
+        .setScrollFactor(0)
+        .layout();
+
+    textBox
+        .setInteractive()
+        .on('pointerdown', function () {
+            if (this.isTyping) {
+                this.stop(true);
+            } else {
+                this.typeNextPage();
+            }
+        }, textBox)
+        .on('pageend', function () {
+            if (this.isLastPage) {
+                setTimeout(() => {
+                    textBox.setVisible(false);
+                }, 2000);
+            }
+        }, textBox)
+    //.on('type', function () {
+    //})
+
+    return textBox;
+}
+
 var getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
     return scene.rexUI.add.BBCodeText(0, 0, '', {
         fixedWidth: fixedWidth,
@@ -91,7 +138,7 @@ let config = {
         default: "arcade",
         arcade: {
             fps: 60,
-            debug: true //set false jika siap production
+            debug: false //set false jika siap production
         }
     },
     scale: {

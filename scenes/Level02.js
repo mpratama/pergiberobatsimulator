@@ -17,6 +17,7 @@ class Level02 extends Phaser.Scene {
     
     create() {
         this.cameras.main.fadeIn();
+        this.dialog = this.cache.json.get('dialogjson');
         
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
@@ -52,11 +53,19 @@ class Level02 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.terbang = this.anims.create({
+            key: 'terbang',
+            frames: this.anims.generateFrameNumbers('burung'),
+            frameRate: 8,
+            repeat: -1
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
         this.physics.world.setBounds(0, 0, 592, 784);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
+        this.burung = this.add.sprite(488, 550, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -131,6 +140,31 @@ class Level02 extends Phaser.Scene {
         this.kanan.on('pointerup', () => {
             this.orang.setVelocity(0);
             this.orang.anims.stop();
+        });
+
+        this.burung.play('terbang');
+        this.tweens.add({
+            targets: this.burung,
+            y: 555,
+            yoyo: true,
+            ease: 'Power1',
+            repeat: -1,
+            duration: 500
+        });
+
+        this.darah = this.add.particles('darah');
+        this.tetesan = this.darah.createEmitter({
+            angle: {min: 160, max: 185},
+            speed: 10,
+            gravityY: 100,
+            lifespan: {min: 400, max: 500},
+            frequency: 170,
+            scale: 1.5,
+            follow: this.orang,
+            followOffset: {
+                x: 5,
+                y: 4
+            }
         });
 
         this.animatedTiles.init(this.lvl1);
