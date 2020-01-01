@@ -13,9 +13,18 @@ class Level02 extends Phaser.Scene {
             systemKey: 'animatedTiles',
             sceneKey: 'animatedTiles'
         });
+
+        //rexui plugin
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });
     }
     
     create() {
+        this.mark1 = false;
+        this.mark2 = false;
         this.cameras.main.fadeIn();
         this.dialog = this.cache.json.get('dialogjson');
         
@@ -167,11 +176,39 @@ class Level02 extends Phaser.Scene {
             }
         });
 
+        this.cutScn = this.tweens.createTimeline();
+        this.cutScn.add({
+            targets: this.burung,
+            x: 195,
+            y: 86,
+            duration: 2000,
+            ease: 'Power1',
+            onComplete: () => {
+                this.burung.destroy();
+            }
+        });
+
+
         this.animatedTiles.init(this.lvl1);
         
     }
 
     update() {
+        if (this.orang.x == 488 && this.mark1 == false){
+            this.mark1 += 1;
+            this.orang.setVelocity(0);
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv02.d01, 50);
+        }
+
+        if (this.orang.y == 450 && this.mark2 == false){
+            this.mark2 += 1;
+            this.cutScn.play();
+        }
         
     }
 
