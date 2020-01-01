@@ -176,8 +176,8 @@ class Level02 extends Phaser.Scene {
             }
         });
 
-        this.cutScn = this.tweens.createTimeline();
-        this.cutScn.add({
+        this.cutScn2 = this.tweens.createTimeline();
+        this.cutScn2.add({
             targets: this.burung,
             x: 195,
             y: 86,
@@ -194,8 +194,8 @@ class Level02 extends Phaser.Scene {
     }
 
     update() {
-        if (this.orang.x == 488 && this.mark1 == false){
-            this.mark1 += 1;
+        if (this.orang.x < 490 && this.mark1 == false){
+            this.mark1 = true;
             this.orang.setVelocity(0);
             this.orang.anims.stop();
             this.panah.setVisible(false);
@@ -205,9 +205,9 @@ class Level02 extends Phaser.Scene {
             .start(this.dialog.lv02.d01, 50);
         }
 
-        if (this.orang.y == 450 && this.mark2 == false){
-            this.mark2 += 1;
-            this.cutScn.play();
+        if (this.orang.y < 450 && this.mark2 == false){
+            this.mark2 = true;
+            this.cutScn2.play();
         }
         
     }

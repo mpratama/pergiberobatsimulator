@@ -11,6 +11,12 @@
 		"d09" : "\"Ahh.. tanganku [color=#FF0000]berdarah[/color].\r\n\r\nSebaiknya aku segera ke puskesmas\""
 	},
 	"lv02" : {
-		"d01" : "[color=#0000FF]\"Hei kau manusia!\r\n\r\nKenapa tanganmu?\"\r\n\"Sial sekali nasibmu.\"\r\n\r\n\r\n\"Beta burung penghuni pulau ini.\r\nBeta tahu semua tempat di pulau ini.\"\r\n\r\n\"Perjalanan ke puskesmas kampung cukup jauh.\r\n\r\nMedannya juga berbahaya.\"\r\n\"Tapi seng perlu khawatir, beta antar kau sampe puskesmas.\"\r\n\r\n\r\n\"Satu lagi, di perjalanan ke puskesmas kau bakal lihat banyak plang kayu, kaya yg di sebelah kiri itu.\"\r\n\r\n\"Orang yg seng ada kerjaan pasang plang begitu di tengah hutan begini, siapa yg baca coba.\"\r\n\r\n\"Tapi kalau lihat baca,isinya banyak petunjuk dan dapat membantu kau.\"\r\n\r\n\"Baca semua, seng boleh ada yang kelewat.\"\r\n\r\n\r\n\"Sekarang, ikutin jalan ke arah atas.\"[/color]"
+		"d01" : "[color=#0000FF]\"Hei kau manusia!\r\n\r\nKenapa tanganmu?\"\r\n\"Sial sekali nasibmu.\"\r\n\r\n\r\n\"Beta burung penghuni pulau ini.\r\nBeta tahu semua tempat di pulau ini.\"\r\n\r\n\"Perjalanan ke puskesmas kampung cukup jauh.\r\n\r\nMedannya juga berbahaya.\"\r\n\"Tapi seng perlu khawatir, beta antar kau sampe puskesmas.\"\r\n\r\n\r\n\"Satu lagi, di perjalanan ke puskesmas kau bakal lihat banyak plang kayu.\r\nKaya yg di sebelah kiri itu.\"\r\n\r\n\"Orang yg seng ada kerjaan pasang plang begitu di tengah hutan begini, siapa yg baca coba.\"\r\n\r\n\"Tapi kalau lihat baca,meski isinya [i]cringe & cheesy[/i] tapi banyak petunjuk dan dapat membantu kau.\"\r\n\r\n\"Baca semua, seng boleh ada yang kelewat.\"\r\n\r\n\r\n\"Sekarang, ikutin jalan ke arah atas.\"[/color]"
+	},
+	"lv03" : {
+		"d01" : "[color=#0000FF]\"STOP!\"\r\n\r\n[/color]",
+		"d02" : "[color=#0000FF]\"Sekarang katong ada di bagian hutan yg luas.\"\r\n\r\n[/color]",
+		"d03" : "[color=#0000FF]\"Kau jalan terus saja ke bagian atas hutan.\"\r\n\r\n[/color]",
+		"d04" : "[color=#0000FF]\"Beta tunggu kau diatas e.\"\r\n\r\n[/color]"
 	}
 }
