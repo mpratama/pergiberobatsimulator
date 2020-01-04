@@ -6,21 +6,6 @@ class Level04 extends Phaser.Scene {
     }
 
     preload() {
-        //load tileset 01
-        //this.load.image('landscapex', 'assets/landscape.png');
-
-        //load tileset 02
-        //this.load.image('rogueLike', 'assets/roguelikeSheet_transparent.png');
-
-        //load data tilemapnya
-        //this.load.tilemapTiledJSON('peta', 'assets/peta.json');
-
-        //load spritesheet utk 4 tombol kontrol panah
-        //this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
-
-        //player spritesheet
-        //this.load.spritesheet('char', 'assets/charx.png', {frameHeight: 16, frameWidth:16});
-
         //plugin animated tiles
         this.load.scenePlugin({
             key: 'AnimatedTiles',
@@ -28,9 +13,19 @@ class Level04 extends Phaser.Scene {
             systemKey: 'animatedTiles',
             sceneKey: 'animatedTiles'
         });
+
+        //rexui plugin
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });
     }
     
     create() {
+        this.mark1 = JSON.parse(localStorage.getItem("lv04-mark1"));
+        this.mark2 = false;
+        this.dialog = this.cache.json.get('dialogjson');
         this.cameras.main.fadeIn();
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
@@ -55,6 +50,15 @@ class Level04 extends Phaser.Scene {
         
         //collision / bertumbuk layer
         this.layer2.setCollisionByProperty({collides: true});
+
+        //animasi player mati
+        this.animasiMati = this.anims.create({
+            key: 'mati',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [13, 12]
+            }),
+            frameRate: 2,
+        });
 
         //animasi jalan player
         this.animasiJalan = this.anims.create({
@@ -84,11 +88,19 @@ class Level04 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.terbang = this.anims.create({
+            key: 'terbang',
+            frames: this.anims.generateFrameNumbers('burung'),
+            frameRate: 8,
+            repeat: -1
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
         this.physics.world.setBounds(0, 0, 800, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
+        this.burung = this.add.sprite(600, 415, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -178,6 +190,44 @@ class Level04 extends Phaser.Scene {
             this.orang.anims.stop();
         });
 
+        this.burung.play('terbang');
+        this.tweens.add({
+            targets: this.burung,
+            y: 417,
+            yoyo: true,
+            ease: 'Power1',
+            repeat: -1,
+            duration: 500
+        });
+
+        this.cutScn1 = this.tweens.createTimeline();
+        this.cutScn1.add({
+            delay: 1000,
+            targets: this.burung,
+            x: -10,
+            y: 70,
+            duration: 3000,
+            ease: 'Power1',
+            onComplete: () => {
+                this.burung.destroy();
+            }
+        });
+
+        this.darah = this.add.particles('darah');
+        this.tetesan = this.darah.createEmitter({
+            angle: {min: 160, max: 185},
+            speed: 10,
+            gravityY: 100,
+            lifespan: {min: 400, max: 500},
+            frequency: 170,
+            scale: 1.5,
+            follow: this.orang,
+            followOffset: {
+                x: 5,
+                y: 4
+            }
+        });
+
         // menjalankan anim & delay tiap ular
         for (var i = 0; i < this.snakeGroup.getLength(); i++){
             this.time.addEvent({
@@ -189,11 +239,36 @@ class Level04 extends Phaser.Scene {
             });
         }
 
+        this.death = this.physics.add.overlap(this.orang, this.snakeGroup, () => {
+            this.cameras.main.flash(700, 255, 0, 0);
+            this.orang.setVelocity(0);
+            this.panah.setVisible(false);
+            this.orang.play('mati');
+            this.death.active = false;
+            this.tetesan.stop();
+            localStorage.setItem("lv04-mark1", true);
+            setTimeout(() => this.scene.start("level04"), 3000);
+        }, null, this);
+
         this.animatedTiles.init(this.lvl1);
-        
     }
 
     update() {
+        if (this.mark1 == false && this.orang.y < 425){
+            this.mark1 = true;
+            this.orang.setVelocity(0);
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv04.d01, 50);
+        }
+
+        if (this.orang.x <= 235 && this.orang.x >= 229 && this.orang.y < 87 && this.mark2 == false){
+            this.cutScn1.play();
+            this.mark2 = true;
+        }
         
     }
 

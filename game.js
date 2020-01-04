@@ -2,6 +2,9 @@
 let curLevelCheck = function(){
    if (!localStorage.getItem("currentLevel")) {
        localStorage.setItem("currentLevel", "level01");
+       localStorage.setItem("lv04-mark1", false);
+       localStorage.setItem("lv05-mark1", false);
+       localStorage.setItem("lv05-mark2", false);
    } 
 }
 
@@ -138,7 +141,7 @@ let config = {
         default: "arcade",
         arcade: {
             fps: 60,
-            debug: false //set false jika siap production
+            debug: true //set false jika siap production
         }
     },
     scale: {

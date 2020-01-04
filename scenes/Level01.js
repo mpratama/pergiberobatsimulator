@@ -243,6 +243,7 @@ class Level01 extends Phaser.Scene {
             targets: this.burung,
             x: 0,
             duration: 3000,
+            ease: 'Power2',
             onComplete: () => {
                 this.burung.destroy();
             }

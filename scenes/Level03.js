@@ -212,14 +212,14 @@ class Level03 extends Phaser.Scene {
             delay: 1000,
             targets: this.cameras.main,
             scrollY: 0,
-            duration: 2000,
+            duration: 4000,
             ease: 'Power1',
         });
         this.cutScn1.add({
             delay: 3000,
             targets: this.cameras.main,
             scrollY: 9258,
-            duration: 2000,
+            duration: 4000,
             ease: 'Power1',
         });
         this.cutScn1.add({
@@ -237,7 +237,7 @@ class Level03 extends Phaser.Scene {
         this.cutScn1.add({
             delay: 2000,
             targets: this.burung,
-            x: 0,
+            x: 300,
             y: 9000,
             duration: 2000,
             ease: 'Power1',

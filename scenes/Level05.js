@@ -6,20 +6,6 @@ class Level05 extends Phaser.Scene {
     }
 
     preload() {
-        //load tileset 01
-        //this.load.image('landscapex', 'assets/landscape.png');
-
-        //load tileset 02
-        //this.load.image('rogueLike', 'assets/roguelikeSheet_transparent.png');
-
-        //load data tilemapnya
-        //this.load.tilemapTiledJSON('peta', 'assets/peta.json');
-
-        //load spritesheet utk 4 tombol kontrol panah
-        //this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
-
-        //player spritesheet
-        //this.load.spritesheet('char', 'assets/charx.png', {frameHeight: 16, frameWidth:16});
 
         //plugin animated tiles
         this.load.scenePlugin({
@@ -28,9 +14,20 @@ class Level05 extends Phaser.Scene {
             systemKey: 'animatedTiles',
             sceneKey: 'animatedTiles'
         });
+
+        //rexui plugin
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });
     }
     
     create() {
+        this.dialog = this.cache.json.get('dialogjson');
+        this.mark1 = JSON.parse(localStorage.getItem("lv05-mark1"));
+        this.mark2 = JSON.parse(localStorage.getItem("lv05-mark2"));
+        this.mark3 = false;
         this.kiriPencet = false;
         this.bawahPencet = false;
         this.kananPencet = false;
@@ -60,6 +57,15 @@ class Level05 extends Phaser.Scene {
         
         //collision / bertumbuk layer
         this.layer2.setCollisionByProperty({collides: true});
+
+        //animasi player mati
+        this.animasiMati = this.anims.create({
+            key: 'mati',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [13, 14]
+            }),
+            frameRate: 2,
+        });
 
         //animasi jalan player
         this.animasiJalan = this.anims.create({
@@ -107,12 +113,20 @@ class Level05 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.terbang = this.anims.create({
+            key: 'terbang',
+            frames: this.anims.generateFrameNumbers('burung'),
+            frameRate: 8,
+            repeat: -1
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
 
         this.physics.world.setBounds(0, 0, 4800, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
+        this.burung = this.add.sprite(4728, 117, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -208,16 +222,93 @@ class Level05 extends Phaser.Scene {
             this.kananPencet = false;
         });
 
+        this.burung.play('terbang');
+        this.manukIdle = this.tweens.add({
+            targets: this.burung,
+            y: this.burung.y + 3,
+            yoyo: true,
+            ease: 'Power1',
+            repeat: -1,
+            duration: 500
+        });
+
+        this.cutScn1 = this.tweens.createTimeline();
+        this.cutScn1.add({
+            delay: 1000,
+            targets: this.burung,
+            x: 1603,
+            y: 238,
+            onStart: () => {
+                this.manukIdle.pause();
+                this.burung.y = 238;
+            },
+            duration: 3000,
+            ease: 'Power1',
+        });
+        this.cutScn1.add({
+            targets: this.burung,
+            x: 1603,
+            y: 238,
+            onStart: () => {
+                createTextBox(this, 10, 10, {
+                    wrapWidth: 550,
+                })
+                .start(this.dialog.lv05.d03, 50);
+            },
+            duration: 3000,
+            ease: 'Power1',
+        });
+        this.cutScn1.add({
+            delay: 8000,
+            targets: this.burung,
+            x: -10,
+            onComplete: () => {
+                this.burung.destroy();
+            },
+            duration: 8000,
+            ease: 'Power1',
+        });
+
+        this.darah = this.add.particles('darah');
+        this.tetesan = this.darah.createEmitter({
+            angle: {min: 160, max: 185},
+            speed: 10,
+            gravityY: 100,
+            lifespan: {min: 400, max: 500},
+            frequency: 170,
+            scale: 1.5,
+            follow: this.orang,
+            followOffset: {
+                x: 5,
+                y: 4
+            }
+        });
+
         // menjalankan anim & delay tiap pari
         for (var i = 0; i < this.pariGroup.getLength(); i++){
             this.time.addEvent({
-                delay: 3000,
+                delay: 1000,
                 loop: true,
                 callback: getPariSpd,
                 args: [this.pariGroup.getChildren()[i]],
                 callbackScope: this,
             });
         }
+
+        this.death = this.physics.add.overlap(this.orang, this.pariGroup, () => {
+            this.cameras.main.flash(700, 255, 0, 0);
+            this.panah.setVisible(false);
+            this.kiriPencet = false;
+            this.kananPencet = false;
+            this.atasPencet = false;
+            this.bawahPencet = false;
+            this.orang.setVelocity(0);
+            this.orang.play('mati');
+            this.death.active = false;
+            this.tetesan.stop();
+            localStorage.setItem("lv05-mark1", true);
+            setTimeout(() => this.scene.start("level05"), 3000);
+        }, null, this);
 
         this.animatedTiles.init(this.lvl1);
         
@@ -270,6 +361,50 @@ class Level05 extends Phaser.Scene {
                 this.orang.setVelocityY(60);
                 this.orang.play('jalan', true);
             }
+        }
+
+        if (this.mark1 == false && this.orang.x < 4773){
+            this.mark1 = true;
+            localStorage.setItem("lv05-mark1", true);
+            this.orang.setVelocity(0);
+            this.kiriPencet = false;
+            this.kananPencet = false;
+            this.atasPencet = false;
+            this.bawahPencet = false;
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv05.d01, 50);
+        }
+
+        if (this.mark2 == false && this.orang.x < 4543){
+            this.mark2 = true;
+            localStorage.setItem("lv05-mark2", true);
+            this.orang.setVelocity(0);
+            this.kiriPencet = false;
+            this.kananPencet = false;
+            this.atasPencet = false;
+            this.bawahPencet = false;
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv05.d02, 50); //x: 4473, y:234
+        }
+
+        if (this.mark3 == false && this.orang.x < 1609){
+            this.mark3 = true;
+            this.panah.setVisible(false);
+            this.orang.setVelocity(0);
+            this.kiriPencet = false;
+            this.kananPencet = false;
+            this.atasPencet = false;
+            this.bawahPencet = false;
+            this.orang.anims.stop();            
+            this.cutScn1.play();
         }
 
 
