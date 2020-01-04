@@ -13,13 +13,23 @@ class Level06 extends Phaser.Scene {
             systemKey: 'animatedTiles',
             sceneKey: 'animatedTiles'
         });
+
+        //rexui plugin
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });
     }
 
     asalNo(bil) {
         return Math.floor(Math.random() * bil);
     }
-    
+
     create() {
+        this.dialog = this.cache.json.get('dialogjson');
+        this.mark1 = false;
+        this.mark2 = false;
         this.cameras.main.fadeIn();
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
@@ -56,13 +66,19 @@ class Level06 extends Phaser.Scene {
             repeat: -1,
         });
 
+        this.terbang = this.anims.create({
+            key: 'terbang',
+            frames: this.anims.generateFrameNumbers('burung'),
+            frameRate: 8,
+            repeat: -1
+        });
+
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
         this.physics.world.setBounds(0, 0, 800, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
-        this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
+        this.burung = this.add.sprite(700, 200, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -74,12 +90,13 @@ class Level06 extends Phaser.Scene {
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
 
         //goToNextLevel
-        this.zonLv = this.add.zone(-5, 60, 16, 128);
+        this.zonLv = this.add.zone(0, 0, 1, 480).setOrigin(0);
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
             setTimeout(() => this.scene.start("level07"), 1000);
+            localStorage.setItem("currentLevel", "level07");
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
@@ -122,14 +139,20 @@ class Level06 extends Phaser.Scene {
             this.orang.anims.stop();
         });
 
+        this.burung.play('terbang');
+
         this.tml1 = this.tweens.createTimeline();
         this.tml1.add({
+            delay: 500,
             targets: this.kiri,
             x: this.asalNo(600),
             y: this.asalNo(300),
             scale: 3,
+            onStart: () => {
+                this.orang.setTint(0x00FF00, 0x00FF00, 0xFFFFFF, 0xFFFFFF);
+            },
             ease: 'Back.easeInOut',
-            duration: 1000
+            duration: 700
         });
 
         this.tml1.add({
@@ -138,7 +161,7 @@ class Level06 extends Phaser.Scene {
             y: this.asalNo(300),
             scale: 3,
             ease: 'Back.easeInOut',
-            duration: 1000
+            duration: 700
         });
 
         this.tml1.add({
@@ -147,7 +170,7 @@ class Level06 extends Phaser.Scene {
             y: this.asalNo(300),
             scale: 3,
             ease: 'Back.easeInOut',
-            duration: 1000
+            duration: 700
         });
 
         this.tml1.add({
@@ -156,7 +179,10 @@ class Level06 extends Phaser.Scene {
             y: this.asalNo(300),
             scale: 3,
             ease: 'Back.easeInOut',
-            duration: 1000
+            duration: 700,
+            onComplete: () =>{
+                this.tml2.play();
+            }
         });
 
         this.tml2 = this.tweens.createTimeline();
@@ -167,7 +193,7 @@ class Level06 extends Phaser.Scene {
             y: 300,
             scale: 1,
             ease: 'Bounce.easeInOut',
-            duration: 1000
+            duration: 700
         });
 
         this.tml2.add({
@@ -176,7 +202,7 @@ class Level06 extends Phaser.Scene {
             y: 220,
             scale: 1,
             ease: 'Bounce.easeInOut',
-            duration: 1000
+            duration: 700
         });
 
         this.tml2.add({
@@ -185,7 +211,7 @@ class Level06 extends Phaser.Scene {
             y: 300,
             scale: 1,
             ease: 'Bounce.easeInOut',
-            duration: 1000
+            duration: 700
         });
 
         this.tml2.add({
@@ -194,34 +220,22 @@ class Level06 extends Phaser.Scene {
             y: 225,
             scale: 1,
             ease: 'Bounce.easeInOut',
-            duration: 1000
-        });
-
-        this.anem = this.tweens.createTimeline();
-
-        this.anem.add({
-            targets: this.orang,
-            x: 757,
-            duration: 5000,
-            onStart: () => {
-                this.orang.play('jalan');
-            },
+            duration: 700,
             onComplete: () => {
-                this.orang.anims.stop();
+                for (var i = 0; i < this.panah.getLength(); i++){
+                    this.panah.getChildren()[i].setInteractive();
+                }
             }
         });
 
-        this.anem.add({
-            targets: this.orang,
-            y: 215,
-            duration: 3000,
-            onStart: () => {
-                this.orang.play('jalanAtas');
-            },
-            onComplete: () => {
-                this.orang.anims.stop();
-            }
-        });
+        /* this.cutScn1 = this.tweens.createTimeline();
+        this.cutScn1.add({
+            delay: 1000,
+            targets: this.burung,
+            x: this.pX,
+            y: this.pY - 3,
+            ease: 'Power1',
+        }); */
 
         this.darah = this.add.particles('darah');
         this.tetesan = this.darah.createEmitter({
@@ -243,8 +257,26 @@ class Level06 extends Phaser.Scene {
     }
 
     update() {
-        //this.tetesan.x.propertyValue = this.orang.x + 5;
-        //this.tetesan.y.propertyValue = this.orang.y + 3;
+        if (this.mark1 == false && this.orang.x < 743){
+            this.mark1 = true;
+            this.orang.anims.stop();
+            this.orang.setVelocity(0);
+            for (var i = 0; i < this.panah.getLength(); i++){
+                this.panah.getChildren()[i].disableInteractive();
+            }
+            this.tml1.play();
+        }
+
+        if (this.mark2 == false && this.orang.x < 677){
+            this.mark2 = true;
+            this.orang.anims.stop();
+            this.orang.setVelocity(0);
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv06.d01, 50);
+        }
         
     }
 

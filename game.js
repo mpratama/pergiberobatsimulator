@@ -141,7 +141,7 @@ let config = {
         default: "arcade",
         arcade: {
             fps: 60,
-            debug: true //set false jika siap production
+            debug: false //set false jika siap production
         }
     },
     scale: {

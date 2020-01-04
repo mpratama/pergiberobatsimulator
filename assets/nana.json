@@ -26,5 +26,8 @@
 		"d01" : "[color=#0000FF]\"Alhamdulillah.\r\n\r\nAir laut lagi meti.\"\r\n\"Kau bisa jalan kaki ke pulau sebelah.\"[/color]",
 		"d02" : "[color=#0000FF]\"Eits!\r\n\r\nTunggu dulu!\"\r\n\"Kau lihat makhluk yang berenang cepat itu?\"\r\n\r\n\r\n\"Terlihat seperti kecebong tapi bukan.\r\n\r\nItu adalah ikan pari.\"\r\n\"Hati-hati jangan sampai dapat sentuh.\"\r\n\r\n\r\n\"Ekornya tajam bergerigi.\r\n\r\nKau dapat tusuk langsung mati.\"[/color]",
 		"d03" : "[color=#0000FF]\"Kau masih kuat berjalan kaseng?\"\r\n\r\n\r\n\"Jalan masih jauh.\"\r\n[/color]"
+	},
+	"lv06" : {
+		"d01" : "[color=#0000FF]\"Kau seng apa-apa toh?\"\r\n\r\n\r\n\"Kau pu wajah pucat.\"\r\n\r\n\r\n\"Jalan juga taputar-putar.\"[/color]"
 	}
 }
