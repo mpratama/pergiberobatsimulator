@@ -228,15 +228,6 @@ class Level06 extends Phaser.Scene {
             }
         });
 
-        /* this.cutScn1 = this.tweens.createTimeline();
-        this.cutScn1.add({
-            delay: 1000,
-            targets: this.burung,
-            x: this.pX,
-            y: this.pY - 3,
-            ease: 'Power1',
-        }); */
-
         this.darah = this.add.particles('darah');
         this.tetesan = this.darah.createEmitter({
             angle: {min: 160, max: 185},
