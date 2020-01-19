@@ -127,10 +127,8 @@ class Level07 extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, 1280, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.kotak = this.add.graphics().fillStyle(0x000000, 1).fillRect(10, 5, 588, 80).setScrollFactor(0).setVisible(false);
-        this.dialogBox = this.add.bitmapText(20, 10,"gem", "", 17).setScrollFactor(0);
+        this.burung = this.add.sprite(1300, 240, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
-        //this.physics.add.overlap(this.snakeGroup, this.orang, () => {console.log("kunyuk")}, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
         this.cameras.main.setBounds(0, 0, 1280, 480);
@@ -212,7 +210,13 @@ class Level07 extends Phaser.Scene {
             this.orang.anims.stop();
         });
 
-        //this.burung.play('terbang');
+        this.burung.play('terbang');
+        this.tweens.add({
+            targets: this.burung,
+            x: -10,
+            ease: 'Power1',
+            duration: 8000
+        });
 
         this.kananAnim = this.tweens.createTimeline();
         this.kananAnim.add({
