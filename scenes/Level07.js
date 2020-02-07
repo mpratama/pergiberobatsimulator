@@ -165,9 +165,9 @@ class Level07 extends Phaser.Scene {
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
-            console.log('lalalala');
-            //this.cameras.main.fadeOut(500);
-            //setTimeout(() => this.scene.start("level07"), 1000);
+            this.cameras.main.fadeOut(500);
+            localStorage.setItem("currentLevel", "level08");
+            setTimeout(() => this.scene.start("level08"), 1000);
         }, null, this);
 
         this.kiri.on('pointerdown', () => {

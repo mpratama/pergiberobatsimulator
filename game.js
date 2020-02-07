@@ -136,12 +136,12 @@ let config = {
         pixelArt: true,
         powerPreference: "low-power"
     },
-    scene: [BootScene, MenuScene, Level01, Level02, Level03, Level04, Level05, Level06, Level07],
+    scene: [BootScene, MenuScene, Level01, Level02, Level03, Level04, Level05, Level06, Level07, Level08],
     physics: {
         default: "arcade",
         arcade: {
             fps: 60,
-            debug: false //set false jika siap production
+            debug: true //set false jika siap production
         }
     },
     scale: {
