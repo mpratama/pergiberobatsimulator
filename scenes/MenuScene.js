@@ -38,7 +38,7 @@ class MenuScene extends Phaser.Scene {
         this.load.tilemapTiledJSON('lv05', 'assets/peta05.json');
         this.load.tilemapTiledJSON('lv06', 'assets/peta06.json');
         this.load.tilemapTiledJSON('lv07', 'assets/peta07.json');
-        this.load.tilemapTiledJSON('lv07', 'assets/peta08.json');
+        this.load.tilemapTiledJSON('lv08', 'assets/peta08.json');
 
         //load spritesheet utk 4 tombol kontrol panah
         this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
