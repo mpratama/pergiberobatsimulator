@@ -29,5 +29,8 @@
 	},
 	"lv06" : {
 		"d01" : "[color=#0000FF]\"Kau seng apa-apa toh?\"\r\n\r\n\r\n\"Kau pu wajah pucat.\"\r\n\r\n\r\n\"Jalan juga taputar-putar.\"[/color]"
+	},
+	"lv09" : {
+		"d01" : "[color=#0000FF]\"Ayo! Sedikit lagi sampai Puskesmas.\r\n\r\nMakan buah ini dolo!\"[/color]"
 	}
 }

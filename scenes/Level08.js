@@ -36,6 +36,7 @@ class Level08 extends Phaser.Scene {
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
         this.layer = this.lvl1.createDynamicLayer("00", [this.tiles, this.tiles2], 0, 0);
         this.layer2 = this.lvl1.createDynamicLayer("01", [this.tiles, this.tiles2], 0, 0);
+        this.layer2.setSize(5,5);
         this.objek = this.lvl1.getObjectLayer('objek_layer')['objects'];
         
         //collision / bertumbuk layer
@@ -76,9 +77,23 @@ class Level08 extends Phaser.Scene {
 
         this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0x00FF00, 0x00FF00, 0xFFFFFF, 0xFFFFFF);
         
-        this.orang.body.setSize(10,13);
+        this.orang.body.setSize(10,14);
         this.physics.world.setBounds(0, 0, 1280, 480);
         this.orang.body.collideWorldBounds = true;
+        this.darah = this.add.particles('darah');
+        this.tetesan = this.darah.createEmitter({
+            angle: {min: 160, max: 185},
+            speed: 10,
+            gravityY: 100,
+            lifespan: {min: 300, max: 400},
+            frequency: 170,
+            scale: 1.5,
+            follow: this.orang,
+            followOffset: {
+                x: 5,
+                y: -1
+            }
+        });
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
         this.burung = this.add.sprite(1300, 240, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
@@ -90,7 +105,7 @@ class Level08 extends Phaser.Scene {
         this.bawah = this.add.sprite(50, 300, 'kontrol', 2).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.reset = this.add.sprite(550, 300, 'kontrol', 4).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.reset]);
-        this.pergi = this.add.bitmapText(200, 120, 'gem', "Reset!", 80).setScrollFactor(0).setTint(0x000000).setVisible(false);
+        this.rst = this.add.bitmapText(200, 120, 'gem', "Reset!", 80).setScrollFactor(0).setTint(0xffffff).setVisible(false);
         //goToNextLevel
         this.zonLv = this.add.zone(0, 0, 1, 480).setOrigin(0);
         this.physics.add.existing(this.zonLv);
@@ -102,7 +117,7 @@ class Level08 extends Phaser.Scene {
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
-            this.orang.setVelocityX(-60);
+            this.orang.setVelocityX(-50);
             this.orang.play('jalan');
         });
 
@@ -112,7 +127,7 @@ class Level08 extends Phaser.Scene {
         });
 
         this.bawah.on('pointerdown', () => {
-            this.orang.setVelocityY(60);
+            this.orang.setVelocityY(50);
             this.orang.play('jalan');
         });
 
@@ -122,14 +137,14 @@ class Level08 extends Phaser.Scene {
         });
 
         this.atas.on('pointerdown', () => {
-            this.orang.setVelocityY(-60);
+            this.orang.setVelocityY(-50);
             this.orang.play('jalanAtas');
         });
 
         this.reset.on('pointerdown', () => {
             this.panah.setVisible(false);
-            this.pergi.setVisible(true);
-            this.cameras.main.fadeOut(2700, 90, 197, 208);
+            this.rst.setVisible(true);
+            this.cameras.main.fadeOut(2700, 0, 0, 0);
             setTimeout(() => {
                 this.scene.restart();
             }, 2700);
@@ -149,20 +164,7 @@ class Level08 extends Phaser.Scene {
         });
 
         this.animatedTiles.init(this.lvl1);
-        this.darah = this.add.particles('darah');
-        this.tetesan = this.darah.createEmitter({
-            angle: {min: 160, max: 185},
-            speed: 10,
-            gravityY: 100,
-            lifespan: {min: 400, max: 500},
-            frequency: 170,
-            scale: 1.5,
-            follow: this.orang,
-            followOffset: {
-                x: 5,
-                y: 4
-            }
-        });
+        
     }
 
     update() {

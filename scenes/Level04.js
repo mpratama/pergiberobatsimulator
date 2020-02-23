@@ -99,6 +99,20 @@ class Level04 extends Phaser.Scene {
         this.orang.body.setSize(10,15);
         this.physics.world.setBounds(0, 0, 800, 480);
         this.orang.body.collideWorldBounds = true;
+        this.darah = this.add.particles('darah');
+        this.tetesan = this.darah.createEmitter({
+            angle: {min: 160, max: 185},
+            speed: 10,
+            gravityY: 100,
+            lifespan: {min: 300, max: 400},
+            frequency: 170,
+            scale: 1.5,
+            follow: this.orang,
+            followOffset: {
+                x: 5,
+                y: -1
+            }
+        });
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
         this.burung = this.add.sprite(600, 415, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
@@ -210,21 +224,6 @@ class Level04 extends Phaser.Scene {
             ease: 'Power1',
             onComplete: () => {
                 this.burung.destroy();
-            }
-        });
-
-        this.darah = this.add.particles('darah');
-        this.tetesan = this.darah.createEmitter({
-            angle: {min: 160, max: 185},
-            speed: 10,
-            gravityY: 100,
-            lifespan: {min: 400, max: 500},
-            frequency: 170,
-            scale: 1.5,
-            follow: this.orang,
-            followOffset: {
-                x: 5,
-                y: 4
             }
         });
 

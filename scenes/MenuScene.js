@@ -18,6 +18,7 @@ class MenuScene extends Phaser.Scene {
         this.load.json('dialogjson', 'assets/nana.json');
         this.load.image('bg', 'assets/bgMenu.png');
         this.load.image('darah', 'assets/darah.png');
+        this.load.image('buah', 'assets/buah.png');
         this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
         this.load.audio('startGame', ['music/startGame.mp3', 'music/startGame.ogg']);
         this.load.audio('getItem', 'music/getItem.mp3');
@@ -39,6 +40,7 @@ class MenuScene extends Phaser.Scene {
         this.load.tilemapTiledJSON('lv06', 'assets/peta06.json');
         this.load.tilemapTiledJSON('lv07', 'assets/peta07.json');
         this.load.tilemapTiledJSON('lv08', 'assets/peta08.json');
+        this.load.tilemapTiledJSON('lv09', 'assets/peta09.json');
 
         //load spritesheet utk 4 tombol kontrol panah
         this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
