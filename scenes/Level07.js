@@ -185,7 +185,7 @@ class Level07 extends Phaser.Scene {
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
-            this.orang.setVelocityX(-50);
+            this.orang.setVelocityX(-45);
             this.orang.play('jalan');
         });
 
@@ -195,7 +195,7 @@ class Level07 extends Phaser.Scene {
         });
 
         this.bawah.on('pointerdown', () => {
-            this.orang.setVelocityY(50);
+            this.orang.setVelocityY(45);
             this.orang.play('jalan');
         });
 
@@ -205,7 +205,7 @@ class Level07 extends Phaser.Scene {
         });
 
         this.atas.on('pointerdown', () => {
-            this.orang.setVelocityY(-50);
+            this.orang.setVelocityY(-45);
             this.orang.play('jalanAtas');
         });
 
@@ -215,7 +215,7 @@ class Level07 extends Phaser.Scene {
         });
 
         this.kanan.on('pointerdown', () => {
-            this.orang.setVelocityX(50);
+            this.orang.setVelocityX(45);
             this.orang.play('jalan');
         });
 

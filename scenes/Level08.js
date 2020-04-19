@@ -105,7 +105,7 @@ class Level08 extends Phaser.Scene {
         this.bawah = this.add.sprite(50, 300, 'kontrol', 2).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.reset = this.add.sprite(550, 300, 'kontrol', 4).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.reset]);
-        this.rst = this.add.bitmapText(200, 120, 'gem', "Reset!", 80).setScrollFactor(0).setTint(0xffffff).setVisible(false);
+        this.rst = this.add.bitmapText(-600, 120, 'gem', "Reset!", 80).setScrollFactor(0).setTint(0xffffff);
         //goToNextLevel
         this.zonLv = this.add.zone(0, 0, 1, 480).setOrigin(0);
         this.physics.add.existing(this.zonLv);
@@ -116,8 +116,27 @@ class Level08 extends Phaser.Scene {
             setTimeout(() => this.scene.start("level09"), 1000);
         }, null, this);
 
+        this.rstTml = this.tweens.createTimeline();
+        this.rstTml.add({
+            targets: this.rst,
+            x: 200,
+            ease: 'Power1',
+            duration: 800
+        });
+        this.rstTml.add({
+            targets: this.rst,
+            x: 200,
+            duration: 1000
+        });
+        this.rstTml.add({
+            targets: this.rst,
+            x: 1000,
+            ease: 'Power1',
+            duration: 800
+        });
+
         this.kiri.on('pointerdown', () => {
-            this.orang.setVelocityX(-50);
+            this.orang.setVelocityX(-40);
             this.orang.play('jalan');
         });
 
@@ -127,7 +146,7 @@ class Level08 extends Phaser.Scene {
         });
 
         this.bawah.on('pointerdown', () => {
-            this.orang.setVelocityY(50);
+            this.orang.setVelocityY(40);
             this.orang.play('jalan');
         });
 
@@ -137,17 +156,17 @@ class Level08 extends Phaser.Scene {
         });
 
         this.atas.on('pointerdown', () => {
-            this.orang.setVelocityY(-50);
+            this.orang.setVelocityY(-40);
             this.orang.play('jalanAtas');
         });
 
         this.reset.on('pointerdown', () => {
             this.panah.setVisible(false);
-            this.rst.setVisible(true);
-            this.cameras.main.fadeOut(2700, 0, 0, 0);
+            this.rstTml.play();
+            this.cameras.main.fadeOut(3000, 0, 0, 0);
             setTimeout(() => {
                 this.scene.restart();
-            }, 2700);
+            }, 3000);
         });
 
         this.atas.on('pointerup', () => {

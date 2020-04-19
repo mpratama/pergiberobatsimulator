@@ -136,7 +136,7 @@ class Level01 extends Phaser.Scene {
         }, null, this);
 
         //getBPJScard
-        this.zonBP = this.add.zone(456, 210, 16, 5);
+        this.zonBP = this.add.zone(441, 150, 16, 5);
         this.physics.add.existing(this.zonBP);
         this.zonBP.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonBP, () => {

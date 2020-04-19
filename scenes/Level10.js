@@ -1,7 +1,7 @@
-class Level03 extends Phaser.Scene {
+class Level10 extends Phaser.Scene {
     constructor() {
         super({
-            key: 'level03'
+            key: 'level10'
         });
     }
 
@@ -20,27 +20,35 @@ class Level03 extends Phaser.Scene {
             url: 'rexuiplugin.min.js',
             sceneKey: 'rexUI'
         });
+
     }
-    
+
     create() {
-        this.dialog = this.cache.json.get('dialogjson');
-        this.mark1 = false;
         this.cameras.main.fadeIn();
-        
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
+
         this.cameras.main.setRoundPixels(true);
 
         //tilemap dan pembagian layernya
-        this.lvl1 = this.make.tilemap({key: 'lv03'});
+        this.lvl1 = this.make.tilemap({key: 'lv10'});
         this.tiles = this.lvl1.addTilesetImage('landscape', 'landscapex');
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
         this.layer = this.lvl1.createDynamicLayer("00", [this.tiles, this.tiles2], 0, 0);
         this.layer2 = this.lvl1.createDynamicLayer("01", [this.tiles, this.tiles2], 0, 0);
-        this.objek = this.lvl1.getObjectLayer('objek_layer')['objects'];
+        this.layer2.setSize(5,5);
+        //this.objek = this.lvl1.getObjectLayer('objek_layer')['objects'];
         
         //collision / bertumbuk layer
         this.layer2.setCollisionByProperty({collides: true});
+
+        this.animasiMati = this.anims.create({
+            key: 'mati',
+            frames: this.anims.generateFrameNumbers('char', {
+                frames: [13, 12]
+            }),
+            frameRate: 2,
+        });
 
         //animasi jalan player
         this.animasiJalan = this.anims.create({
@@ -60,7 +68,6 @@ class Level03 extends Phaser.Scene {
             frameRate: 8,
             repeat: -1,
         });
-
         this.terbang = this.anims.create({
             key: 'terbang',
             frames: this.anims.generateFrameNumbers('burung'),
@@ -68,9 +75,10 @@ class Level03 extends Phaser.Scene {
             repeat: -1
         });
 
-        this.orang = this.physics.add.sprite(152, this.objek[0].y, "char", 0).setTint(0xffffff);
-        this.orang.body.setSize(10,15);
-        this.physics.world.setBounds(0, 0, 608, 9600);
+        this.orang = this.physics.add.sprite(795, 279, "char", 0);
+        
+        this.orang.body.setSize(10,14);
+        this.physics.world.setBounds(0, 0, 800, 480);
         this.orang.body.collideWorldBounds = true;
         this.darah = this.add.particles('darah');
         this.tetesan = this.darah.createEmitter({
@@ -87,37 +95,32 @@ class Level03 extends Phaser.Scene {
             }
         });
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.burung = this.add.sprite(168, 9505, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
+        this.burung = this.add.sprite(Math.random() * 800, -400, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
-        this.cameras.main.scrollY = 9258;
-        this.cameras.main.setBounds(0, 0, 608, 9600);
+        this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
+        this.cameras.main.setBounds(0, 0, 800, 480);
         this.kiri = this.add.sprite(50, 220, 'kontrol', 0).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.bawah = this.add.sprite(50, 300, 'kontrol', 2).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.atas = this.add.sprite(550, 220, 'kontrol', 3).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
 
-        /* // Plang template
-        this.plang01 = this.add.zone(297, 617, 15, 15);
-        this.physics.add.existing(this.plang01);
-        this.plang01.body.setImmovable();
-        this.physics.add.collider(this.orang, this.plang01, () => {
-            console.log("teks");
-        }, null, this); */
-
-        //goToNextLevel
-        this.zonLv = this.add.zone(296, -1, 592, 8);
-        this.physics.add.existing(this.zonLv);
-        this.zonLv.body.setImmovable();
-        this.physics.add.collider(this.orang, this.zonLv, () => {
-            this.cameras.main.fadeOut(500);
-            setTimeout(() => this.scene.start("level04"), 1000);
-            localStorage.setItem("currentLevel", "level04");
+        this.triggerDead = this.add.zone(400, 204, 16, 5).setOrigin(0);
+        this.physics.add.existing(this.triggerDead);
+        this.triggerDead.body.setImmovable();
+        this.physics.add.collider(this.orang, this.triggerDead, () => {
+            this.triggerDead.destroy();
+            setTimeout(() => {
+                this.cutScn.play();
+                this.panah.setVisible(false);
+                this.orang.setVelocity(0)
+                this.orang.anims.stop();
+            }, 120000);
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
-            this.orang.setVelocityX(-60);
+            this.orang.setVelocityX(-30);
             this.orang.play('jalan');
         });
 
@@ -127,7 +130,7 @@ class Level03 extends Phaser.Scene {
         });
 
         this.bawah.on('pointerdown', () => {
-            this.orang.setVelocityY(60);
+            this.orang.setVelocityY(30);
             this.orang.play('jalan');
         });
 
@@ -137,7 +140,7 @@ class Level03 extends Phaser.Scene {
         });
 
         this.atas.on('pointerdown', () => {
-            this.orang.setVelocityY(-60);
+            this.orang.setVelocityY(-30);
             this.orang.play('jalanAtas');
         });
 
@@ -147,7 +150,7 @@ class Level03 extends Phaser.Scene {
         });
 
         this.kanan.on('pointerdown', () => {
-            this.orang.setVelocityX(60);
+            this.orang.setVelocityX(30);
             this.orang.play('jalan');
         });
 
@@ -156,87 +159,19 @@ class Level03 extends Phaser.Scene {
             this.orang.anims.stop();
         });
 
-        this.burung.play('terbang');
-        this.tweens.add({
-            targets: this.burung,
-            y: 9510,
-            yoyo: true,
-            ease: 'Power1',
-            repeat: -1,
-            duration: 500
+        this.atas.on('pointerup', () => {
+            this.orang.setVelocity(0);
+            this.orang.anims.stop();
         });
 
-        this.cutScn1 = this.tweens.createTimeline();
-        this.cutScn1.add({
-            targets: this.cameras.main,
-            scrollY: 9258,
-            duration: 3000,
-            onStart: () => {
-                this.orang.setVelocity(0);
-                this.orang.anims.stop();
-                this.panah.setVisible(false);
-                cTexBox2(this, 10, 10, {
-                    wrapWidth: 550,
-                })
-                .start(this.dialog.lv03.d01, 50);
-            },
-            onComplete: () => {
-                cTexBox2(this, 10, 10, {
-                    wrapWidth: 550,
-                })
-                .start(this.dialog.lv03.d02, 50);
-            }
-        });
-        this.cutScn1.add({
-            delay: 5000,
-            targets: this.cameras.main,
-            scrollY: 9258,
-            duration: 3000,
-            onStart: () => {
-                cTexBox2(this, 10, 10, {
-                    wrapWidth: 550,
-                })
-                .start(this.dialog.lv03.d03, 50);
-            }
-        });
-        this.cutScn1.add({
-            delay: 1000,
-            targets: this.cameras.main,
-            scrollY: 0,
-            duration: 4000,
-            ease: 'Power1',
-        });
-        this.cutScn1.add({
-            delay: 3000,
-            targets: this.cameras.main,
-            scrollY: 9258,
-            duration: 4000,
-            ease: 'Power1',
-        });
-        this.cutScn1.add({
-            delay: 2000,
-            targets: this.cameras.main,
-            scrollY: 9258,
-            duration: 3000,
-            onStart: () => {
-                cTexBox2(this, 10, 10, {
-                    wrapWidth: 550,
-                })
-                .start(this.dialog.lv03.d04, 50);
-            }
-        });
-        this.cutScn1.add({
-            delay: 2000,
+        this.burung.play('terbang');
+        this.cutScn = this.tweens.add({
             targets: this.burung,
-            x: 300,
-            y: 9000,
-            duration: 2000,
-            ease: 'Power1',
-            onComplete: () => {
-                this.burung.destroy();
-                this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
-                this.panah.setVisible(true);
-            }
+            x: 0,
+            y: 0,
+            ease: 'Circ.easeInOut',
+            duration: 20000,
+            paused: true
         });
 
         this.animatedTiles.init(this.lvl1);
@@ -244,11 +179,11 @@ class Level03 extends Phaser.Scene {
     }
 
     update() {
-        if (this.mark1 == false && this.orang.y < 9542){
-            this.cutScn1.play();
-            this.mark1 = true;
+        if (this.cutScn.isPlaying()){
+            this.cutScn.updateTo('x', this.orang.x, true);
+            this.cutScn.updateTo('y', this.orang.y - 40, true);
         }
-        
+
     }
 
 }

@@ -114,7 +114,9 @@ class Level09 extends Phaser.Scene {
         this.physics.add.existing(this.zonLv);
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
-            console.log("ke level 10");
+            this.cameras.main.fadeOut(500);
+            localStorage.setItem("currentLevel", "level10");
+            setTimeout(() => this.scene.start("level10"), 1000);
         }, null, this);
 
         this.burung.anims.play('terbang');
@@ -130,7 +132,7 @@ class Level09 extends Phaser.Scene {
         });
 
         this.kiri2.on('pointerdown', () => {
-            this.orang.setVelocityX(-40);
+            this.orang.setVelocityX(-35);
             this.orang.play('jalan');
         });
 
@@ -140,7 +142,7 @@ class Level09 extends Phaser.Scene {
         });
 
         this.bawah.on('pointerdown', () => {
-            this.orang.setVelocityY(40);
+            this.orang.setVelocityY(35);
             this.orang.play('jalan');
         });
 
@@ -150,7 +152,7 @@ class Level09 extends Phaser.Scene {
         });
 
         this.atas.on('pointerdown', () => {
-            this.orang.setVelocityY(-40);
+            this.orang.setVelocityY(-35);
             this.orang.play('jalanAtas');
         });
 
@@ -160,7 +162,7 @@ class Level09 extends Phaser.Scene {
         });
 
         this.kanan.on('pointerdown', () => {
-            this.orang.setVelocityX(40);
+            this.orang.setVelocityX(35);
             this.orang.play('jalan');
         });
 
