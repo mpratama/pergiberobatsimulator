@@ -116,7 +116,7 @@ class Level10 extends Phaser.Scene {
                 this.panah.setVisible(false);
                 this.orang.setVelocity(0)
                 this.orang.anims.stop();
-            }, 120000);
+            }, 10000);
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
@@ -170,8 +170,11 @@ class Level10 extends Phaser.Scene {
             x: 0,
             y: 0,
             ease: 'Circ.easeInOut',
-            duration: 20000,
-            paused: true
+            duration: 5000,
+            paused: true,
+            onComplete: () => {
+                console.log("Selesai");
+            }
         });
 
         this.animatedTiles.init(this.lvl1);
