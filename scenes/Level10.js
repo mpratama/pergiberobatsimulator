@@ -118,7 +118,7 @@ class Level10 extends Phaser.Scene {
                 this.panah.setVisible(false);
                 this.orang.setVelocity(0)
                 this.orang.anims.stop();
-            }, 10000);
+            }, 60000);
         }, null, this);
 
         this.sengBoleLewat = this.add.zone(704, 60, 96, 5).setOrigin(0);
@@ -251,7 +251,7 @@ class Level10 extends Phaser.Scene {
             },
             onComplete: () => {
                 console.log("mamama");
-                //this.scene.start("bad_ending_credit");
+                this.scene.start("badending");
             }
         });
 

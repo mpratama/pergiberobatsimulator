@@ -39,8 +39,8 @@
 		"d03" : "[color=#ec2049]\"Beta ada kabar buruk.\"\r\n\r\n[/color]",
 		"d04" : "[color=#ec2049]\"Beta su kaliling-kaliling. Ternyata [b]seng ada orang di puskesmas.[/b]\"\r\n\r\n[/color]",
 		"d05" : "[color=#ec2049]\"Kau tahan dolo.\"\r\n\r\n[/color]",
-		"d06" : "Karena kehabisan darah, akhirnya kau jatuh tak sadarkan diri.",
+		"d06" : "Karena kehilangan banyak darah, akhirnya kau jatuh tak sadarkan diri.",
 		"d07" : "Dan terlambat mendapat pertolongan.",
-		"d08" : "[i][color=#ff0000]B A D - E N D I N G[/color][/i]"
+		"d08" : "[b][i][color=#ff0000]B A D - E N D I N G[/color][/i][/b]"
 	}
 }
