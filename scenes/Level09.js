@@ -97,7 +97,7 @@ class Level09 extends Phaser.Scene {
             }
         });
         this.layer3 = this.lvl1.createDynamicLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.burung = this.add.sprite(1000, 210, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
+        this.burung = this.add.sprite(1000, 210, 'burung').setTint(0xec2049, 0xec2049, 0xf7db4f, 0x45ada8);
         this.buah = this.physics.add.image(585, 214, 'buah').setScale(2).setTint(0xff0000, 0xffffff, 0xff0000, 0xff0000).setAlpha(0);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -191,6 +191,7 @@ class Level09 extends Phaser.Scene {
             onStart: () => {
                 cTexBox2(this, 10, 10, {
                     wrapWidth: 550,
+                    warna: YELLOW,
                 })
                 .start(this.dialog.lv09.d01, 50);
             },

@@ -1,36 +1,46 @@
 {
 	"lv01" : {
-		"d01" : "Kamu mendapatkan kartu BPJS.\nBawa kartu ini setiap berobat.",
-		"d02" : "[color=#986500](atas)\n\n-Kampung Alam Surga-[/color]",
+		"d01" : "Kamu mendapatkan kartu BPJS.\r\n\r\n\nBawa kartu ini setiap berobat.",
+		"d02" : "(atas)\n\n-Kampung Alam Surga-",
 		"d03" : "Tanganmu sedang terluka.          \n\nSegeralah pergi ke puskesmas.          \nJalan ke puskesmas bukan lewat sini!          ",
-		"d04" : "[color=#FF7676](kiri)\n\nPuskesmas Pulau Alam Surga.          \nBuka jam 08.00-13.00.\nBawa kartu [b]BPJS[/b] anda jika berobat.\n                         -Staff PKM[/color]",
+		"d04" : "(kiri)\n\nPuskesmas Pulau Alam Surga.          \nBuka jam 08.00-13.00.\nBawa kartu [b]BPJS[/b] anda jika berobat.\n                         -Staff PKM",
 		"d05" : "Di sebuah daerah terpencil kepulauan.\r\n\r\nJauh dari hiruk pikuk perkotaan.",
 		"d06" : "Penduduk kampung beraktifitas sejak pagi.",
 		"d07" : "Mencari penghidupan dari alam.",
 		"d08" : "Tetapi.\r\n\r\nTerkadang terjadi kecelakaan saat bekerja.",
-		"d09" : "[color=#1EE714]\"Astagfirullah.. tanganku[/color] [color=#FF0000]berdarah[/color].\r\n\r\n[color=#1EE714]Harus segera aku obati.\"[/color]"
+		"d09" : "\"Astagfirullah.. tanganku [color=#FF0000]berdarah[/color].\r\n\r\nHarus segera aku obati.\""
 	},
 	"lv02" : {
-		"d01" : "[color=#0000FF]\"Hei kau manusia!\r\n\r\nKenapa tangan kau?\"\r\n\"Kasian sekali nasib kau.\"\r\n\r\n\r\n\"Beta burung penghuni pulau ini.\r\nBeta tahu semua tempat di pulau ini.\r\nKau harus segera pi puskesmas.\"\r\n\"Jalan ke puskesmas kampung lumayan jauh.\r\n\r\nMedannya juga bahaya. Kau bisa mati.\"\r\n\"Tapi seng perlu khawatir, beta antar kau sampe puskesmas.\"\r\n\r\n\r\n\"Satu lagi, di perjalanan ke puskesmas kau bakal lihat banyak plang kayu.\r\nMacam yg di sebelah kiri itu.\"\r\n\"Orang yg seng ada kerjaan pasang plang begitu di tengah hutan begini, siapa yg mau baca coba.\"\r\n\r\n\"Tapi harus kau baca,meski isinya [i]cringe[/i] tapi banyak petunjuk dan dapat membantu kau.\"\r\n\r\n\"Baca semua, seng boleh ada yang kelewat.\"\r\n\r\n\r\n\"Sekarang, ikutin jalan ke arah atas.\"[/color]"
+		"d01" : "[color=#ec2049]\"Hei kau manusia!\r\n\r\nKenapa tangan kau?\"\r\n\"Kasian sekali nasib kau.\"\r\n\r\n\r\n\"Beta burung penghuni pulau ini.\r\nBeta tahu semua tempat di pulau ini.\r\nKau harus segera pi puskesmas.\"\r\n\"Jalan ke puskesmas kampung lumayan jauh.\r\n\r\nMedannya juga bahaya. Kau bisa mati.\"\r\n\"Tapi seng perlu khawatir, beta antar kau sampe puskesmas.\"\r\n\r\n\r\n\"Satu lagi, di perjalanan ke puskesmas kau bakal lihat banyak plang kayu.\r\nMacam yg di sebelah kiri itu.\"\r\n\"Orang yg seng ada kerjaan pasang plang begitu di tengah hutan begini, siapa yg mau baca coba.\"\r\n\r\n\"Tapi harus kau baca,meski isinya [i]cringe[/i] tapi banyak petunjuk dan dapat membantu kau.\"\r\n\r\n\"Baca semua, seng boleh ada yang kelewat.\"\r\n\r\n\r\n\"Sekarang, ikutin jalan ke arah atas.\"[/color]"
 	},
 	"lv03" : {
-		"d01" : "[color=#0000FF]\"STOP!\"\r\n\r\n[/color]",
-		"d02" : "[color=#0000FF]\"Sekarang katong ada di bagian hutan yg luas.\"\r\n\r\n[/color]",
-		"d03" : "[color=#0000FF]\"Kau jalan terus sa ke bagian atas hutan.\"\r\n\r\n[/color]",
-		"d04" : "[color=#0000FF]\"Beta tunggu kau diatas e.\"\r\n\r\n[/color]"
+		"d01" : "[color=#ec2049]\"STOP!\"\r\n\r\n[/color]",
+		"d02" : "[color=#ec2049]\"Sekarang katong ada di bagian hutan yg luas.\"\r\n\r\n[/color]",
+		"d03" : "[color=#ec2049]\"Kau jalan terus sa ke bagian atas hutan.\"\r\n\r\n[/color]",
+		"d04" : "[color=#ec2049]\"Beta tunggu kau diatas e.\"\r\n\r\n[/color]"
 	},
 	"lv04" : {
-		"d01" : "[color=#0000FF]\"Hati hati!\"\r\n\r\n\r\n\"Di sini banyak burek.\r\n\r\nKau dapat gigit burek bisa langsung mati.\"\r\n\"Jalan keluar ada di pojok kiri atas.\"\r\n\r\n\r\n\"Pi sudah!.\"[/color]"
+		"d01" : "[color=#ec2049]\"Hati hati!\"\r\n\r\n\r\n\"Di sini banyak burek.\r\n\r\nKau dapat gigit burek bisa langsung mati.\"\r\n\"Jalan keluar ada di pojok kiri atas.\"\r\n\r\n\r\n\"Pi sudah!.\"[/color]"
 	},
 	"lv05" : {
-		"d01" : "[color=#0000FF]\"Alhamdulillah.\r\n\r\nAir laut lagi meti.\"\r\n\"Kau bisa jalan kaki ke pulau sebelah.\"[/color]",
-		"d02" : "[color=#0000FF]\"Eits!\r\n\r\nTunggu dulu!\"\r\n\"Kau lihat makhluk yang berenang cepat itu?\"\r\n\r\n\r\n\"Terlihat seperti kecebong tapi bukan.\r\n\r\nItu adalah ikan pari.\"\r\n\"Hati-hati jangan sampai dapat sentuh.\"\r\n\r\n\r\n\"Ekornya tajam bergerigi.\r\n\r\nKau dapat tusuk langsung mati.\"[/color]",
-		"d03" : "[color=#0000FF]\"Kau masih kuat berjalan kaseng?\"\r\n\r\n\r\n\"Jalan masih jauh.\"\r\n[/color]"
+		"d01" : "[color=#ec2049]\"Alhamdulillah.\r\n\r\nAir laut lagi meti.\"\r\n\"Kau bisa jalan kaki ke pulau sebelah.\"[/color]",
+		"d02" : "[color=#ec2049]\"Eits!\r\n\r\nTunggu dulu!\"\r\n\"Kau lihat makhluk yang berenang cepat itu?\"\r\n\r\n\r\n\"Terlihat seperti kecebong tapi bukan.\r\n\r\nItu adalah ikan pari.\"\r\n\"Hati-hati jangan sampai dapat sentuh.\"\r\n\r\n\r\n\"Ekornya tajam bergerigi.\r\n\r\nKau dapat tusuk langsung mati.\"[/color]",
+		"d03" : "[color=#ec2049]\"Kau masih kuat berjalan kaseng?\"\r\n\r\n\r\n\"Jalan masih jauh.\"\r\n[/color]"
 	},
 	"lv06" : {
-		"d01" : "[color=#0000FF]\"Kau seng apa-apa toh?\"\r\n\r\n\r\n\"Kau pu wajah pucat.\"\r\n\r\n\r\n\"Jalan juga taputar-putar.\"[/color]"
+		"d01" : "[color=#ec2049]\"Kau seng apa-apa toh?\"\r\n\r\n\r\n\"Kau pu wajah pucat.\"\r\n\r\n\r\n\"Jalan juga taputar-putar.\"[/color]"
 	},
 	"lv09" : {
-		"d01" : "[color=#0000FF]\"Ayo! Sedikit lagi sampai Puskesmas.\r\n\r\nMakan buah ini dolo!\"[/color]"
+		"d01" : "[color=#ec2049]\"Ayo! Sedikit lagi sampai Puskesmas.\r\n\r\nMakan buah ini dolo!\"[/color]"
+	},
+	"lv10" : {
+		"d01" : "Mau pi mana?\r\n\r\n\r\nPuskesmas su ada di dapan mata.\r\n\r\n\r\nKau malah belok ke tampa lain.\r\n\r\n\r\nOm fuar!",
+		"d02" : "[color=#ec2049]\"Bro!\"\r\n\r\n[/color]",
+		"d03" : "[color=#ec2049]\"Beta ada kabar buruk.\"\r\n\r\n[/color]",
+		"d04" : "[color=#ec2049]\"Beta su kaliling-kaliling. Ternyata [b]seng ada orang di puskesmas.[/b]\"\r\n\r\n[/color]",
+		"d05" : "[color=#ec2049]\"Kau tahan dolo.\"\r\n\r\n[/color]",
+		"d06" : "Karena kehabisan darah, akhirnya kau jatuh tak sadarkan diri.",
+		"d07" : "Dan terlambat mendapat pertolongan.",
+		"d08" : "[i][color=#ff0000]B A D - E N D I N G[/color][/i]"
 	}
 }

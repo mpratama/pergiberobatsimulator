@@ -83,7 +83,7 @@ class Level01 extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, 800, 480);
         this.orang.body.collideWorldBounds = true;
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
-        this.burung = this.add.sprite(1000, 100, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000).setVisible(false);
+        this.burung = this.add.sprite(1000, 100, 'burung').setTint(0xec2049, 0xec2049, 0xf7db4f, 0x45ada8).setVisible(false);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         //this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -118,6 +118,7 @@ class Level01 extends Phaser.Scene {
             this.panah.setVisible(false);
             createTextBox(this, 10, 10, {
                 wrapWidth: 550,
+                warna: COKLAT,
             })
             .start(this.dialog.lv01.d02, 50);
         }, null, this);
@@ -131,6 +132,7 @@ class Level01 extends Phaser.Scene {
             this.panah.setVisible(false);
             createTextBox(this, 10, 10, {
                 wrapWidth: 550,
+                warna: COKLAT,
             })
             .start(this.dialog.lv01.d04, 50);
         }, null, this);
@@ -143,9 +145,10 @@ class Level01 extends Phaser.Scene {
             if(this.bpjscard == 0){
                 this.tringSound.play();
                 this.orang.anims.stop();
-            this.panah.setVisible(false);
+                this.panah.setVisible(false);
             createTextBox(this, 10, 10, {
                 wrapWidth: 550,
+                warna: '0x355c7d',
             })
             .start(this.dialog.lv01.d01, 50);
                 this.bpjscard += 1;

@@ -68,7 +68,7 @@ class MenuScene extends Phaser.Scene {
             frameRate: 8,
             repeat: -1
         });
-        this.burung = this.add.sprite(Phaser.Math.Between(-10, 510), 0, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
+        this.burung = this.add.sprite(Phaser.Math.Between(-10, 510), 0, 'burung').setTint(0xec2049, 0xec2049, 0xf7db4f, 0x45ada8);
         this.ruteTerbang = this.tweens.createTimeline();
         this.ruteTerbang.loop = -1;
         this.ruteTerbang.add({

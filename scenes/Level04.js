@@ -114,7 +114,7 @@ class Level04 extends Phaser.Scene {
             }
         });
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.burung = this.add.sprite(600, 415, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
+        this.burung = this.add.sprite(600, 415, 'burung').setTint(0xec2049, 0xec2049, 0xf7db4f, 0x45ada8);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -260,6 +260,7 @@ class Level04 extends Phaser.Scene {
             this.panah.setVisible(false);
             createTextBox(this, 10, 10, {
                 wrapWidth: 550,
+                warna: YELLOW,
             })
             .start(this.dialog.lv04.d01, 50);
         }

@@ -14,16 +14,19 @@ const RED = 0xff0000;
 const WHITE = 0xffffff;
 const BLUE = 0x0000ff;
 const GREEN = 0x00ff00;
+const COKLAT = 0xc8c8a9;
+const YELLOW = 0xf7db4f;
 const GetValue = Phaser.Utils.Objects.GetValue;
 var createTextBox = function (scene, x, y, config) {
     var wrapWidth = GetValue(config, 'wrapWidth', 0);
     var fixedWidth = GetValue(config, 'fixedWidth', 0);
     var fixedHeight = GetValue(config, 'fixedHeight', 0);
+    var bgColor = GetValue(config, 'warna', BLACK);
     var textBox = scene.rexUI.add.textBox({
             x: x,
             y: y,
 
-            background: scene.add.rectangle(10, 5, 588, 80, BLACK),
+            background: scene.rexUI.add.roundRectangle(10, 5, 588, 80, 5, bgColor, 0.5),
 
             // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
             text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
@@ -67,11 +70,12 @@ var cTexBox2 = function (scene, x, y, config) {
     var wrapWidth = GetValue(config, 'wrapWidth', 0);
     var fixedWidth = GetValue(config, 'fixedWidth', 0);
     var fixedHeight = GetValue(config, 'fixedHeight', 0);
+    var bgColor = GetValue(config, 'warna', BLACK);
     var textBox = scene.rexUI.add.textBox({
             x: x,
             y: y,
 
-            background: scene.add.rectangle(10, 5, 588, 80, BLACK),
+            background: scene.rexUI.add.roundRectangle(10, 5, 588, 80, 5, bgColor, 0.5),
 
             // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
             text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
@@ -142,7 +146,7 @@ let config = {
         default: "arcade",
         arcade: {
             fps: 60,
-            debug: false //set false jika siap production
+            debug: true //set false jika siap production
         }
     },
     scale: {

@@ -24,6 +24,7 @@ class Level10 extends Phaser.Scene {
     }
 
     create() {
+        this.dialog = this.cache.json.get('dialogjson');
         this.cameras.main.fadeIn();
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
@@ -95,7 +96,7 @@ class Level10 extends Phaser.Scene {
             }
         });
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.burung = this.add.sprite(Math.random() * 800, -400, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
+        this.burung = this.add.sprite(Math.random() * 800, -400, 'burung').setTint(0xec2049, 0xec2049, 0xf7db4f, 0x45ada8);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -111,12 +112,37 @@ class Level10 extends Phaser.Scene {
         this.triggerDead.body.setImmovable();
         this.physics.add.collider(this.orang, this.triggerDead, () => {
             this.triggerDead.destroy();
+            this.sengBoleLewat2.destroy();
             setTimeout(() => {
                 this.cutScn.play();
                 this.panah.setVisible(false);
                 this.orang.setVelocity(0)
                 this.orang.anims.stop();
             }, 10000);
+        }, null, this);
+
+        this.sengBoleLewat = this.add.zone(704, 60, 96, 5).setOrigin(0);
+        this.physics.add.existing(this.sengBoleLewat);
+        this.sengBoleLewat.body.setImmovable();
+        this.physics.add.collider(this.orang, this.sengBoleLewat, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv10.d01, 50);
+        }, null, this);
+
+        this.sengBoleLewat2 = this.add.zone(300, 279, 5, 120).setOrigin(0);
+        this.physics.add.existing(this.sengBoleLewat2);
+        this.sengBoleLewat2.body.setImmovable();
+        this.physics.add.collider(this.orang, this.sengBoleLewat2, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+            })
+            .start(this.dialog.lv10.d01, 50);
         }, null, this);
 
         this.kiri.on('pointerdown', () => {
@@ -164,6 +190,71 @@ class Level10 extends Phaser.Scene {
             this.orang.anims.stop();
         });
 
+        this.ending = this.tweens.createTimeline();
+        this.ending.add({
+            targets: this.sengBoleLewat,
+            y: this.sengBoleLewat.y,
+            duration: 3000,
+            onStart: () =>{
+                cTexBox2(this, 10, 10, {
+                    wrapWidth: 550,
+                    warna: YELLOW,
+                })
+                .start(this.dialog.lv10.d02, 50);
+            },
+            onComplete: () => {
+                cTexBox2(this, 10, 10, {
+                    wrapWidth: 550,
+                    warna: YELLOW,
+                })
+                .start(this.dialog.lv10.d03, 50);
+            }
+        });
+        this.ending.add({
+            delay: 5000,
+            targets: this.sengBoleLewat,
+            y: this.sengBoleLewat.y,
+            duration: 6000,
+            onStart: () => {
+                cTexBox2(this, 10, 10, {
+                    wrapWidth: 550,
+                    warna: YELLOW,
+                })
+                .start(this.dialog.lv10.d04, 50);
+            },
+            onComplete: () => {
+                this.orang.play("mati");
+                this.tetesan.stop();
+            }
+        });
+        this.ending.add({
+            delay: 1000,
+            targets: this.sengBoleLewat,
+            y: this.sengBoleLewat.y,
+            duration: 2000,
+            onStart: () => {
+                cTexBox2(this, 10, 10, {
+                    wrapWidth: 550,
+                    warna: YELLOW,
+                })
+                .start(this.dialog.lv10.d05, 50);
+            }
+        });
+        this.ending.add({
+            delay: 1000,
+            targets: this.burung,
+            x: 713,
+            y: 0,
+            duration: 5000,
+            onStart: () => {
+                this.cameras.main.fadeOut(3000);
+            },
+            onComplete: () => {
+                console.log("mamama");
+                //this.scene.start("bad_ending_credit");
+            }
+        });
+
         this.burung.play('terbang');
         this.cutScn = this.tweens.add({
             targets: this.burung,
@@ -173,7 +264,7 @@ class Level10 extends Phaser.Scene {
             duration: 5000,
             paused: true,
             onComplete: () => {
-                console.log("Selesai");
+                this.ending.play();
             }
         });
 

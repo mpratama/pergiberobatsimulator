@@ -120,7 +120,7 @@ class Level05 extends Phaser.Scene {
             repeat: -1
         });
 
-        this.orang = this.physics.add.sprite(this.objek[0].x, this.objek[0].y, "char", 0).setTint(0xffffff);
+        this.orang = this.physics.add.sprite(this.objek[0].x, 152, "char", 0).setTint(0xffffff);
         this.orang.body.setSize(10,15);
 
         this.physics.world.setBounds(0, 0, 4800, 480);
@@ -140,7 +140,7 @@ class Level05 extends Phaser.Scene {
             }
         });
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, 0);
-        this.burung = this.add.sprite(4728, 117, 'burung').setTint(0x0000ff, 0xffff00, 0x0000ff, 0xff0000);
+        this.burung = this.add.sprite(4728, 117, 'burung').setTint(0xec2049, 0xec2049, 0xf7db4f, 0x45ada8);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
         this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
@@ -266,6 +266,7 @@ class Level05 extends Phaser.Scene {
             onStart: () => {
                 createTextBox(this, 10, 10, {
                     wrapWidth: 550,
+                    warna: YELLOW,
                 })
                 .start(this.dialog.lv05.d03, 50);
             },
@@ -374,6 +375,7 @@ class Level05 extends Phaser.Scene {
             this.panah.setVisible(false);
             createTextBox(this, 10, 10, {
                 wrapWidth: 550,
+                warna: YELLOW,
             })
             .start(this.dialog.lv05.d01, 50);
         }
@@ -390,6 +392,7 @@ class Level05 extends Phaser.Scene {
             this.panah.setVisible(false);
             createTextBox(this, 10, 10, {
                 wrapWidth: 550,
+                warna: YELLOW,
             })
             .start(this.dialog.lv05.d02, 50); //x: 4473, y:234
         }
