@@ -40,7 +40,15 @@
 		"d04" : "[color=#ec2049]\"Beta su kaliling-kaliling. Ternyata [b]seng ada orang di puskesmas.[/b]\"\r\n\r\n[/color]",
 		"d05" : "[color=#ec2049]\"Kau tahan dolo.\"\r\n\r\n[/color]",
 		"d06" : "Karena kehilangan banyak darah, akhirnya kau jatuh tak sadarkan diri.",
-		"d07" : "Dan terlambat mendapat pertolongan.",
-		"d08" : "[b][i][color=#ff0000]B A D - E N D I N G[/color][/i][/b]"
+		"d07" : "Dan terlambat mendapatkan pertolongan.",
+		"d08" : "[i][color=#000000][b]B A D - E N D I N G[/b][/color][/i]"
+	},
+	"lv10b" : {
+		"d01" : "[color=#ec2049]\"Alhamdulillah\"\r\n\r\n[/color]",
+		"d02" : "[color=#ec2049]\"Ibu bidan ada di belakang.\"\r\n\r\n[/color]",
+		"d03" : "[color=#000000]\"Astagfirullah!\"\r\n\r\n[/color]",
+		"d04" : "[color=#000000]\"Antua kenapa pu tangan?\"\r\n\r\n[/color]",
+		"d05" : "[color=#000000]\"Dapat potong kah?\"\r\n\r\n[/color]",
+		"d06" : "[color=#000000]\"Ayo sudah beta obati!\"\r\n\r\n[/color]"
 	}
 }
