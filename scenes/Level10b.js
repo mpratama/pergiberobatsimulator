@@ -94,9 +94,9 @@ class Level10b extends Phaser.Scene {
             repeat: -1
         });
 
+        this.nurse = this.physics.add.sprite(535, 90, "char", 15).setVisible(false);
+        this.apt = this.physics.add.sprite(565, 70, "char", 20).setVisible(false);
         this.orang = this.physics.add.sprite(795, 279, "char", 0);
-        this.nurse = this.physics.add.sprite(535, 90, "char", 15);
-        this.apt = this.physics.add.sprite(565, 70, "char", 20);
         
         this.orang.body.setSize(10,14);
         this.physics.world.setBounds(0, 0, 800, 480);
@@ -209,6 +209,81 @@ class Level10b extends Phaser.Scene {
         this.atas.on('pointerup', () => {
             this.orang.setVelocity(0);
             this.orang.anims.stop();
+        });
+
+        this.aptEnd = this.tweens.createTimeline();
+        this.orgEnd = this.tweens.createTimeline();
+
+        this.aptEnd.add({
+            delay: 1000,
+            targets: this.apt,
+            x: 543,
+            duration: 2000,
+            onStart: () => {
+                this.apt.play('aptjalan');
+            },
+            onComplete: () => {
+                this.apt.anims.stop();
+            }
+        });
+        this.aptEnd.add({
+            targets: this.apt,
+            y: 105,
+            duration: 1500,
+            onStart: () => {
+                this.apt.play('aptjalan');
+            },
+            onComplete: () => {
+                this.apt.anims.stop();
+            }
+        });
+        this.aptEnd.add({
+            delay: 1000,
+            targets: this.apt,
+            x: 410,
+            duration: 6000,
+            onStart: () => {
+                this.apt.play('aptjalan');
+            },
+            onComplete: () => {
+                this.apt.anims.stop();
+            }
+        });
+        this.aptEnd.add({
+            targets: this.apt,
+            y: 150,
+            duration: 5000,
+            onStart: () => {
+                this.apt.play('aptjalan');
+            },
+            onComplete: () => {
+                this.apt.anims.stop();
+            }
+        });
+        this.orgEnd.add({
+            delay: 5500,
+            targets: this.orang,
+            x: 410,
+            duration: 6000,
+            onStart: () => {
+                this.orang.play('jalan');
+            },
+            onComplete: () => {
+                this.orang.anims.stop();
+            }
+        });
+        this.orgEnd.add({
+            targets: this.orang,
+            y: 150,
+            duration: 5000,
+            onStart: () => {
+                this.orang.play('jalan');
+                this.cameras.main.fadeOut(4500);
+            },
+            onComplete: () => {
+                this.orang.anims.stop();
+                console.log("start ending scene");
+            }
         });
 
         this.ending = this.tweens.createTimeline();
@@ -381,6 +456,8 @@ class Level10b extends Phaser.Scene {
             },
             onComplete: () => {
                 this.nurse.destroy();
+                this.aptEnd.play();
+                this.orgEnd.play();
             }
         });
 
