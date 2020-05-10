@@ -282,7 +282,7 @@ class Level10b extends Phaser.Scene {
             },
             onComplete: () => {
                 this.orang.anims.stop();
-                console.log("start ending scene");
+                this.scene.start('lv10bb');
             }
         });
 

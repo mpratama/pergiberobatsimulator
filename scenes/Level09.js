@@ -25,6 +25,7 @@ class Level09 extends Phaser.Scene {
     create() {
         this.dialog = this.cache.json.get('dialogjson');
         this.mark0 = 0;
+        this.endingFork = JSON.parse(localStorage.getItem("kartuBPJS"));
         this.cameras.main.fadeIn();
         this.dialog = this.cache.json.get('dialogjson');
         
@@ -116,7 +117,9 @@ class Level09 extends Phaser.Scene {
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
             localStorage.setItem("currentLevel", "level10");
-            setTimeout(() => this.scene.start("level10"), 1000);
+            if (this.endingFork == "0") {setTimeout(() => this.scene.start("level10"), 1000);}
+            else {setTimeout(() => this.scene.start("level10b"), 1000);}
+            
         }, null, this);
 
         this.burung.anims.play('terbang');
