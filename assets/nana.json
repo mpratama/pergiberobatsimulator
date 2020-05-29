@@ -1,26 +1,26 @@
 {
 	"lv01" : {
 		"d01" : "Kamu mendapatkan kartu BPJS.\r\n\r\n\nBawa kartu ini setiap berobat.",
-		"d02" : "(atas)\n\n-Kampung Alam Surga-",
+		"d02" : "(atas)\n\n-Ohoi Alam Surga-",
 		"d03" : "Tanganmu sedang terluka.          \n\nSegeralah pergi ke puskesmas.          \nJalan ke puskesmas bukan lewat sini!          ",
 		"d04" : "(kiri)\n\nPuskesmas Pulau Alam Surga.          \nBuka jam 08.00-13.00.\nBawa kartu [b]BPJS[/b] anda jika berobat.\n                         -Staff PKM",
 		"d05" : "Di sebuah daerah terpencil kepulauan.\r\n\r\nJauh dari hiruk pikuk perkotaan.",
 		"d06" : "Penduduk kampung beraktifitas sejak pagi.",
 		"d07" : "Mencari penghidupan dari alam.",
 		"d08" : "Tetapi.\r\n\r\nTerkadang terjadi kecelakaan saat bekerja.",
-		"d09" : "\"Astagfirullah.. tanganku [color=#FF0000]berdarah[/color].\r\n\r\nHarus segera aku obati.\""
+		"d09" : "\"Astagfirullah.. tangan beta [color=#FF0000]berdarah[/color].\r\n\r\nHarus segera beta obati.\""
 	},
 	"lv02" : {
-		"d01" : "[color=#ec2049]\"Hei kau manusia!\r\n\r\nKenapa tangan kau?\"\r\n\"Kasian sekali nasib kau.\"\r\n\r\n\r\n\"Beta burung penghuni pulau ini.\r\nBeta tahu semua tempat di pulau ini.\r\nKau harus segera pi puskesmas.\"\r\n\"Jalan ke puskesmas kampung lumayan jauh.\r\n\r\nMedannya juga bahaya. Kau bisa mati.\"\r\n\"Tapi seng perlu khawatir, beta antar kau sampe puskesmas.\"\r\n\r\n\r\n\"Satu lagi, di perjalanan ke puskesmas kau bakal lihat banyak plang kayu.\r\nMacam yg di sebelah kiri itu.\"\r\n\"Orang yg seng ada kerjaan pasang plang begitu di tengah hutan begini, siapa yg mau baca coba.\"\r\n\r\n\"Tapi harus kau baca,meski isinya [i]cringe[/i] tapi banyak petunjuk dan dapat membantu kau.\"\r\n\r\n\"Baca semua, seng boleh ada yang kelewat.\"\r\n\r\n\r\n\"Sekarang, ikutin jalan ke arah atas.\"[/color]"
+		"d01" : "[color=#ec2049]\"Hei kau manusia!\r\n\r\n\r\nKenapa kau pu tangan?\"\r\n\r\n\r\n\"Kasian sekali nasib kau.\"\r\n\r\n\r\n\"Beta burung Tanat Evav.\r\nBeta tahu semua tempat di pulau ini.\r\nKau harus segera pi puskesmas.\"\r\n\"Jalan ke puskesmas kampung lumayan jauh.\"\r\n\r\n\r\n\"Kau harus masuk hutan dan bajalan jauh.\"\r\n\r\n\r\n\"Medannya juga bahaya. Kau bisa mati.\"\r\n\r\n\r\n\"Tapi kau seng perlu khawatir.\"\r\n\r\n\r\n\"Beta antar kau sampai di puskesmas.\"\r\n\r\n\r\n\"Supaya kau seng tersesat.\"\r\n\r\n\r\n\"Bahaya kalau kau sampai tersesat di hutan.\"\r\n\r\n\r\n\"Satu lagi.\"\r\n\r\n\r\n\"Di perjalanan ke puskesmas kau bakal lihat banyak plang kayu.\r\nMacam yg di sebelah kiri itu.\"\r\n\r\n\"Fa fuar pasang plang info sembarang begitu.\"\r\n\r\n\r\n\"Orang yg seng ada kerjaan pasang plang begitu di tengah hutan begini, siapa yg mau baca coba.\"\r\n\r\n\"Tapi kalau ketemu dijalan dibaca boleh. Kasian itu orang su pasang. Wkwkwkwk. \"\r\n\r\n\"Isi tulisannya berguna juga.\"\r\n\r\n\r\n\"Baca semua, seng boleh ada yang terlewat.\"\r\n\r\n\r\n\"Oke. Kau su paham?\"\r\n\r\n\r\n\"Sekarang, kau ikuti jalan ke arah atas.\"[/color]"
 	},
 	"lv03" : {
 		"d01" : "[color=#ec2049]\"STOP!\"\r\n\r\n[/color]",
-		"d02" : "[color=#ec2049]\"Sekarang katong ada di bagian hutan yg luas.\"\r\n\r\n[/color]",
+		"d02" : "[color=#ec2049]\"Sekarang katong su masuk wilayah hutan.\"\r\n\r\n[/color]",
 		"d03" : "[color=#ec2049]\"Kau jalan terus sa ke bagian atas hutan.\"\r\n\r\n[/color]",
 		"d04" : "[color=#ec2049]\"Beta tunggu kau diatas e.\"\r\n\r\n[/color]"
 	},
 	"lv04" : {
-		"d01" : "[color=#ec2049]\"Hati hati!\"\r\n\r\n\r\n\"Di sini banyak burek.\r\n\r\nKau dapat gigit burek bisa langsung mati.\"\r\n\"Jalan keluar ada di pojok kiri atas.\"\r\n\r\n\r\n\"Pi sudah!.\"[/color]"
+		"d01" : "[color=#ec2049]\"Hati hati!\"\r\n\r\n\r\n\"Di sini banyak burek.\r\n\r\nKau dapat gigit burek bisa langsung mati.\"\r\n\"Jalan keluar ada di pojok kiri atas.\"\r\n\r\n\r\n\"Pi sudah!\"[/color]"
 	},
 	"lv05" : {
 		"d01" : "[color=#ec2049]\"Alhamdulillah.\r\n\r\nAir laut lagi meti.\"\r\n\"Kau bisa jalan kaki ke pulau sebelah.\"[/color]",
@@ -50,5 +50,13 @@
 		"d04" : "[color=#000000]\"Antua kenapa pu tangan?\"\r\n\r\n[/color]",
 		"d05" : "[color=#000000]\"Dapat potong kah?\"\r\n\r\n[/color]",
 		"d06" : "[color=#000000]\"Ayo sudah beta obati!\"\r\n\r\n[/color]"
+	},
+	"ge" : {
+		"d01" : "Tangan penduduk desa telah diobati.",
+		"d02" : "Nyawa penduduk desa terselamatkan.",
+		"d03" : "Penduduk desa sudah bekerja kembali seperti sedia kala.",
+		"d04" : "Terima kasih kepada Nakes yang bertugas tanpa pamrih.",
+		"d05" : "Pahlawan kemanusiaan kami.",
+		"d06" : "G O O D - E N D I N G"
 	}
 }

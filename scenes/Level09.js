@@ -116,7 +116,7 @@ class Level09 extends Phaser.Scene {
         this.zonLv.body.setImmovable();
         this.physics.add.collider(this.orang, this.zonLv, () => {
             this.cameras.main.fadeOut(500);
-            localStorage.setItem("currentLevel", "level10");
+            //localStorage.setItem("currentLevel", "level10");
             if (this.endingFork == "0") {setTimeout(() => this.scene.start("level10"), 1000);}
             else {setTimeout(() => this.scene.start("level10b"), 1000);}
             

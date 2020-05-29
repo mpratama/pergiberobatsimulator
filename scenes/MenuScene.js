@@ -6,6 +6,11 @@ class MenuScene extends Phaser.Scene {
     }
 
     preload() {
+        this.load.scenePlugin({
+            key: 'rexuiplugin',
+            url: 'rexuiplugin.min.js',
+            sceneKey: 'rexUI'
+        });
         this.progress = this.add.graphics();
         this.load.on('progress', (value) => {
             this.progress.clear();
@@ -19,7 +24,7 @@ class MenuScene extends Phaser.Scene {
         this.load.image('bg', 'assets/bgMenu.png');
         this.load.image('darah', 'assets/darah.png');
         this.load.image('buah', 'assets/buah.png');
-        this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
+        //this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
         this.load.audio('startGame', ['music/startGame.mp3', 'music/startGame.ogg']);
         this.load.audio('getItem', 'music/getItem.mp3');
         //this.load.bitmapFont('gem', 'assets/gem.png', 'assets/gem.xml');
@@ -43,6 +48,7 @@ class MenuScene extends Phaser.Scene {
         this.load.tilemapTiledJSON('lv09', 'assets/peta09.json');
         this.load.tilemapTiledJSON('lv10', 'assets/peta10.json');
         this.load.tilemapTiledJSON('gdsc', 'assets/goodscene.json');
+        this.load.tilemapTiledJSON('gdend', 'assets/goodending.json');
 
         //load spritesheet utk 4 tombol kontrol panah
         this.load.spritesheet('kontrol', 'assets/control.png', {frameHeight: 50, frameWidth: 50})
@@ -55,13 +61,14 @@ class MenuScene extends Phaser.Scene {
     
     create() {
         this.startText = "";
+        this.markds = localStorage.getItem("currentLevel");
         this.startTextChecker();
         this.d = new Date();
         this.bg = this.add.image(game.config.width/2, 167, 'bg').setScale(1.2, 1.2);
-        this.menuMusic = this.sound.add('menuMusic');
+        /*this.menuMusic = this.sound.add('menuMusic');
         this.menuMusic.play("", {
             loop: true
-        });
+        });*/
         this.startSound = this.sound.add('startGame');
         this.terbang = this.anims.create({
             key: 'terbang',
@@ -117,10 +124,19 @@ class MenuScene extends Phaser.Scene {
         this.burung.play('terbang');
         this.ruteTerbang.play();
         this.cp = this.add.bitmapText(10, 320, 'gem', "v1.0 \u00A9Pratama " + this.d.getFullYear(), 16).setCenterAlign();
+        this.delSv = this.add.bitmapText(550, 320, 'gem', "DelSv", 16).setCenterAlign().setInteractive().setVisible(false);
+        this.delSaveChecker();
         this.pergi = this.add.bitmapText(93, 130, 'gem', "Pergi", 20).setCenterAlign();
         this.pulau = this.add.bitmapText(310, 195, 'gem', "-Remote Island Edition-", 18).setCenterAlign();
         this.judul = this.add.bitmapText(game.config.width / 2, 170, 'gem', "Berobat Simulator", 50).setOrigin(0.5).setCenterAlign();
         this.mulai = this.add.dynamicBitmapText(game.config.width / 2, 265, 'gem', this.startText, 30).setOrigin(0.5).setCenterAlign().setInteractive().setVisible(false);
+        this.rr = this.rexUI.add.roundRectangle(300, 210, 300, 150, 5, BLACK, 1);
+        this.ds = this.add.bitmapText(190, 170, 'gem', "Delete Save File?", 25).setCenterAlign();
+        this.y = this.add.bitmapText(190, 220, 'gem', "YES", 30).setCenterAlign().setInteractive();
+        this.n = this.add.bitmapText(370, 220, 'gem', "NO", 30).setCenterAlign().setInteractive();
+        this.g = this.add.group();
+        this.g.addMultiple([this.rr, this.ds, this.y, this.n]);
+        this.g.setVisible(false);
         this.mulai.setDisplayCallback(this.getar);
         this.mulaiMuncul = this.time.addEvent({delay: 2500, callback: () => {this.mulai.setVisible(true)}, callbackScope: this});
         this.tweens.add({
@@ -143,8 +159,26 @@ class MenuScene extends Phaser.Scene {
             y: Phaser.Math.Between(165, 175)
           });
 
+        this.delSv.on('pointerdown', () => {
+            this.g.setVisible(true);
+        });
+        this.n.on('pointerdown', () => {
+            this.g.setVisible(false);
+        });
+        this.y.on('pointerdown', () => {
+            this.g.setVisible(false);
+            game._CURRLEVEL = "level01";
+            this.delSv.setVisible(false);
+            this.mulai.setText("Start Game");
+            localStorage.setItem("currentLevel", "level01");
+            localStorage.setItem("lv04-mark1", "false");
+            localStorage.setItem("lv05-mark1", "false");
+            localStorage.setItem("lv05-mark2", "false");
+            //this.scene.start("menuScene");
+        });
+
         this.mulai.once('pointerdown', () => {
-            this.menuMusic.stop();
+            //this.menuMusic.stop();
             this.startSound.play();
             this.cameras.main.fadeOut(500);
             //this.scene.start('level01');
@@ -165,6 +199,14 @@ class MenuScene extends Phaser.Scene {
         }
         else {
             this.startText = "Continue";
+        }
+    }
+    delSaveChecker(){
+        if (this.markds == "level01"){
+            console.log("pass");
+        }
+        else {
+            this.delSv.setVisible(true);
         }
     }
 

@@ -87,6 +87,9 @@ class Level03 extends Phaser.Scene {
             }
         });
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
+        this.finish = this.add.dynamicBitmapText(130, 150, 'gem', "Finish diatas sini!", 40).setCenterAlign().setAlpha(0.8);
+        this.finish.setDisplayCallback(this.getar);
+        //this.mulai = this.add.dynamicBitmapText(game.config.width / 2, 265, 'gem', this.startText, 30).setOrigin(0.5).setCenterAlign().setInteractive().setVisible(false);
         this.burung = this.add.sprite(168, 9505, 'burung').setTint(0xec2049, 0xec2049, 0xf7db4f, 0x45ada8);
         this.physics.add.collider(this.orang, this.layer2, null, null, this);
 
@@ -238,6 +241,7 @@ class Level03 extends Phaser.Scene {
             ease: 'Power1',
             onComplete: () => {
                 this.burung.destroy();
+                this.finish.destroy();
                 this.cameras.main.startFollow(this.orang, true, 0.09, 0.09);
                 this.panah.setVisible(true);
             }
@@ -245,6 +249,13 @@ class Level03 extends Phaser.Scene {
 
         this.animatedTiles.init(this.lvl1);
         
+    }
+
+    getar(data) {
+        data.x = Phaser.Math.Between(data.x - 1, data.x + 1);
+        data.y = Phaser.Math.Between(data.y - 1, data.y + 1);
+        return data;
+
     }
 
     update() {

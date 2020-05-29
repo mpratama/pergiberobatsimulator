@@ -95,7 +95,10 @@ class Level10bb extends Phaser.Scene {
 
         setTimeout(() => {
             console.log("ctscene selesai");
-            this.cameras.main.fadeOut(3000, 90, 197, 208);
+            this.cameras.main.fadeOut(3000);
+            setTimeout(() => {
+                this.scene.start('goodending');
+            }, 5000);
         }, 20000);
     }
 }
