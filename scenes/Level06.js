@@ -113,6 +113,19 @@ class Level06 extends Phaser.Scene {
             localStorage.setItem("currentLevel", "level07");
         }, null, this);
 
+        this.plang01 = this.add.zone(392, 218, 15, 15);
+        this.physics.add.existing(this.plang01);
+        this.plang01.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang01, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv06.d02, 50);
+        }, null, this);
+
         this.kiri.on('pointerdown', () => {
             this.orang.setVelocityX(-50);
             this.orang.play('jalan');

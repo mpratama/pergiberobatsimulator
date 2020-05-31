@@ -36,10 +36,13 @@
 	"lv05" : {
 		"d01" : "[color=#ec2049]\"Alhamdulillah.\r\n\r\nAir laut lagi meti.\"\r\n\"Kau bisa jalan kaki ke pulau sebelah.\"[/color]",
 		"d02" : "[color=#ec2049]\"Eits!\r\n\r\nTunggu dulu!\"\r\n\"Kau lihat makhluk yang berenang cepat itu?\"\r\n\r\n\r\n\"Terlihat seperti kecebong, tapi sebearnya bukan.\r\n\r\nItu adalah ikan pari.\"\r\n\"Hati-hati jangan sampai dapat sentuh.\"\r\n\r\n\r\n\"Ekornya tajam bergerigi.\r\n\r\nKau dapat tusuk langsung mati.\"[/color]",
-		"d03" : "[color=#ec2049]\"Kau masih kuat bajalan kaseng?\"\r\n\r\n\r\n\"Jalan masih jauh.\"\r\n[/color]"
+		"d03" : "[color=#ec2049]\"Kau masih kuat bajalan kaseng?\"\r\n\r\n\r\n\"Jalan masih jauh.\"\r\n[/color]",
+		"d04" : "Ayo banyak-banyak makan ikan.\r\n\r\n\r\nKalau rutin makan ikan banyak manfaatnya loch.\r\n\r\n\r\n- Sumber protein terbaik.\r\n- Menurunkan resiko stroke & peny.jantung.\r\n- Meningkatkan kecerdasan & penglihatan pada tumbuh kembang anak.\r\n\r\n\r\n- Mencegah pikun dan penuaan dini.\r\n- Memperbaikin kualitas tidur.\r\n- Sumber vit.D terbanyak.\r\n- Menurunkan resiko asma pada anak.\r\n- Menurunkan resiko auto-imun & DM tipe-1 pada anak.",
+		"d05" : "Tau [b]Stunting[/b] kaseng?\r\n\r\n\r\n[b]Stunting[/b] adalah kondisi gagal tumbuh pada anak balita akibat kekurangan gizi kronis terutama dalam [u][b]1000 hari pertama kehidupan[/b][/u].\r\nAnak yg stunting cenderung lebih kerdil dibanding teman seusianya.\r\n\r\n\r\nPencegahan stunting dimulai sejak ibu mengandung.\r\n\r\n\r\n- Ibu hamil banyak makan buah & sayur, lengkapi deng lauk.\r\n- Selama hamil sampai masa nifas rutin minum tablet tambah darah.\r\n- Gunakan selalu garam beriodium.\r\n- Lakukan [b]IMD[/b] (inisiasi menyusui dini) supaya bayi mendapat ASI kolostrum.\r\n- ASI ekslusif bayi usia 0-6 bulan.\r\n- Pemberian ASI hingga 23 bulan didampingi [b]MP-ASI[/b] (makanan pendamping ASI).\r\n- Memberi imunisasi dasar lengkap.\r\n- Perbaiki sanitasi.\r\n\r\n\r\nKonsultasi dengan Nakes di Puskesmas. [img=senyum]\r\n\r\n"
 	},
 	"lv06" : {
-		"d01" : "[color=#ec2049]\"Kau seng apa-apa toh?\"\r\n\r\n\r\n\"Kau pu wajah pucat.\"\r\n\r\n\r\n\"Jalan juga taputar-putar.\"[/color]"
+		"d01" : "[color=#ec2049]\"Kau seng apa-apa toh?\"\r\n\r\n\r\n\"Kau pu wajah pucat.\"\r\n\r\n\r\n\"Jalan juga taputar-putar.\"[/color]",
+		"d02" : "Tau [b]Imunisasi[/b] kaseng?\r\n\r\n\r\nImunisasi adalah upaya menimbulkan/meningkatkan kekebalan seseorang scr aktif terhadap suatu penyakit sehingga bila suatu saat terpajan dengan penyakit tersebut tidak akan sakit, atau hanya mengalami sakit ringan.\r\n\r\n\r\n[b]Imunisasi dasar[/b]: Diberi kpd bayi usia dibawah 1 tahun\r\nTerdiri dari:\r\n- Hepatitis B (HB0)\r\n- BCG, Polio 1\r\n- DPT/HB1, Polio 2\r\n- DPT/HB2, Polio 3\r\n- DPT/HB3, Polio 4\r\n- Campak\r\nKonsultasi dengan Nakes di Puskesmas [img=senyum]\r\n\r\n"
 	},
 	"lv09" : {
 		"d01" : "[color=#ec2049]\"Ayo! Sedikit lagi sampai Puskesmas.\r\n\r\nMakan buah ini dolo!\"[/color]"

@@ -186,6 +186,36 @@ class Level05 extends Phaser.Scene {
         this.ulbox7 = new Phaser.Geom.Rectangle(840, 63, 299, 340);
         this.pari7.body.setBoundsRectangle(this.ulbox7);
 
+        this.plang01 = this.add.zone(4695, 264, 15, 15);
+        this.physics.add.existing(this.plang01);
+        this.plang01.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang01, () => {
+            this.plang01.destroy();
+            this.orang.anims.stop();
+            this.orang.setVelocity(0);
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv05.d04, 50);
+        }, null, this);
+
+        this.plang02 = this.add.zone(137, 250, 15, 15);
+        this.physics.add.existing(this.plang02);
+        this.plang02.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang02, () => {
+            this.plang02.destroy();
+            this.orang.anims.stop();
+            this.orang.setVelocity(0);
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv05.d05, 50);
+        }, null, this);
+
         //goToNextLevel
         this.zonLv = this.add.zone(0, 0, 1, 472).setOrigin(0);
         this.physics.add.existing(this.zonLv);
@@ -308,32 +338,6 @@ class Level05 extends Phaser.Scene {
             this.tetesan.stop();
             localStorage.setItem("lv05-mark1", true);
             setTimeout(() => this.scene.start("level05"), 3000);
-        }, null, this);
-
-        this.plang01 = this.add.zone(504, 250, 15, 15);
-        this.physics.add.existing(this.plang01);
-        this.plang01.body.setImmovable();
-        this.physics.add.collider(this.orang, this.plang01, () => {
-            this.orang.anims.stop();
-            this.panah.setVisible(false);
-            createTextBox(this, 10, 10, {
-                wrapWidth: 550,
-                warna: COKLAT,
-            })
-            .start(this.dialog.lv04.d02, 50);
-        }, null, this);
-
-        this.plang02 = this.add.zone(248, 395, 15, 15);
-        this.physics.add.existing(this.plang02);
-        this.plang02.body.setImmovable();
-        this.physics.add.collider(this.orang, this.plang02, () => {
-            this.orang.anims.stop();
-            this.panah.setVisible(false);
-            createTextBox(this, 10, 10, {
-                wrapWidth: 550,
-                warna: COKLAT,
-            })
-            .start(this.dialog.lv04.d03, 50);
         }, null, this);
 
         this.animatedTiles.init(this.lvl1);
