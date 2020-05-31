@@ -28,7 +28,7 @@ class MenuScene extends Phaser.Scene {
         this.load.image('br', 'assets/br.jpg');
         this.load.image('mr', 'assets/mr.jpg');
         this.load.image('senyum', 'assets/senyum.jpg');
-        //this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
+        this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
         this.load.audio('startGame', ['music/startGame.mp3', 'music/startGame.ogg']);
         this.load.audio('getItem', 'music/getItem.mp3');
         //this.load.bitmapFont('gem', 'assets/gem.png', 'assets/gem.xml');
@@ -69,10 +69,11 @@ class MenuScene extends Phaser.Scene {
         this.startTextChecker();
         this.d = new Date();
         this.bg = this.add.image(game.config.width/2, 167, 'bg').setScale(1.2, 1.2);
-        /*this.menuMusic = this.sound.add('menuMusic');
+        this.menuMusic = this.sound.add('menuMusic');
         this.menuMusic.play("", {
-            loop: true
-        });*/
+            loop: true,
+            volume: 0.7
+        });
         this.startSound = this.sound.add('startGame');
         this.terbang = this.anims.create({
             key: 'terbang',
@@ -183,10 +184,15 @@ class MenuScene extends Phaser.Scene {
         });
 
         this.mulai.once('pointerdown', () => {
-            //this.menuMusic.stop();
+            this.menuMusic.stop();
             this.startSound.play();
             this.cameras.main.fadeOut(500);
             //this.scene.start('level09');
+            this.menuMusic.play("", {
+                loop: true,
+                volume: 0.1,
+                rate: 0.5
+            });
             this.scene.start(game._CURRLEVEL);
         }, this);
     }
