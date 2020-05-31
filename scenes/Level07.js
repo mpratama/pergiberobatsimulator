@@ -23,6 +23,13 @@ class Level07 extends Phaser.Scene {
     }
     
     create() {
+        this.t = 0;
+        this.customPipeline = this.game.renderer.getPipeline('Custom');
+        if (this.customPipeline == null){
+            this.customPipeline = this.game.renderer.addPipeline('Custom', new CustomPipeline2(this.game));
+        }
+        this.dialog = this.cache.json.get('dialogjson');
+        this.cameras.main.setRenderToTexture('Custom');
         //titik koordinat & size x y bound box utk ular collision
         this.coord = [
             [1100, 0, 180, 240],
@@ -174,6 +181,32 @@ class Level07 extends Phaser.Scene {
             this.ular[i].body.setBoundsRectangle(this.ulBox[i]);
         }
 
+        this.plang01 = this.add.zone(970, 90, 15, 15);
+        this.physics.add.existing(this.plang01);
+        this.plang01.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang01, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv07.d01, 50);
+        }, null, this);
+
+        this.plang02 = this.add.zone(136, 217, 15, 15);
+        this.physics.add.existing(this.plang02);
+        this.plang02.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang02, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv07.d02, 50);
+        }, null, this);
+
         //goToNextLevel
         this.zonLv = this.add.zone(0, 0, 1, 480).setOrigin(0);
         this.physics.add.existing(this.zonLv);
@@ -316,13 +349,19 @@ class Level07 extends Phaser.Scene {
             this.orang.play('mati');
             this.death.active = false;
             this.tetesan.stop();
+            this.cameras.main.renderToTexture = false;
             //localStorage.setItem("lv05-mark1", true);
-            setTimeout(() => this.scene.start("level07"), 3000);
+            setTimeout(() => {
+                this.scene.restart();
+            }, 3000);
         }, null, this);
+        
         
     }
 
     update() {
+        this.customPipeline.setFloat1('time', this.t);
+        this.t += 0.003;
         
     }
 

@@ -24,6 +24,12 @@ class Level08 extends Phaser.Scene {
     }
 
     create() {
+        this.t = 0;
+        this.customPipeline = this.game.renderer.getPipeline('Custom');
+        if (this.customPipeline == null){
+            this.customPipeline = this.game.renderer.addPipeline('Custom', new CustomPipeline2(this.game));
+        }
+        this.dialog = this.cache.json.get('dialogjson');
         this.cameras.main.fadeIn();
         //grup utk menyatukan 4 tombol kontrol
         this.panah = this.add.group();
@@ -106,6 +112,33 @@ class Level08 extends Phaser.Scene {
         this.reset = this.add.sprite(550, 300, 'kontrol', 4).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.reset]);
         this.rst = this.add.bitmapText(-600, 120, 'gem', "Reset!", 80).setScrollFactor(0).setTint(0xffffff);
+        
+        this.plang01 = this.add.zone(664, 41, 15, 15);
+        this.physics.add.existing(this.plang01);
+        this.plang01.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang01, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv08.d01, 50);
+        }, null, this);
+
+        this.plang02 = this.add.zone(233, 378, 15, 15);
+        this.physics.add.existing(this.plang02);
+        this.plang02.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang02, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv08.d02, 50);
+        }, null, this);
+
         //goToNextLevel
         this.zonLv = this.add.zone(0, 0, 1, 480).setOrigin(0);
         this.physics.add.existing(this.zonLv);
@@ -163,6 +196,7 @@ class Level08 extends Phaser.Scene {
         this.reset.on('pointerdown', () => {
             this.panah.setVisible(false);
             this.rstTml.play();
+            this.cameras.main.renderToTexture = false;
             this.cameras.main.fadeOut(3000, 0, 0, 0);
             setTimeout(() => {
                 this.scene.restart();
@@ -183,10 +217,13 @@ class Level08 extends Phaser.Scene {
         });
 
         this.animatedTiles.init(this.lvl1);
+        this.cameras.main.setRenderToTexture('Custom');
         
     }
 
     update() {
+        this.customPipeline.setFloat1('time', this.t);
+        this.t += 0.005;
 
     }
 

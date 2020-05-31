@@ -185,7 +185,7 @@ class MenuScene extends Phaser.Scene {
             //this.menuMusic.stop();
             this.startSound.play();
             this.cameras.main.fadeOut(500);
-            //this.scene.start('level01');
+            //this.scene.start('level06');
             this.scene.start(game._CURRLEVEL);
         }, this);
     }
