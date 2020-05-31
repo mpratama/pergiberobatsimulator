@@ -288,6 +288,9 @@ class Level06 extends Phaser.Scene {
         }
         this.customPipeline.setFloat1('time', this.t);
         this.t += 0.001;
+        if (this.t > 10.0){
+            this.t = 0;
+        }
         
     }
 

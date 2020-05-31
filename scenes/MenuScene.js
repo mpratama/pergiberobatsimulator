@@ -175,6 +175,7 @@ class MenuScene extends Phaser.Scene {
             this.delSv.setVisible(false);
             this.mulai.setText("Start Game");
             localStorage.setItem("currentLevel", "level01");
+            localStorage.setItem("kartuBPJS", "0");
             localStorage.setItem("lv04-mark1", "false");
             localStorage.setItem("lv05-mark1", "false");
             localStorage.setItem("lv05-mark2", "false");
@@ -185,7 +186,7 @@ class MenuScene extends Phaser.Scene {
             //this.menuMusic.stop();
             this.startSound.play();
             this.cameras.main.fadeOut(500);
-            //this.scene.start('level06');
+            //this.scene.start('level09');
             this.scene.start(game._CURRLEVEL);
         }, this);
     }

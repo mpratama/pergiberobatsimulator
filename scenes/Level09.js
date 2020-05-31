@@ -23,6 +23,11 @@ class Level09 extends Phaser.Scene {
     }
     
     create() {
+        this.t = 0;
+        this.customPipeline = this.game.renderer.getPipeline('Custom');
+        if (this.customPipeline == null){
+            this.customPipeline = this.game.renderer.addPipeline('Custom', new CustomPipeline2(this.game));
+        }
         this.dialog = this.cache.json.get('dialogjson');
         this.mark0 = 0;
         this.endingFork = JSON.parse(localStorage.getItem("kartuBPJS"));
@@ -110,6 +115,19 @@ class Level09 extends Phaser.Scene {
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0).setVisible(false);
         this.panah.addMultiple([this.kiri2, this.bawah, this.atas, this.kanan]);
 
+        this.plang01 = this.add.zone(424, 218, 15, 15);
+        this.physics.add.existing(this.plang01);
+        this.plang01.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang01, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv09.d02, 50);
+        }, null, this);
+
         //goToNextLevel
         this.zonLv = this.add.zone(0, 0, 1, 480).setOrigin(0);
         this.physics.add.existing(this.zonLv);
@@ -179,6 +197,7 @@ class Level09 extends Phaser.Scene {
             this.orang.anims.stop();
             this.buah.destroy();
             this.orang.clearTint();
+            this.cameras.main.renderToTexture = false;
             this.panah.setVisible(true);
         }, null, this);
 
@@ -225,6 +244,7 @@ class Level09 extends Phaser.Scene {
         });
 
         this.animatedTiles.init(this.lvl1);
+        this.cameras.main.setRenderToTexture('Custom');
         
     }
 
@@ -235,6 +255,12 @@ class Level09 extends Phaser.Scene {
             this.kiri.setVisible(false);
             this.orang.setVelocity(0);
             this.orang.anims.stop();
+        }
+
+        this.customPipeline.setFloat1('time', this.t);
+        this.t += 0.01;
+        if (this.t > 10.0){
+            this.t = 0;
         }
         
     }

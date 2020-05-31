@@ -45,7 +45,8 @@
 		"d02" : "Tau [b]Imunisasi[/b] kaseng?\r\n\r\n\r\nImunisasi adalah upaya menimbulkan/meningkatkan kekebalan seseorang scr aktif terhadap suatu penyakit sehingga bila suatu saat terpajan dengan penyakit tersebut tidak akan sakit, atau hanya mengalami sakit ringan.\r\n\r\n\r\n[b]Imunisasi dasar[/b]: Diberi kpd bayi usia dibawah 1 tahun\r\nTerdiri dari:\r\n- Hepatitis B (HB0)\r\n- BCG, Polio 1\r\n- DPT/HB1, Polio 2\r\n- DPT/HB2, Polio 3\r\n- DPT/HB3, Polio 4\r\n- Campak\r\n\r\nKonsultasi dengan Nakes di Puskesmas [img=senyum]\r\n\r\n"
 	},
 	"lv09" : {
-		"d01" : "[color=#ec2049]\"Ayo! Sedikit lagi sampai Puskesmas.\r\n\r\nMakan buah ini dolo!\"[/color]"
+		"d01" : "[color=#ec2049]\"Ayo! Sedikit lagi sampai Puskesmas.\r\n\r\nMakan buah ini dolo!\"[/color]",
+		"d02" : "(kiri) Puskesmas Alam Surga.\r\n\r\n"
 	},
 	"lv10" : {
 		"d01" : "Mau pi mana?\r\n\r\n\r\nPuskesmas su ada di dapan mata.\r\n\r\n\r\nKau malah belok ke tampa lain.\r\n\r\n\r\nOm fuar!",

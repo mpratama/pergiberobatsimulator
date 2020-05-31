@@ -361,7 +361,10 @@ class Level07 extends Phaser.Scene {
 
     update() {
         this.customPipeline.setFloat1('time', this.t);
-        this.t += 0.003;
+        this.t += 0.002;
+        if (this.t > 10.0){
+            this.t = 0;
+        }
         
     }
 

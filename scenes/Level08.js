@@ -223,7 +223,10 @@ class Level08 extends Phaser.Scene {
 
     update() {
         this.customPipeline.setFloat1('time', this.t);
-        this.t += 0.005;
+        this.t += 0.003;
+        if (this.t > 10.0){
+            this.t = 0;
+        }
 
     }
 

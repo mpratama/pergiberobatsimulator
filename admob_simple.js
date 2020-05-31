@@ -11,8 +11,8 @@ function initApp() {
   AdMob.createBanner({
     adId: admobid.banner,
     adSize:'CUSTOM',
-    width: 400,
-    height: 60,
+    width: 320,
+    height: 50,
     isTesting: true,
     overlap: true,
     autoShow: true,
