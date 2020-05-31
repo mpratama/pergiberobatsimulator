@@ -104,7 +104,13 @@ class Level02 extends Phaser.Scene {
         this.physics.add.existing(this.plang01);
         this.plang01.body.setImmovable();
         this.physics.add.collider(this.orang, this.plang01, () => {
-            console.log("asem");
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv02.d02, 50);
         }, null, this);
 
         // Plang 2
@@ -112,7 +118,13 @@ class Level02 extends Phaser.Scene {
         this.physics.add.existing(this.plang02);
         this.plang02.body.setImmovable();
         this.physics.add.collider(this.orang, this.plang02, () => {
-            console.log("asem");
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv02.d03, 50);
         }, null, this);
 
         //goToNextLevel

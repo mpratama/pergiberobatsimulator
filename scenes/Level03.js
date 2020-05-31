@@ -37,6 +37,7 @@ class Level03 extends Phaser.Scene {
         this.tiles2 = this.lvl1.addTilesetImage('roguelikeSheet_transparent', 'rogueLike');
         this.layer = this.lvl1.createDynamicLayer("00", [this.tiles, this.tiles2], 0, 0);
         this.layer2 = this.lvl1.createDynamicLayer("01", [this.tiles, this.tiles2], 0, 0);
+        //this.finish = this.add.dynamicBitmapText(130, 150, 'gem', "Finish diatas sini!", 40).setCenterAlign().setAlpha(0.8).setTint(0xff0000, 0x0000ff);
         this.objek = this.lvl1.getObjectLayer('objek_layer')['objects'];
         
         //collision / bertumbuk layer
@@ -87,7 +88,7 @@ class Level03 extends Phaser.Scene {
             }
         });
         this.layer3 = this.lvl1.createStaticLayer("02", [this.tiles, this.tiles2], 0, -16);
-        this.finish = this.add.dynamicBitmapText(130, 150, 'gem', "Finish diatas sini!", 40).setCenterAlign().setAlpha(0.8);
+        this.finish = this.add.dynamicBitmapText(130, 150, 'gem', "Finish diatas sini!", 40).setCenterAlign().setAlpha(0.8).setTint(0xff0000, 0xff0000, 0xff0000, 0xffffff);
         this.finish.setDisplayCallback(this.getar);
         //this.mulai = this.add.dynamicBitmapText(game.config.width / 2, 265, 'gem', this.startText, 30).setOrigin(0.5).setCenterAlign().setInteractive().setVisible(false);
         this.burung = this.add.sprite(168, 9505, 'burung').setTint(0xec2049, 0xec2049, 0xf7db4f, 0x45ada8);
@@ -101,13 +102,71 @@ class Level03 extends Phaser.Scene {
         this.kanan = this.add.sprite(550, 300, 'kontrol', 1).setInteractive().setAlpha(0.5).setScrollFactor(0);
         this.panah.addMultiple([this.kiri, this.bawah, this.atas, this.kanan]);
 
-        /* // Plang template
-        this.plang01 = this.add.zone(297, 617, 15, 15);
+        // Plang template
+        this.plang01 = this.add.zone(345, 8842, 15, 15);
         this.physics.add.existing(this.plang01);
         this.plang01.body.setImmovable();
         this.physics.add.collider(this.orang, this.plang01, () => {
-            console.log("teks");
-        }, null, this); */
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv03.d05, 50);
+        }, null, this);
+
+        this.plang02 = this.add.zone(247, 7770, 15, 15);
+        this.physics.add.existing(this.plang02);
+        this.plang02.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang02, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv03.d06, 50);
+        }, null, this);
+
+        this.plang03 = this.add.zone(264, 5241, 15, 15);
+        this.physics.add.existing(this.plang03);
+        this.plang03.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang03, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv03.d07, 50);
+        }, null, this);
+
+        this.plang04 = this.add.zone(313, 3497, 15, 15);
+        this.physics.add.existing(this.plang04);
+        this.plang04.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang04, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv03.d08, 50);
+        }, null, this);
+
+        this.plang05 = this.add.zone(313, 10, 15, 15);
+        this.physics.add.existing(this.plang05);
+        this.plang05.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang05, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv03.d09, 50);
+        }, null, this);
 
         //goToNextLevel
         this.zonLv = this.add.zone(296, -1, 592, 8);
@@ -209,14 +268,14 @@ class Level03 extends Phaser.Scene {
             delay: 1000,
             targets: this.cameras.main,
             scrollY: 0,
-            duration: 4000,
+            duration: 16000,
             ease: 'Power1',
         });
         this.cutScn1.add({
             delay: 3000,
             targets: this.cameras.main,
             scrollY: 9258,
-            duration: 4000,
+            duration: 2000,
             ease: 'Power1',
         });
         this.cutScn1.add({
@@ -252,8 +311,8 @@ class Level03 extends Phaser.Scene {
     }
 
     getar(data) {
-        data.x = Phaser.Math.Between(data.x - 1, data.x + 1);
-        data.y = Phaser.Math.Between(data.y - 1, data.y + 1);
+        data.x = Phaser.Math.Between(data.x - 0.5, data.x + 0.5);
+        data.y = Phaser.Math.Between(data.y - 0.5, data.y + 0.5);
         return data;
 
     }

@@ -24,6 +24,10 @@ class MenuScene extends Phaser.Scene {
         this.load.image('bg', 'assets/bgMenu.png');
         this.load.image('darah', 'assets/darah.png');
         this.load.image('buah', 'assets/buah.png');
+        this.load.image('hj', 'assets/hj.jpg');
+        this.load.image('br', 'assets/br.jpg');
+        this.load.image('mr', 'assets/mr.jpg');
+        this.load.image('senyum', 'assets/senyum.jpg');
         //this.load.audio('menuMusic', ['music/menuScene.mp3', 'music/menuScene.ogg']);
         this.load.audio('startGame', ['music/startGame.mp3', 'music/startGame.ogg']);
         this.load.audio('getItem', 'music/getItem.mp3');
@@ -124,14 +128,14 @@ class MenuScene extends Phaser.Scene {
         this.burung.play('terbang');
         this.ruteTerbang.play();
         this.cp = this.add.bitmapText(10, 320, 'gem', "v1.0 \u00A9Pratama " + this.d.getFullYear(), 16).setCenterAlign();
-        this.delSv = this.add.bitmapText(550, 320, 'gem', "DelSv", 16).setCenterAlign().setInteractive().setVisible(false);
+        this.delSv = this.add.bitmapText(520, 320, 'gem', "DelPrgrs", 16).setCenterAlign().setInteractive().setVisible(false);
         this.delSaveChecker();
         this.pergi = this.add.bitmapText(93, 130, 'gem', "Pergi", 20).setCenterAlign();
         this.pulau = this.add.bitmapText(310, 195, 'gem', "-Remote Island Edition-", 18).setCenterAlign();
         this.judul = this.add.bitmapText(game.config.width / 2, 170, 'gem', "Berobat Simulator", 50).setOrigin(0.5).setCenterAlign();
         this.mulai = this.add.dynamicBitmapText(game.config.width / 2, 265, 'gem', this.startText, 30).setOrigin(0.5).setCenterAlign().setInteractive().setVisible(false);
         this.rr = this.rexUI.add.roundRectangle(300, 210, 300, 150, 5, BLACK, 1);
-        this.ds = this.add.bitmapText(190, 170, 'gem', "Delete Save File?", 25).setCenterAlign();
+        this.ds = this.add.bitmapText(170, 170, 'gem', "Delete Game Progress?", 25).setCenterAlign();
         this.y = this.add.bitmapText(190, 220, 'gem', "YES", 30).setCenterAlign().setInteractive();
         this.n = this.add.bitmapText(370, 220, 'gem', "NO", 30).setCenterAlign().setInteractive();
         this.g = this.add.group();

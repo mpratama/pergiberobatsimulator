@@ -154,6 +154,58 @@ class Level04 extends Phaser.Scene {
         this.ulbox7 = new Phaser.Geom.Rectangle(481, 21, 94, 70);
         this.snake7.body.setBoundsRectangle(this.ulbox7);
 
+        this.plang01 = this.add.zone(504, 250, 15, 15);
+        this.physics.add.existing(this.plang01);
+        this.plang01.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang01, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv04.d02, 50);
+        }, null, this);
+
+        this.plang02 = this.add.zone(248, 395, 15, 15);
+        this.physics.add.existing(this.plang02);
+        this.plang02.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang02, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv04.d03, 50);
+        }, null, this);
+
+        this.plang03 = this.add.zone(361, 218, 15, 15);
+        this.physics.add.existing(this.plang03);
+        this.plang03.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang03, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv04.d05, 50);
+        }, null, this);
+
+        this.plang04 = this.add.zone(41, 10, 15, 15);
+        this.physics.add.existing(this.plang04);
+        this.plang04.body.setImmovable();
+        this.physics.add.collider(this.orang, this.plang04, () => {
+            this.orang.anims.stop();
+            this.panah.setVisible(false);
+            createTextBox(this, 10, 10, {
+                wrapWidth: 550,
+                warna: COKLAT,
+            })
+            .start(this.dialog.lv04.d04, 50);
+        }, null, this);
+
         //goToNextLevel
         this.zonLv = this.add.zone(0, 0, 1, 128).setOrigin(0);
         this.physics.add.existing(this.zonLv);
