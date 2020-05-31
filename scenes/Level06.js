@@ -27,6 +27,8 @@ class Level06 extends Phaser.Scene {
     }
 
     create() {
+        this.t = 0;
+        this.customPipeline = this.game.renderer.addPipeline('Custom', new CustomPipeline2(this.game));
         this.dialog = this.cache.json.get('dialogjson');
         this.mark1 = false;
         this.mark2 = false;
@@ -177,6 +179,7 @@ class Level06 extends Phaser.Scene {
             scale: 3,
             onStart: () => {
                 this.orang.setTint(0x00FF00, 0x00FF00, 0xFFFFFF, 0xFFFFFF);
+                this.cameras.main.renderToTexture = true;
             },
             ease: 'Back.easeInOut',
             duration: 700
@@ -256,6 +259,8 @@ class Level06 extends Phaser.Scene {
         });
 
         this.animatedTiles.init(this.lvl1);
+        this.cameras.main.setRenderToTexture(this.customPipeline);
+        this.cameras.main.renderToTexture = false;
         
     }
 
@@ -281,6 +286,8 @@ class Level06 extends Phaser.Scene {
             })
             .start(this.dialog.lv06.d01, 50);
         }
+        this.customPipeline.setFloat1('time', this.t);
+        this.t += 0.001;
         
     }
 
